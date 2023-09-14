@@ -278,7 +278,7 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 									int realPipeLength = ((dPos.getY() - 1) - wPos.getY());
 									
 									if(well.phyiscalPipesList.size() < realPipeLength && well.wellPipeLength < realPipeLength){
-										if(this.tank.drain(CONCRETE, FluidAction.SIMULATE).getAmount() >= CONCRETE.getAmount()){
+										if(this.tank.drain(CONCRETE.getAmount(), FluidAction.SIMULATE).getAmount() >= CONCRETE.getAmount()){
 											this.energyStorage.extractEnergy(IPServerConfig.EXTRACTION.derrick_consumption.get(), false);
 											
 											if(advanceTimer()){
@@ -296,7 +296,7 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 														
 														well.phyiscalPipesList.add(y);
 														
-														this.tank.drain(CONCRETE, FluidAction.EXECUTE);
+														this.tank.drain(CONCRETE.getAmount(), FluidAction.EXECUTE);
 														
 														well.usePipe();
 														break;
@@ -319,13 +319,13 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 											this.tank.drain(this.tank.getFluidAmount(), FluidAction.EXECUTE);
 											forceUpdate = true;
 										}
-										if(this.tank.drain(WATER, FluidAction.SIMULATE).getAmount() >= WATER.getAmount()){
+										if(this.tank.drain(WATER.getAmount(), FluidAction.SIMULATE).getAmount() >= WATER.getAmount()){
 											this.energyStorage.extractEnergy(IPServerConfig.EXTRACTION.derrick_consumption.get(), false);
 											
 											if(advanceTimer()){
 												restorePhysicalPipeProgress(dPos, realPipeLength);
 												
-												this.tank.drain(WATER, FluidAction.EXECUTE);
+												this.tank.drain(WATER.getAmount(), FluidAction.EXECUTE);
 												well.usePipe();
 											}
 											
