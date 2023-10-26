@@ -71,9 +71,6 @@ import net.minecraftforge.registries.ForgeRegistries;
  */
 public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileEntity, MultiblockRecipe> implements IPCommonTickableTile, IPMenuProvider<DerrickTileEntity>, IEBlockInterfaces.IBlockBounds{
 	
-	@Deprecated public static FluidStack WATER = FluidStack.EMPTY;
-	@Deprecated public static FluidStack CONCRETE = FluidStack.EMPTY;
-	
 	public static final int REQUIRED_WATER_AMOUNT = 125;
 	public static final int REQUIRED_CONCRETE_AMOUNT = 125;
 	
@@ -326,7 +323,7 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 											this.drilling = true;
 										}
 									}else{
-										if(!this.tank.getFluid().isEmpty() && this.tank.getFluid().getFluid() == CONCRETE.getFluid()){
+										if(!this.tank.getFluid().isEmpty() && this.tank.getFluid().getFluid() == ExternalModContent.getIEFluid_Concrete()){
 											// FIXME ! This happens every now and then, and i have not yet nailed down HOW this happens.
 											// Void excess concrete.
 											this.tank.drain(this.tank.getFluidAmount(), FluidAction.EXECUTE);
