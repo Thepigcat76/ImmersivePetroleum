@@ -413,20 +413,12 @@ public class OilTankTileEntity extends MultiblockPartBlockEntity<OilTankTileEnti
 		
 		List<AABB> main = new ArrayList<>();
 		
-		// Corner Supports
 		if(y == 0){
-			if(x == 0 && z == 0){
-				main.add(new AABB(0.0, 0.0, 0.0, 0.25, 1.0, 0.25));
-				
-			}else if(x == 4 && z == 0){
-				main.add(new AABB(0.75, 0.0, 0.0, 1.0, 1.0, 0.25));
-				
-			}else if(x == 0 && z == 4){
-				main.add(new AABB(0.0, 0.0, 0.75, 0.25, 1.0, 1.0));
-				
-			}else if(x == 4 && z == 4){
-				main.add(new AABB(0.75, 0.0, 0.75, 1.0, 1.0, 1.0));
-			}
+			// Corner Supports
+			if(x == 0 && z == 1) main.add(new AABB(0.0, 0.0, 0.0, 0.25, 1.0, 0.25));
+			if(x == 5 && z == 1) main.add(new AABB(0.75, 0.0, 0.0, 1.0, 1.0, 0.25));
+			if(x == 0 && z == 5) main.add(new AABB(0.0, 0.0, 0.75, 0.25, 1.0, 1.0));
+			if(x == 4 && z == 5) main.add(new AABB(0.75, 0.0, 0.75, 1.0, 1.0, 1.0));
 		}
 		
 		// Easy Access Ladders™
