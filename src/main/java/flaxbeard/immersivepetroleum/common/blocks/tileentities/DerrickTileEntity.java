@@ -19,11 +19,11 @@ import blusunrize.immersiveengineering.common.blocks.multiblocks.process.Multibl
 import blusunrize.immersiveengineering.common.util.MultiblockCapability;
 import blusunrize.immersiveengineering.common.util.ResettableCapability;
 import blusunrize.immersiveengineering.common.util.orientation.RelativeBlockFace;
-import flaxbeard.immersivepetroleum.api.IPTags;
 import flaxbeard.immersivepetroleum.api.reservoir.ReservoirHandler;
 import flaxbeard.immersivepetroleum.api.reservoir.ReservoirIsland;
 import flaxbeard.immersivepetroleum.client.ClientProxy;
 import flaxbeard.immersivepetroleum.client.gui.elements.PipeConfig;
+import flaxbeard.immersivepetroleum.common.ExternalModContent;
 import flaxbeard.immersivepetroleum.common.IPContent;
 import flaxbeard.immersivepetroleum.common.IPMenuTypes;
 import flaxbeard.immersivepetroleum.common.blocks.stone.WellPipeBlock;
@@ -167,19 +167,28 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 	}
 	
 	// Only accept as much Concrete and Water as needed
-	@SuppressWarnings("deprecation")
 	private boolean acceptsFluid(FluidStack fs){
+		if(fs.isEmpty())
+			return false;
+		
 		WellTileEntity well = getOrCreateWell(false);
 		if(well == null){
 			return false;
 		}
 		
+		final Fluid inFluid = fs.getFluid();
+		final boolean isConcrete = inFluid == ExternalModContent.getIEFluid_Concrete();
+		final boolean isWater = inFluid == Fluids.WATER;
+		
+		if(!isConcrete && !isWater)
+			return false;
+		
 		int realPipeLength = (getBlockPos().getY() - 1) - well.getBlockPos().getY();
 		int concreteNeeded = (REQUIRED_CONCRETE_AMOUNT * (realPipeLength - well.wellPipeLength));
-		if(concreteNeeded > 0 && fs.getFluid().is(IPTags.Fluids.concrete)){
+		if(concreteNeeded > 0 && isConcrete){
 			FluidStack tankFluidStack = this.tank.getFluid();
 			
-			if(fs.getFluid() == tankFluidStack.getFluid() && tankFluidStack.getAmount() >= concreteNeeded){
+			if((!tankFluidStack.isEmpty() && inFluid != tankFluidStack.getFluid()) || tankFluidStack.getAmount() >= concreteNeeded){
 				return false;
 			}
 			
@@ -188,10 +197,10 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 		
 		if(concreteNeeded <= 0){
 			int waterNeeded = REQUIRED_WATER_AMOUNT * (well.getMaxPipeLength() - well.wellPipeLength);
-			if(waterNeeded > 0 && fs.getFluid().is(IPTags.Fluids.water)){
+			if(waterNeeded > 0 && isWater){
 				FluidStack tankFluidStack = this.tank.getFluid();
 				
-				if(fs.getFluid() == tankFluidStack.getFluid() && tankFluidStack.getAmount() >= waterNeeded){
+				if((!tankFluidStack.isEmpty() && inFluid != tankFluidStack.getFluid()) || tankFluidStack.getAmount() >= waterNeeded){
 					return false;
 				}
 				
