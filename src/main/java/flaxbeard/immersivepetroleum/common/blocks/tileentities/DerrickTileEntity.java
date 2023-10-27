@@ -31,6 +31,7 @@ import flaxbeard.immersivepetroleum.common.blocks.ticking.IPCommonTickableTile;
 import flaxbeard.immersivepetroleum.common.cfg.IPServerConfig;
 import flaxbeard.immersivepetroleum.common.gui.IPMenuProvider;
 import flaxbeard.immersivepetroleum.common.multiblocks.DerrickMultiblock;
+import flaxbeard.immersivepetroleum.common.util.AABBUtils;
 import flaxbeard.immersivepetroleum.common.util.FluidHelper;
 import net.minecraft.ResourceLocationException;
 import net.minecraft.core.BlockPos;
@@ -756,7 +757,8 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 		return false;
 	}
 	
-	private static CachedShapesWithTransform<BlockPos, Pair<Direction, Boolean>> SHAPES = CachedShapesWithTransform.createForMultiblock(DerrickTileEntity::getShape);
+	private static final CachedShapesWithTransform<BlockPos, Pair<Direction, Boolean>> SHAPES = CachedShapesWithTransform.createForMultiblock(DerrickTileEntity::getShape);
+	
 	@Override
 	@Nonnull
 	public VoxelShape getBlockBounds(CollisionContext ctx){
@@ -773,81 +775,81 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 		// Base
 		if(y == 0){
 			if(!(x == 2 && z == 4 || x == 4 && z == 2 || x == 2 && z == 0 || x == 2 && z == 2)){
-				main.add(box(0, 0, 0, 16, 8, 16));
+				AABBUtils.box16(main, 0, 0, 0, 16, 8, 16);
 			}
 		}
 		
 		// Platform 1 & 2
 		if((y == 8 || y == 14) && !(x == 2 && z == 2 || x == 0 && z == 2 || x == 1 && z == 2)){
-			main.add(box(0, 8, 0, 16, 16, 16));
+			AABBUtils.box16(main, 0, 8, 0, 16, 16, 16);
 		}
 		
 		if(y == 0 || y == 1){
 			// Power Box
 			if(z == 0){
 				if(x == 1){
-					main.add(box(4, 0, 0, 16, 16, 16));
+					AABBUtils.box16(main, 4, 0, 0, 16, 16, 16);
 				}else if(x == 3){
-					main.add(box(0, 0, 0, 12, 16, 16));
+					AABBUtils.box16(main, 0, 0, 0, 12, 16, 16);
 				}
 			}
 			
 			// Fluid Input Box
 			if(x == 1 && z == 4){
-				main.add(box(8, 8, 0, 16, 24, 16));
+				AABBUtils.box16(main, 8, 8, 0, 16, 24, 16);
 			}else if(x == 3 && z == 4){
-				main.add(box(0, 8, 0, 8, 24, 16));
+				AABBUtils.box16(main, 0, 8, 0, 8, 24, 16);
 			}
 			if(y == 1 && x == 2 && z == 4){
-				main.add(box(-8, 0, 0, 24, 8, 16));
+				AABBUtils.box16(main, -8, 0, 0, 24, 8, 16);
 			}
 		}
 		
 		// Center Pipe and Stuff
 		if(x == 2 && z == 2 && y >= 0 && y <= 13){
 			if(y == 0){
-				main.add(box(-4, 8, -4, 20, 16, 20));
-				main.add(new AABB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0));
+				AABBUtils.box16(main, -4, 8, -4, 20, 16, 20);
+				main.add(AABBUtils.FULL);
 			}else if(y > 1){
 				// Pipe
-				main.add(box(4, 0, 4, 12, 16, 12));
+				AABBUtils.box16(main, 4, 0, 4, 12, 16, 12);
 			}
 			
 			if(y == 1){
-				main.add(box(-4, 0, -4, 20, 8, 20));
-				main.add(new AABB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0));
+				AABBUtils.box16(main, -4, 0, -4, 20, 8, 20);
+				main.add(AABBUtils.FULL);
 			}
 			if(y == 2){
-				main.add(box(0, 0, 0, 16, 8, 16));
+				AABBUtils.box16(main, 0, 0, 0, 16, 8, 16);
 			}
 		}
 		
 		// Primary Ladder
 		if(x == 0 && z == 2 && (y >= 1 && y <= 8)){
 			if(y == 1){
-				main.add(box(15, 8, 2, 16, 16, 14));
+				AABBUtils.box16(main, 15, 8, 2, 16, 16, 14);
 			}else{
-				main.add(box(15, 0, 2, 16, 16, 14));
+				AABBUtils.box16(main, 15, 0, 2, 16, 16, 14);
 			}
 			
 			if(y > 2){
-				main.add(box(0, 0, 0, 1, 16, 16));
-				main.add(box(0, 0, 0, 16, 16, 1));
-				main.add(box(0, 0, 15, 16, 16, 16));
+				AABBUtils.box16(main, 0, 0, 0, 1, 16, 16);
+				AABBUtils.box16(main, 0, 0, 0, 16, 16, 1);
+				AABBUtils.box16(main, 0, 0, 15, 16, 16, 16);
 			}
 		}
 		// Secondary Ladder
 		if((x == 1 && z == 2) && (y >= 9 && y <= 14)){
 			if(y == 9){
-				main.add(box(15, 8, 2, 16, 16, 14));
+				AABBUtils.box16(main, 15, 8, 2, 16, 16, 14);
 			}else{
-				main.add(box(15, 0, 2, 16, 16, 14));
+				AABBUtils.box16(main, 15, 0, 2, 16, 16, 14);
 			}
 			
 			if(y > 10){
-				main.add(box(0, 0, 0, 1, 16, 16));
-				main.add(box(0, 0, 0, 16, 16, 1));
-				main.add(box(0, 0, 15, 16, 16, 16));
+				AABBUtils.box16(main, 0, 0, 0, 1, 16, 16);
+				AABBUtils.box16(main, 0, 0, 0, 16, 16, 1);
+				AABBUtils.box16(main, 0, 0, 15, 16, 16, 16);
 			}
 		}
 		
@@ -855,23 +857,23 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 		if(y >= 0 && y <= 8){
 			// Corners
 			if(x == 0 && z == 0){
-				main.add(box(9 + y, 0, 9 + y, 15 + y, 16, 15 + y));
+				AABBUtils.box16(main, 9 + y, 0, 9 + y, 15 + y, 16, 15 + y);
 			}else if(x == 4 && z == 0){
-				main.add(box(1 - y, 0, 9 + y, 7 - y, 16, 15 + y));
+				AABBUtils.box16(main, 1 - y, 0, 9 + y, 7 - y, 16, 15 + y);
 			}else if(x == 0 && z == 4){
-				main.add(box(9 + y, 0, 1 - y, 15 + y, 16, 7 - y));
+				AABBUtils.box16(main, 9 + y, 0, 1 - y, 15 + y, 16, 7 - y);
 			}else if(x == 4 && z == 4){
-				main.add(box(1 - y, 0, 1 - y, 7 - y, 16, 7 - y));
+				AABBUtils.box16(main, 1 - y, 0, 1 - y, 7 - y, 16, 7 - y);
 			}
 			
 			// Centers
 			if(y >= 3){
 				if(x == 2 && z == 0){
-					main.add(box(6, 0, 9 + y, 10, 16, 14 + y));
+					AABBUtils.box16(main, 6, 0, 9 + y, 10, 16, 14 + y);
 				}else if(x == 2 && z == 4){
-					main.add(box(6, 0, 2 - y, 10, 16, 7 - y));
+					AABBUtils.box16(main, 6, 0, 2 - y, 10, 16, 7 - y);
 				}else if(x == 4 && z == 2){
-					main.add(box(2 - y, 0, 6, 7 - y, 16, 10));
+					AABBUtils.box16(main, 2 - y, 0, 6, 7 - y, 16, 10);
 				}
 			}
 			
@@ -879,16 +881,16 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 			if(y == 3){
 				if(x >= 1 && x <= 3){
 					if(z == 0){
-						main.add(box(0, -4, 12, 16, 0, 16));
+						AABBUtils.box16(main, 0, -4, 12, 16, 0, 16);
 					}else if(z == 4){
-						main.add(box(0, -4, 0, 16, 0, 4));
+						AABBUtils.box16(main, 0, -4, 0, 16, 0, 4);
 					}
 				}
 				if(z >= 1 && z <= 3){
 					if(x == 0 && z != 2){
-						main.add(box(12, -4, 0, 16, 0, 16));
+						AABBUtils.box16(main, 12, -4, 0, 16, 0, 16);
 					}else if(x == 4){
-						main.add(box(0, -4, 0, 4, 0, 16));
+						AABBUtils.box16(main, 0, -4, 0, 4, 0, 16);
 					}
 				}
 			}
@@ -897,16 +899,16 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 			if(y == 6){
 				if(x >= 1 && x <= 3){
 					if(z == 0){
-						main.add(box(0, 4, 16, 16, 8, 20));
+						AABBUtils.box16(main, 0, 4, 16, 16, 8, 20);
 					}else if(z == 4){
-						main.add(box(0, 4, -4, 16, 8, 0));
+						AABBUtils.box16(main, 0, 4, -4, 16, 8, 0);
 					}
 				}
 				if(z >= 1 && z <= 3){
 					if(x == 0){
-						main.add(box(16, 4, 0, 20, 8, 16));
+						AABBUtils.box16(main, 16, 4, 0, 20, 8, 16);
 					}else if(x == 4){
-						main.add(box(-4, 4, 0, 0, 8, 16));
+						AABBUtils.box16(main, -4, 4, 0, 0, 8, 16);
 					}
 				}
 			}
@@ -918,51 +920,51 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 			
 			// Corners
 			if(x == 1 && z == 1){
-				main.add(box(2 + off, 0, 2 + off, 7 + off, 16, 7 + off));
+				AABBUtils.box16(main, 2 + off, 0, 2 + off, 7 + off, 16, 7 + off);
 			}else if(x == 3 && z == 1){
-				main.add(box(9 - off, 0, 2 + off, 14 - off, 16, 7 + off));
+				AABBUtils.box16(main, 9 - off, 0, 2 + off, 14 - off, 16, 7 + off);
 			}else if(x == 1 && z == 3){
-				main.add(box(2 + off, 0, 9 - off, 7 + off, 16, 14 - off));
+				AABBUtils.box16(main, 2 + off, 0, 9 - off, 7 + off, 16, 14 - off);
 			}else if(x == 3 && z == 3){
-				main.add(box(9 - off, 0, 9 - off, 14 - off, 16, 14 - off));
+				AABBUtils.box16(main, 9 - off, 0, 9 - off, 14 - off, 16, 14 - off);
 			}
 			
 			// Centers
 			if(x == 2 && z == 1){
-				main.add(box(6, 0, 2 + off, 10, 16, 7 + off));
+				AABBUtils.box16(main, 6, 0, 2 + off, 10, 16, 6 + off);
 			}else if(x == 2 && z == 3){
-				main.add(box(6, 0, 9 - off, 10, 16, 14 - off));
+				AABBUtils.box16(main, 6, 0, 10 - off, 10, 16, 14 - off);
 			}else if(x == 3 && z == 2){
-				main.add(box(10 - off, 0, 6, 14, 16 - off, 10));
+				AABBUtils.box16(main, 10 - off, 0, 6, 14 - off, 16, 10);
 			}
 			
 			// Third horizontal bars, above platform 1
 			if(y == 9){
 				if(x == 3){
 					if(z == 1){
-						main.add(box(9, 12, 7, 13, 16, 16));
+						AABBUtils.box16(main, 9, 12, 7, 13, 16, 16);
 					}else if(z == 2){
-						main.add(box(9, 12, 0, 13, 16, 16));
+						AABBUtils.box16(main, 9, 12, 0, 13, 16, 16);
 					}else if(z == 3){
-						main.add(box(9, 12, 0, 13, 16, 9));
+						AABBUtils.box16(main, 9, 12, 0, 13, 16, 9);
 					}
 				}
 				
 				if(z == 1){
 					if(x == 1){
-						main.add(box(7, 12, 3, 16, 16, 7));
+						AABBUtils.box16(main, 7, 12, 3, 16, 16, 7);
 					}else if(x == 2){
-						main.add(box(0, 12, 3, 16, 16, 7));
+						AABBUtils.box16(main, 0, 12, 3, 16, 16, 7);
 					}else if(x == 3){
-						main.add(box(0, 12, 3, 9, 16, 7));
+						AABBUtils.box16(main, 0, 12, 3, 9, 16, 7);
 					}
 				}else if(z == 3){
 					if(x == 1){
-						main.add(box(7, 12, 9, 16, 16, 13));
+						AABBUtils.box16(main, 7, 12, 9, 16, 16, 13);
 					}else if(x == 2){
-						main.add(box(0, 12, 9, 16, 16, 13));
+						AABBUtils.box16(main, 0, 12, 9, 16, 16, 13);
 					}else if(x == 3){
-						main.add(box(0, 12, 9, 9, 16, 13));
+						AABBUtils.box16(main, 0, 12, 9, 9, 16, 13);
 					}
 				}
 			}
@@ -971,31 +973,31 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 			if(y == 13){
 				if(x == 3){
 					if(z == 1){
-						main.add(box(5, 4, 11, 9, 8, 16));
+						AABBUtils.box16(main, 5, 4, 11, 9, 8, 16);
 					}else if(z == 2){
-						main.add(box(5, 4, 0, 9, 8, 16));
+						AABBUtils.box16(main, 5, 4, 0, 9, 8, 16);
 					}else if(z == 3){
-						main.add(box(5, 4, 0, 9, 8, 5));
+						AABBUtils.box16(main, 5, 4, 0, 9, 8, 5);
 					}
 				}
 				
 				if(z == 1){
 					if(x == 1){
-						main.add(box(11, 4, 7, 16, 8, 11));
-						main.add(box(7, 4, 11, 11, 8, 16));
+						AABBUtils.box16(main, 11, 4, 7, 16, 8, 11);
+						AABBUtils.box16(main, 7, 4, 11, 11, 8, 16);
 					}else if(x == 2){
-						main.add(box(0, 4, 7, 16, 8, 11));
+						AABBUtils.box16(main, 0, 4, 7, 16, 8, 11);
 					}else if(x == 3){
-						main.add(box(0, 4, 7, 5, 8, 11));
+						AABBUtils.box16(main, 0, 4, 7, 5, 8, 11);
 					}
 				}else if(z == 3){
 					if(x == 1){
-						main.add(box(11, 4, 5, 16, 8, 9));
-						main.add(box(7, 4, 0, 11, 8, 5));
+						AABBUtils.box16(main, 11, 4, 5, 16, 8, 9);
+						AABBUtils.box16(main, 7, 4, 0, 11, 8, 5);
 					}else if(x == 2){
-						main.add(box(0, 4, 5, 16, 8, 9));
+						AABBUtils.box16(main, 0, 4, 5, 16, 8, 9);
 					}else if(x == 3){
-						main.add(box(0, 4, 5, 5, 8, 9));
+						AABBUtils.box16(main, 0, 4, 5, 5, 8, 9);
 					}
 				}
 			}
@@ -1004,29 +1006,29 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 			if(y == 16){
 				if(z == 1){
 					if(x == 1){
-						main.add(box(9, 12, 9, 16, 16, 16));
+						AABBUtils.box16(main, 9, 12, 9, 16, 16, 16);
 					}else if(x == 2){
-						main.add(box(0, 12, 9, 16, 16, 15));
+						AABBUtils.box16(main, 0, 12, 9, 16, 16, 15);
 					}else if(x == 3){
-						main.add(box(0, 12, 9, 7, 16, 16));
+						AABBUtils.box16(main, 0, 12, 9, 7, 16, 16);
 					}
 				}
 				
 				if(z == 2){
 					if(x == 1){
-						main.add(box(9, 12, 0, 15, 16, 16));
+						AABBUtils.box16(main, 9, 12, 0, 15, 16, 16);
 					}else if(x == 3){
-						main.add(box(1, 12, 0, 7, 16, 16));
+						AABBUtils.box16(main, 1, 12, 0, 7, 16, 16);
 					}
 				}
 				
 				if(z == 3){
 					if(x == 1){
-						main.add(box(9, 12, 0, 16, 16, 7));
+						AABBUtils.box16(main, 9, 12, 0, 16, 16, 7);
 					}else if(x == 2){
-						main.add(box(0, 12, 1, 16, 16, 7));
+						AABBUtils.box16(main, 0, 12, 1, 16, 16, 7);
 					}else if(x == 3){
-						main.add(box(0, 12, 0, 7, 16, 7));
+						AABBUtils.box16(main, 0, 12, 0, 7, 16, 7);
 					}
 				}
 			}
@@ -1034,13 +1036,8 @@ public class DerrickTileEntity extends PoweredMultiblockBlockEntity<DerrickTileE
 		
 		// Use default cube shape if nessesary
 		if(main.isEmpty()){
-			main.add(new AABB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0));
+			main.add(AABBUtils.FULL);
 		}
 		return main;
-	}
-	
-	/** Makes a box using texture pixel space (Assuming 16x16 p texture) */
-	private static AABB box(double x0, double y0, double z0, double x1, double y1, double z1){
-		return new AABB(x0 / 16D, y0 / 16D, z0 / 16D, x1 / 16D, y1 / 16D, z1 / 16D);
 	}
 }
