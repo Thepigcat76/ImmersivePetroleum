@@ -5,7 +5,7 @@ license="All rights reserved"
 
 [[mods]] #mandatory
 	modId="immersivepetroleum"
-	version="${file.jarVersion}"
+	version="${mod_version}"
 	displayName="Immersive Petroleum"
 	displayURL="https://minecraft.curseforge.com/projects/immersive-petroleum"
 	authors="Flaxbeard and Maintained by TwistedGate"
