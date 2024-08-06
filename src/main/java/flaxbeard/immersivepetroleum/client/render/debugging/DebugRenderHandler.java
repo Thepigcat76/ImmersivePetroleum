@@ -1,18 +1,5 @@
 package flaxbeard.immersivepetroleum.client.render.debugging;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.joml.Matrix3f;
-import org.joml.Matrix4f;
-
-import com.google.common.collect.Multimap;
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-
 import blusunrize.immersiveengineering.api.multiblocks.blocks.component.RedstoneControl;
 import blusunrize.immersiveengineering.api.multiblocks.blocks.component.RedstoneControl.RSState;
 import blusunrize.immersiveengineering.api.multiblocks.blocks.env.IMultiblockBEHelper;
@@ -20,7 +7,12 @@ import blusunrize.immersiveengineering.api.multiblocks.blocks.env.IMultiblockCon
 import blusunrize.immersiveengineering.api.multiblocks.blocks.logic.IMultiblockBE;
 import blusunrize.immersiveengineering.api.multiblocks.blocks.logic.IMultiblockState;
 import blusunrize.immersiveengineering.client.utils.GuiHelper;
+import blusunrize.immersiveengineering.common.blocks.multiblocks.blockimpl.ComponentInstance;
 import blusunrize.immersiveengineering.common.blocks.multiblocks.blockimpl.MultiblockBEHelperMaster;
+import com.google.common.collect.Multimap;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import flaxbeard.immersivepetroleum.api.reservoir.AxisAlignedIslandBB;
 import flaxbeard.immersivepetroleum.api.reservoir.ReservoirHandler;
 import flaxbeard.immersivepetroleum.api.reservoir.ReservoirIsland;
@@ -36,13 +28,9 @@ import flaxbeard.immersivepetroleum.common.blocks.multiblocks.logic.Distillation
 import flaxbeard.immersivepetroleum.common.blocks.multiblocks.logic.HydroTreaterLogic;
 import flaxbeard.immersivepetroleum.common.blocks.multiblocks.logic.OilTankLogic;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.AutoLubricatorTileEntity;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.CokerUnitTileEntity;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.CokerUnitTileEntity.CokingChamber;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.FlarestackTileEntity;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.GasGeneratorTileEntity;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.IPTileEntityBase;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.OilTankTileEntity;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.OilTankTileEntity.Port;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.WellPipeTileEntity;
 import flaxbeard.immersivepetroleum.common.blocks.tileentities.WellTileEntity;
 import flaxbeard.immersivepetroleum.common.entity.MotorboatEntity;
@@ -83,6 +71,13 @@ import net.neoforged.neoforge.client.gui.overlay.VanillaGuiOverlay;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.IFluidTank;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class DebugRenderHandler{
 	public DebugRenderHandler(){
@@ -140,9 +135,10 @@ public class DebugRenderHandler{
 									
 								}else if(te instanceof IMultiblockBE<?> generic){
 									IMultiblockState mbState;
+									BlockPos tPos;
 									{
 										IMultiblockBEHelper<? extends IMultiblockState> helper = generic.getHelper();
-										BlockPos tPos = helper.getPositionInMB();
+										tPos = helper.getPositionInMB();
 										
 										BlockEntity masterMaybe = helper.getContext().getLevel().getBlockEntity(helper.getMultiblock().masterPosInMB());
 										if(masterMaybe instanceof IMultiblockBE<?> master){
@@ -161,7 +157,7 @@ public class DebugRenderHandler{
 										if(helper instanceof MultiblockBEHelperMaster<? extends IMultiblockState> masterHelper){
 											IMultiblockContext<?> context = masterHelper.getComponentInstances().stream()
 													.filter(c -> c.component() instanceof RedstoneControl<?>)
-													.map(c -> c.wrappedContext())
+													.map(ComponentInstance::wrappedContext)
 													.findAny().orElse(null);
 											
 											if(context != null){
@@ -201,7 +197,7 @@ public class DebugRenderHandler{
 										hydrotreater(debugOut, treater);
 										
 									}else if(mbState instanceof OilTankLogic.State oiltank){
-										oiltank(debugOut, oiltank);
+										oiltank(debugOut, oiltank, tPos);
 										
 									}else if(mbState instanceof DerrickLogic.State derrick){
 										derrick(debugOut, derrick);
@@ -535,9 +531,8 @@ public class DebugRenderHandler{
 		text.add(toText("Input Tank").withStyle(ChatFormatting.UNDERLINE));
 		{
 			List<FluidStack> fluids = tower.tanks.input().fluids;
-			if(fluids.size() > 0){
-				for(int j = 0;j < fluids.size();j++){
-					FluidStack fstack = fluids.get(j);
+			if(!fluids.isEmpty()){
+				for(FluidStack fstack : fluids){
 					text.add(toText("  " + fstack.getDisplayName().getString() + " (" + fstack.getAmount() + "mB)"));
 				}
 			}else{
@@ -548,9 +543,8 @@ public class DebugRenderHandler{
 		text.add(toText("Output Tank").withStyle(ChatFormatting.UNDERLINE));
 		{
 			List<FluidStack> fluids = tower.tanks.output().fluids;
-			if(fluids.size() > 0){
-				for(int j = 0;j < fluids.size();j++){
-					FluidStack fstack = fluids.get(j);
+			if(!fluids.isEmpty()){
+				for(FluidStack fstack : fluids){
 					text.add(toText("  " + fstack.getDisplayName().getString() + " (" + fstack.getAmount() + "mB)"));
 				}
 			}else{
@@ -561,74 +555,79 @@ public class DebugRenderHandler{
 	
 	private static void cokerunit(List<Component> text, CokerUnitLogic.State coker){
 		{
-			FluidTank tank = coker.bufferTanks[CokerUnitTileEntity.TANK_INPUT];
+			FluidTank tank = coker.bufferTanks.input();
 			FluidStack fs = tank.getFluid();
 			text.add(toText("In Buffer: " + (fs.getAmount() + "/" + tank.getCapacity() + "mB " + (fs.isEmpty() ? "" : "(" + fs.getDisplayName().getString() + ")"))));
 		}
 		
 		{
-			FluidTank tank = coker.bufferTanks[CokerUnitTileEntity.TANK_OUTPUT];
+			FluidTank tank = coker.bufferTanks.output();
 			FluidStack fs = tank.getFluid();
 			text.add(toText("Out Buffer: " + (fs.getAmount() + "/" + tank.getCapacity() + "mB " + (fs.isEmpty() ? "" : "(" + fs.getDisplayName().getString() + ")"))));
 		}
 		
-		for(int i = 0;i < coker.chambers.length;i++){
-			CokingChamber chamber = coker.chambers[i];
-			FluidTank tank = chamber.getTank();
-			FluidStack fs = tank.getFluid();
-			
-			float completed = chamber.getTotalAmount() > 0 ? 100 * (chamber.getOutputAmount() / (float) chamber.getTotalAmount()) : 0;
-			
-			text.add(toText("Chamber " + i).withStyle(ChatFormatting.UNDERLINE, ChatFormatting.AQUA));
-			text.add(toText("State: " + chamber.getState().toString()));
-			text.add(toText("  Tank: " + (fs.getAmount() + "/" + tank.getCapacity() + "mB " + (fs.isEmpty() ? "" : "(" + fs.getDisplayName().getString() + ")"))));
-			text.add(toText("  Content: " + chamber.getTotalAmount() + " / " + chamber.getCapacity()).append(" (" + chamber.getInputItem().getHoverName().getString() + ")"));
-			text.add(toText("  Out: " + chamber.getOutputItem().getHoverName().getString()));
-			text.add(toText("  " + Mth.floor(completed) + "% Completed. (Raw: " + completed + ")"));
-		}
+		chamberInfo(text, coker.chambers.primary(), 0);
+		chamberInfo(text, coker.chambers.secondary(), 1);
+	}
+	
+	private static void chamberInfo(List<Component> text, CokerUnitLogic.CokingChamber chamber, int id){
+		FluidTank tank = chamber.getTank();
+		FluidStack fs = tank.getFluid();
+		
+		float completed = chamber.getTotalAmount() > 0 ? 100 * (chamber.getOutputAmount() / (float) chamber.getTotalAmount()) : 0;
+		
+		text.add(toText("Chamber " + id).withStyle(ChatFormatting.UNDERLINE, ChatFormatting.AQUA));
+		text.add(toText("State: " + chamber.getState().toString()));
+		text.add(toText("  Tank: " + (fs.getAmount() + "/" + tank.getCapacity() + "mB " + (fs.isEmpty() ? "" : "(" + fs.getDisplayName().getString() + ")"))));
+		text.add(toText("  Content: " + chamber.getTotalAmount() + " / " + chamber.getCapacity()).append(" (" + chamber.getInputItem().getHoverName().getString() + ")"));
+		text.add(toText("  Out: " + chamber.getOutputItem().getHoverName().getString()));
+		text.add(toText("  " + Mth.floor(completed) + "% Completed. (Raw: " + completed + ")"));
 	}
 	
 	private static void hydrotreater(List<Component> text, HydroTreaterLogic.State treater){
-		IFluidTank[] tanks = treater.getInternalTanks();
-		if(tanks != null && tanks.length > 0){
-			for(int i = 0;i < tanks.length;i++){
-				FluidStack fs = tanks[i].getFluid();
-				text.add(toText("Tank " + i + ": " + (fs.getAmount() + "/" + tanks[i].getCapacity() + "mB " + (fs.isEmpty() ? "" : "(" + fs.getDisplayName().getString() + ")"))));
-			}
-		}
+		treater.tanks.primary();
+		treater.tanks.secondary();
+		treater.tanks.output();
+		
+		tankDisplay(text, treater.tanks.primary());
+		tankDisplay(text, treater.tanks.secondary());
+		tankDisplay(text, treater.tanks.output());
 	}
 	
-	private static void oiltank(List<Component> text, OilTankLogic.State tank){
-		BlockPos mbpos = tank.posInMultiblock;
-		Port port = null;
-		for(Port p:Port.values()){
-			if(p.matches(mbpos)){
+	private static void tankDisplay(List<Component> text, IFluidTank tank){
+		FluidStack fs = tank.getFluid();
+		
+		String str = "Tank: " + (fs.getAmount() + "/" + tank.getCapacity() + "mB");
+		if(!fs.isEmpty()){
+			str += " (" + fs.getDisplayName().getString() + ")";
+		}
+		
+		text.add(toText(str));
+	}
+	
+	private static void oiltank(List<Component> text, OilTankLogic.State tank, BlockPos posInMultiblock){
+		OilTankLogic.Port port = null;
+		for(OilTankLogic.Port p:OilTankLogic.Port.values()){
+			if(p.matches(posInMultiblock)){
 				port = p;
 				break;
 			}
 		}
 		
 		if(port != null){
-			OilTankTileEntity.PortState portState = tank.portConfig.get(port);
-			boolean isInput = portState == OilTankTileEntity.PortState.INPUT;
+			OilTankLogic.PortState portState = tank.portConfig.get(port);
+			boolean isInput = portState == OilTankLogic.PortState.INPUT;
 			text.add(toText("Port: ")
-					.append(toText(port != null ? port.getSerializedName() : "None"))
+					.append(toText(port.getSerializedName()))
 					.append(toText(" " + portState.getSerializedName())
 							.withStyle(isInput ? ChatFormatting.AQUA : ChatFormatting.GOLD)));
 		}
 		
-		FluidStack fs = tank.tank.getFluid();
-		text.add(toText("Fluid: " + (fs.getAmount() + "/" + tank.tank.getCapacity() + "mB " + (fs.isEmpty() ? "" : "(" + fs.getDisplayName().getString() + ")"))));
+		tankDisplay(text, tank.tank);
 	}
 	
 	private static void derrick(List<Component> text, DerrickLogic.State derrick){
-		IFluidTank[] tanks = derrick.getInternalTanks();
-		if(tanks != null && tanks.length > 0){
-			for(int i = 0;i < tanks.length;i++){
-				FluidStack fs = tanks[i].getFluid();
-				text.add(toText("Tank " + i + ": " + (fs.getAmount() + "/" + tanks[i].getCapacity() + "mB " + (fs.isEmpty() ? "" : "(" + fs.getDisplayName().getString() + ")"))));
-			}
-		}
+		tankDisplay(text, derrick.tank);
 	}
 	
 	static MutableComponent toText(String string){
