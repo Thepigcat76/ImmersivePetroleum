@@ -1,33 +1,15 @@
 package flaxbeard.immersivepetroleum.client.render;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.util.Mth;
-import org.joml.Matrix4f;
-
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-
-import blusunrize.immersiveengineering.client.utils.GuiHelper;
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.OilTankTileEntity;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.OilTankTileEntity.Port;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.OilTankTileEntity.PortState;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.BlockPos;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.common.Mod.EventBusSubscriber;
 import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
-import net.neoforged.neoforge.fluids.FluidStack;
-import org.joml.Quaternionf;
 
 @OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(value = Dist.CLIENT, modid = ImmersivePetroleum.MODID, bus = Bus.MOD)
-public class OilTankRenderer implements BlockEntityRenderer<OilTankTileEntity>{
+public class OilTankRenderer /*implements BlockEntityRenderer<OilTankTileEntity>*/{
+	/*
 	@Override
 	public boolean shouldRenderOffScreen(@Nonnull OilTankTileEntity te){
 		return true;
@@ -147,4 +129,5 @@ public class OilTankRenderer implements BlockEntityRenderer<OilTankTileEntity>{
 			builder.vertex(mat, -0.001F, 1F, 0F).color(1F, 1F, 1F, 1F).uv(u0, v0).overlayCoords(combinedOverlay).uv2(combinedLight).normal(1, 1, 1).endVertex();
 		}
 	}
+	*/
 }

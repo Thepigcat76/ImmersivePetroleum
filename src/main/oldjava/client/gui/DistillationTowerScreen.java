@@ -1,12 +1,27 @@
 package flaxbeard.immersivepetroleum.client.gui;
 
-import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
-import net.minecraft.resources.ResourceLocation;
+import java.util.List;
 
-public class DistillationTowerScreen /*extends IEContainerScreen<DistillationTowerContainer>*/{
+import javax.annotation.Nonnull;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import blusunrize.immersiveengineering.client.gui.IEContainerScreen;
+import blusunrize.immersiveengineering.client.gui.info.EnergyInfoArea;
+import blusunrize.immersiveengineering.client.gui.info.FluidInfoArea;
+import blusunrize.immersiveengineering.client.gui.info.InfoArea;
+import blusunrize.immersiveengineering.client.gui.info.MultitankArea;
+import flaxbeard.immersivepetroleum.common.blocks.tileentities.DistillationTowerTileEntity;
+import flaxbeard.immersivepetroleum.common.gui.DistillationTowerContainer;
+import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
+import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+
+public class DistillationTowerScreen extends IEContainerScreen<DistillationTowerContainer>{
 	static final ResourceLocation GUI_TEXTURE = ResourceUtils.ip("textures/gui/distillation.png");
 	
-	/*
 	DistillationTowerTileEntity tile;
 	
 	public DistillationTowerScreen(DistillationTowerContainer container, Inventory playerInventory, Component title){
@@ -28,5 +43,4 @@ public class DistillationTowerScreen /*extends IEContainerScreen<DistillationTow
 				new MultitankArea(new Rect2i(leftPos + 112, topPos + 21, 16, 47), tile.tanks[1].getCapacity(), () -> tile.tanks[1].fluids)
 		);
 	}
-	*/
 }

@@ -1,23 +1,7 @@
 package flaxbeard.immersivepetroleum.common.gui;
 
-import static flaxbeard.immersivepetroleum.common.blocks.tileentities.DistillationTowerTileEntity.INV_0;
-import static flaxbeard.immersivepetroleum.common.blocks.tileentities.DistillationTowerTileEntity.INV_1;
-import static flaxbeard.immersivepetroleum.common.blocks.tileentities.DistillationTowerTileEntity.INV_2;
-import static flaxbeard.immersivepetroleum.common.blocks.tileentities.DistillationTowerTileEntity.INV_3;
-
-import javax.annotation.Nonnull;
-
-import flaxbeard.immersivepetroleum.api.crafting.DistillationTowerRecipe;
-import flaxbeard.immersivepetroleum.common.blocks.multiblocks.DistillationTowerMultiblock;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.DistillationTowerTileEntity;
-import flaxbeard.immersivepetroleum.common.gui.IPSlot.FluidContainer.FluidFilter;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidUtil;
-
-public class DistillationTowerContainer extends MultiblockAwareGuiContainer<DistillationTowerTileEntity>{
+public class DistillationTowerContainer /*extends MultiblockAwareGuiContainer<DistillationTowerTileEntity>*/{
+	/*
 	public DistillationTowerContainer(MenuType<?> type, int id, Inventory playerInventory, final DistillationTowerTileEntity tile){
 		super(type, tile, id, DistillationTowerMultiblock.INSTANCE);
 		
@@ -49,4 +33,5 @@ public class DistillationTowerContainer extends MultiblockAwareGuiContainer<Dist
 		addPlayerInventorySlots(playerInventory, 8, 85);
 		addPlayerHotbarSlots(playerInventory, 8, 143);
 	}
+	*/
 }

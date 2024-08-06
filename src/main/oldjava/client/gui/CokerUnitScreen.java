@@ -1,12 +1,27 @@
 package flaxbeard.immersivepetroleum.client.gui;
 
-import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
-import net.minecraft.resources.ResourceLocation;
+import java.util.List;
 
-public class CokerUnitScreen /*extends IEContainerScreen<CokerUnitContainer>*/{
+import javax.annotation.Nonnull;
+
+import blusunrize.immersiveengineering.client.gui.IEContainerScreen;
+import blusunrize.immersiveengineering.client.gui.info.FluidInfoArea;
+import blusunrize.immersiveengineering.client.gui.info.InfoArea;
+import flaxbeard.immersivepetroleum.client.gui.elements.CokerChamberInfoArea;
+import flaxbeard.immersivepetroleum.client.gui.elements.EnergyDisplay;
+import flaxbeard.immersivepetroleum.common.blocks.multiblocks.logic.CokerUnitLogic;
+import flaxbeard.immersivepetroleum.common.blocks.tileentities.CokerUnitTileEntity;
+import flaxbeard.immersivepetroleum.common.gui.CokerUnitContainer;
+import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+
+public class CokerUnitScreen extends IEContainerScreen<CokerUnitContainer>{
 	public static final ResourceLocation GUI_TEXTURE = ResourceUtils.ip("textures/gui/coker.png");
 	
-	/*
 	CokerUnitLogic.State tile;
 	public CokerUnitScreen(CokerUnitContainer inventorySlotsIn, Inventory inv, Component title){
 		super(inventorySlotsIn, inv, title, GUI_TEXTURE);
@@ -42,5 +57,4 @@ public class CokerUnitScreen /*extends IEContainerScreen<CokerUnitContainer>*/{
 				new CokerChamberInfoArea(this.tile.chambers.secondary(), new Rect2i(this.leftPos + 120, this.topPos + 24, 6, 38))
 		);
 	}
-	*/
 }

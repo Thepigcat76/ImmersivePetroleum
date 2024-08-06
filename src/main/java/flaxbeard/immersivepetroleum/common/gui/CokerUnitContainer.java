@@ -1,15 +1,7 @@
 package flaxbeard.immersivepetroleum.common.gui;
 
-import flaxbeard.immersivepetroleum.api.crafting.CokerUnitRecipe;
-import flaxbeard.immersivepetroleum.common.blocks.multiblocks.CokerUnitMultiblock;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.CokerUnitTileEntity;
-import flaxbeard.immersivepetroleum.common.gui.IPSlot.FluidContainer.FluidFilter;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.MenuType;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.FluidUtil;
-
-public class CokerUnitContainer extends MultiblockAwareGuiContainer<CokerUnitTileEntity>{
+public class CokerUnitContainer /*extends MultiblockAwareGuiContainer<CokerUnitTileEntity>*/{
+	/*
 	public CokerUnitContainer(MenuType<?> type, int id, Inventory playerInventory, final CokerUnitTileEntity tile){
 		super(type, tile, id, CokerUnitMultiblock.INSTANCE);
 		
@@ -38,4 +30,5 @@ public class CokerUnitContainer extends MultiblockAwareGuiContainer<CokerUnitTil
 		addPlayerInventorySlots(playerInventory, 20, 105);
 		addPlayerHotbarSlots(playerInventory, 20, 163);
 	}
+	*/
 }

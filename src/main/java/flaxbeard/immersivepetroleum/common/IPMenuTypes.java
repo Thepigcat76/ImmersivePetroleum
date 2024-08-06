@@ -1,29 +1,7 @@
 package flaxbeard.immersivepetroleum.common;
 
-import org.apache.commons.lang3.mutable.Mutable;
-import org.apache.commons.lang3.mutable.MutableObject;
-import org.checkerframework.checker.units.qual.C;
-
-import blusunrize.immersiveengineering.common.gui.IEContainerMenu;
-import blusunrize.immersiveengineering.common.register.IEMenuTypes;
-import flaxbeard.immersivepetroleum.ImmersivePetroleum;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.CokerUnitTileEntity;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.DerrickTileEntity;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.DistillationTowerTileEntity;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.HydrotreaterTileEntity;
-import flaxbeard.immersivepetroleum.common.gui.CokerUnitContainer;
-import flaxbeard.immersivepetroleum.common.gui.DerrickContainer;
-import flaxbeard.immersivepetroleum.common.gui.DistillationTowerContainer;
-import flaxbeard.immersivepetroleum.common.gui.HydrotreaterContainer;
-import flaxbeard.immersivepetroleum.common.gui.IPMenuProvider.BEContainerIP;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.network.IContainerFactory;
-import net.neoforged.neoforge.registries.DeferredHolder;
-
 public class IPMenuTypes{
+	/*
 	public static final BEContainerIP<DistillationTowerTileEntity, DistillationTowerContainer> DISTILLATION_TOWER =
 			register("distillation_tower", DistillationTowerContainer::new);
 	public static final BEContainerIP<DerrickTileEntity, DerrickContainer> DERRICK =
@@ -50,4 +28,5 @@ public class IPMenuTypes{
 		});
 		return new BEContainerIP<>(typeRef, container);
 	}
+	*/
 }

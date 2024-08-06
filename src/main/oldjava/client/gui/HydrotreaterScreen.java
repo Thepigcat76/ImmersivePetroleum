@@ -1,12 +1,26 @@
 package flaxbeard.immersivepetroleum.client.gui;
 
-import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
-import net.minecraft.resources.ResourceLocation;
+import java.util.List;
 
-public class HydrotreaterScreen /*extends IEContainerScreen<HydrotreaterContainer>*/{
+import javax.annotation.Nonnull;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import blusunrize.immersiveengineering.client.gui.IEContainerScreen;
+import blusunrize.immersiveengineering.client.gui.info.EnergyInfoArea;
+import blusunrize.immersiveengineering.client.gui.info.FluidInfoArea;
+import blusunrize.immersiveengineering.client.gui.info.InfoArea;
+import flaxbeard.immersivepetroleum.common.blocks.tileentities.HydrotreaterTileEntity;
+import flaxbeard.immersivepetroleum.common.gui.HydrotreaterContainer;
+import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
+import net.minecraft.client.renderer.Rect2i;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Inventory;
+
+public class HydrotreaterScreen extends IEContainerScreen<HydrotreaterContainer>{
 	static final ResourceLocation GUI_TEXTURE = ResourceUtils.ip("textures/gui/hydrotreater.png");
 	
-	/*
 	HydrotreaterTileEntity tile;
 	public HydrotreaterScreen(HydrotreaterContainer inventorySlotsIn, Inventory inv, Component title){
 		super(inventorySlotsIn, inv, title, GUI_TEXTURE);
@@ -46,5 +60,4 @@ public class HydrotreaterScreen /*extends IEContainerScreen<HydrotreaterContaine
 				new EnergyInfoArea(leftPos + 122, topPos + 12, tile.energyStorage)
 		);
 	}
-	*/
 }

@@ -1,28 +1,15 @@
 package flaxbeard.immersivepetroleum.client.render;
 
-import javax.annotation.Nonnull;
-
-import net.minecraft.util.Mth;
-import org.joml.Matrix4f;
-
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.DistillationTowerTileEntity;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.core.Direction;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.fml.common.Mod.EventBusSubscriber;
 import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
-import org.joml.Quaternionf;
 
 @OnlyIn(Dist.CLIENT)
 @EventBusSubscriber(value = Dist.CLIENT, modid = ImmersivePetroleum.MODID, bus = Bus.MOD)
-public class DistillationTowerRenderer implements BlockEntityRenderer<DistillationTowerTileEntity>{
+public class DistillationTowerRenderer /*implements BlockEntityRenderer<DistillationTowerTileEntity>*/{
+	/*
 	@Override
 	public boolean shouldRenderOffScreen(@Nonnull DistillationTowerTileEntity te){
 		return true;
@@ -144,4 +131,5 @@ public class DistillationTowerRenderer implements BlockEntityRenderer<Distillati
 			}
 		}
 	}
+	*/
 }

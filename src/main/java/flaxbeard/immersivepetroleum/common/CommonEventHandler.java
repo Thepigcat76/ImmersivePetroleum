@@ -1,32 +1,14 @@
 package flaxbeard.immersivepetroleum.common;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
-
-import blusunrize.immersiveengineering.common.blocks.generic.MultiblockPartBlockEntity;
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
-import flaxbeard.immersivepetroleum.api.crafting.LubricatedHandler;
-import flaxbeard.immersivepetroleum.api.crafting.LubricatedHandler.ILubricationHandler;
-import flaxbeard.immersivepetroleum.api.crafting.LubricatedHandler.LubricatedTileInfo;
 import flaxbeard.immersivepetroleum.api.reservoir.ReservoirHandler;
 import flaxbeard.immersivepetroleum.common.cfg.IPServerConfig;
 import flaxbeard.immersivepetroleum.common.entity.MotorboatEntity;
 import flaxbeard.immersivepetroleum.common.fluids.NapalmFluid;
 import flaxbeard.immersivepetroleum.common.util.IPEffects;
 import flaxbeard.immersivepetroleum.common.util.Utils;
-import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.Vec3i;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -36,9 +18,7 @@ import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LiquidBlock;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -54,6 +34,13 @@ import net.neoforged.neoforge.event.entity.living.LivingAttackEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.server.ServerStoppedEvent;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class CommonEventHandler{
 	@SubscribeEvent
@@ -140,6 +127,7 @@ public class CommonEventHandler{
 	static final Random random = new Random();
 	@SuppressWarnings({"rawtypes", "unchecked", "deprecation"})
 	public static void handleLubricatingMachines(Level world){
+		/* // TODO Reimplement it after everything else is done (aka after Multiblocks are done)
 		Set<LubricatedTileInfo> toRemove = new HashSet<>();
 		for(LubricatedTileInfo info:LubricatedHandler.lubricatedTiles){
 			if(info.world == world.dimension() && world.isAreaLoaded(info.pos, 0)){
@@ -188,6 +176,7 @@ public class CommonEventHandler{
 		for(LubricatedTileInfo info:toRemove){
 			LubricatedHandler.lubricatedTiles.remove(info);
 		}
+		*/
 	}
 	
 	@SubscribeEvent

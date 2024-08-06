@@ -1,13 +1,39 @@
 package flaxbeard.immersivepetroleum.client.gui;
 
-import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
-import net.minecraft.resources.ResourceLocation;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
+import java.util.Objects;
 
-public class SeismicSurveyScreen /*extends Screen*/{
+import javax.annotation.Nonnull;
+
+import org.joml.Matrix4f;
+
+import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+
+import flaxbeard.immersivepetroleum.client.render.IPRenderTypes;
+import flaxbeard.immersivepetroleum.client.render.dyn.DynamicTextureWrapper;
+import flaxbeard.immersivepetroleum.client.utils.MCUtil;
+import flaxbeard.immersivepetroleum.common.network.MessageSurveyResultDetails;
+import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
+import flaxbeard.immersivepetroleum.common.util.survey.SurveyScan;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
+
+public class SeismicSurveyScreen extends Screen{
 	private static final ResourceLocation GUI_TEXTURE = ResourceUtils.ip("textures/gui/seismicsurvey_gui.png");
 	private static final ResourceLocation OVERLAY_TEXTURE = ResourceUtils.ip("textures/gui/seismicsurvey_overlay.png");
 	
-	/*
 	private static final int X_SIZE = 154;
 	private static final int Y_SIZE = 154;
 	
@@ -214,5 +240,4 @@ public class SeismicSurveyScreen /*extends Screen*/{
 	public boolean isPauseScreen(){
 		return false;
 	}
-	*/
 }

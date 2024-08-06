@@ -1,34 +1,8 @@
 package flaxbeard.immersivepetroleum.common.blocks;
 
-import javax.annotation.Nonnull;
-
-import blusunrize.immersiveengineering.common.blocks.MultiblockBEType;
-import blusunrize.immersiveengineering.common.blocks.generic.MultiblockPartBlockEntity;
-import blusunrize.immersiveengineering.common.blocks.metal.MetalMultiblockBlock;
-import blusunrize.immersiveengineering.common.gui.IEBaseContainerOld;
-import flaxbeard.immersivepetroleum.common.blocks.interfaces.ICanSkipGUI;
-import flaxbeard.immersivepetroleum.common.blocks.interfaces.IHasGUIInteraction;
-import flaxbeard.immersivepetroleum.common.blocks.ticking.IPCommonTickableTile;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.SoundType;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraftforge.network.NetworkHooks;
-
-@Deprecated
-public class IPMetalMultiblock<T extends MultiblockPartBlockEntity<T> & IPCommonTickableTile> extends MetalMultiblockBlock<T>{
+@Deprecated(forRemoval = true)
+public class IPMetalMultiblock/*<T extends MultiblockPartBlockEntity<T> & IPCommonTickableTile> extends MetalMultiblockBlock<T>*/{
+	/*
 	private final MultiblockBEType<T> multiblockBEType;
 	
 	public IPMetalMultiblock(MultiblockBEType<T> te){
@@ -64,7 +38,7 @@ public class IPMetalMultiblock<T extends MultiblockPartBlockEntity<T> & IPCommon
 							if(interaction != null && interaction.canUseGui(player)){
 								
 								// Between these lines is basicly a direct copy-paste from IEEntityBlock
-								/** ---------------------------------------------------------------------------- */
+								// ----------------------------------------------------------------------------
 								
 								// This can be removed once IEBaseContainerOld is gone
 								AbstractContainerMenu tempMenu = interaction.createMenu(0, player.getInventory(), player);
@@ -72,7 +46,7 @@ public class IPMetalMultiblock<T extends MultiblockPartBlockEntity<T> & IPCommon
 									NetworkHooks.openScreen(serverPlayer, interaction, ((BlockEntity) interaction).getBlockPos());
 								else
 									NetworkHooks.openScreen(serverPlayer, interaction);
-								/** ---------------------------------------------------------------------------- */
+								// ----------------------------------------------------------------------------
 							}
 						}
 					}
@@ -82,4 +56,5 @@ public class IPMetalMultiblock<T extends MultiblockPartBlockEntity<T> & IPCommon
 		}
 		return super.use(state, world, pos, player, hand, hit);
 	}
+	*/
 }

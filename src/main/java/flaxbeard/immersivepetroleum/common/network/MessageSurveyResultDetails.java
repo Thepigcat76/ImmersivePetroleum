@@ -1,14 +1,5 @@
 package flaxbeard.immersivepetroleum.common.network;
 
-import static flaxbeard.immersivepetroleum.common.util.survey.SurveyScan.SCAN_RADIUS;
-import static flaxbeard.immersivepetroleum.common.util.survey.SurveyScan.SCAN_SIZE;
-
-import java.util.ArrayList;
-import java.util.BitSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 import flaxbeard.immersivepetroleum.api.reservoir.ReservoirHandler;
 import flaxbeard.immersivepetroleum.api.reservoir.ReservoirIsland;
 import flaxbeard.immersivepetroleum.client.gui.SeismicSurveyScreen;
@@ -24,6 +15,15 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import net.neoforged.fml.LogicalSide;
 import net.neoforged.neoforge.network.handling.PlayPayloadContext;
+
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static flaxbeard.immersivepetroleum.common.util.survey.SurveyScan.SCAN_RADIUS;
+import static flaxbeard.immersivepetroleum.common.util.survey.SurveyScan.SCAN_SIZE;
 
 public class MessageSurveyResultDetails{
 	
@@ -142,9 +142,11 @@ public class MessageSurveyResultDetails{
 			// TODO This may be broken AF
 			context.workHandler().execute(() -> {
 				if(context.flow().getReceptionSide() == LogicalSide.CLIENT){
+					/* // TODO After SeismicSurveyScreen re-implementation
 					if(MCUtil.getScreen() instanceof SeismicSurveyScreen surveyScreen && this.scanId.equals(surveyScreen.scan.getUuid())){
 						surveyScreen.setBitSet(this.replyBitSet);
 					}
+					*/
 				}
 			});
 		}

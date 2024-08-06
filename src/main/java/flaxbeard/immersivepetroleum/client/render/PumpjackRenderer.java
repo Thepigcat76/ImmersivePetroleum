@@ -1,27 +1,18 @@
 package flaxbeard.immersivepetroleum.client.render;
 
-import java.util.function.Supplier;
-
-import javax.annotation.Nonnull;
-
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import flaxbeard.immersivepetroleum.client.model.IPModel;
 import flaxbeard.immersivepetroleum.client.model.IPModels;
 import flaxbeard.immersivepetroleum.client.model.ModelPumpjack;
-import flaxbeard.immersivepetroleum.common.blocks.tileentities.PumpjackTileEntity;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
-import net.minecraft.core.Direction;
-import net.minecraft.util.Mth;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.joml.Quaternionf;
+
+import java.util.function.Supplier;
 
 @OnlyIn(Dist.CLIENT)
-public class PumpjackRenderer implements BlockEntityRenderer<PumpjackTileEntity>{
+public class PumpjackRenderer /*implements BlockEntityRenderer<PumpjackTileEntity>*/{
 	private static final Supplier<IPModel> pumpjackarm = IPModels.getSupplier(ModelPumpjack.ID);
 	
+	/*
 	@Override
 	public int getViewDistance(){
 		return 100;
@@ -60,4 +51,5 @@ public class PumpjackRenderer implements BlockEntityRenderer<PumpjackTileEntity>
 			transform.popPose();
 		}
 	}
+	*/
 }

@@ -1,12 +1,32 @@
 package flaxbeard.immersivepetroleum.client.gui;
 
-import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
-import net.minecraft.resources.ResourceLocation;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
-public class DerrickSettingsScreen /*extends Screen*/{
+import javax.annotation.Nonnull;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import flaxbeard.immersivepetroleum.client.gui.elements.PipeConfig;
+import flaxbeard.immersivepetroleum.client.utils.MCUtil;
+import flaxbeard.immersivepetroleum.common.network.MessageDerrick;
+import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
+import flaxbeard.immersivepetroleum.common.util.Utils;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ColumnPos;
+
+public class DerrickSettingsScreen extends Screen{
 	static final ResourceLocation GUI_TEXTURE = ResourceUtils.ip("textures/gui/derrick_settings.png");
 	
-	/*
 	private final int xSize = 158;
 	private final int ySize = 176;
 	private int guiLeft;
@@ -142,5 +162,4 @@ public class DerrickSettingsScreen /*extends Screen*/{
 		MCUtil.bindTexture(GUI_TEXTURE);
 		blit(matrix, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 	}
-	*/
 }

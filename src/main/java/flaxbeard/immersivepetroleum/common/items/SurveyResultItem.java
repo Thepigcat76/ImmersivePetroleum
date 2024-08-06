@@ -57,7 +57,7 @@ public class SurveyResultItem extends IPItemBase{
 	
 	@OnlyIn(Dist.CLIENT)
 	private static void openGUI(Level level, @Nonnull SurveyScan scan){
-		MCUtil.setScreen(new SeismicSurveyScreen(level, scan));
+		//MCUtil.setScreen(new SeismicSurveyScreen(level, scan)); // TODO Re-implement SeismicSurveyScreen
 	}
 	
 	@Override
