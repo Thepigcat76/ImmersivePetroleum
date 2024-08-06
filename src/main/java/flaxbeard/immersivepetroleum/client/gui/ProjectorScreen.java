@@ -1,23 +1,12 @@
 package flaxbeard.immersivepetroleum.client.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.function.Consumer;
-
-import javax.annotation.Nonnull;
-
-import org.jline.reader.Widget;
-
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-import com.mojang.math.Quaternion;
-
 import blusunrize.immersiveengineering.api.multiblocks.ClientMultiblocks;
 import blusunrize.immersiveengineering.api.multiblocks.ClientMultiblocks.MultiblockManualData;
 import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
 import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler.IMultiblock;
 import blusunrize.immersiveengineering.api.utils.TemplateWorldCreator;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
 import flaxbeard.immersivepetroleum.client.gui.elements.GuiReactiveList;
 import flaxbeard.immersivepetroleum.client.render.IPRenderTypes;
 import flaxbeard.immersivepetroleum.client.utils.MCUtil;
@@ -25,17 +14,23 @@ import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
 import flaxbeard.immersivepetroleum.common.util.projector.Settings;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractButton;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.Renderable;
+import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.Vec3i;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
@@ -45,6 +40,15 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.neoforged.neoforge.client.model.data.ModelData;
+import org.joml.AxisAngle4f;
+import org.joml.Quaternionf;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class ProjectorScreen extends Screen{
 	static final ResourceLocation GUI_TEXTURE = ResourceUtils.ip("textures/gui/projector.png");
@@ -83,6 +87,23 @@ public class ProjectorScreen extends Screen{
 		
 		if(this.settings.getMultiblock() != null){
 			this.move = 20F;
+		}
+	}
+	
+	// TODO Replace (or if it comes down to it remove) this?
+	@Deprecated
+	static class Lazy<O>{
+		static <O> Lazy<O> of(Supplier<O> supplier){
+			return new Lazy<O>(supplier);
+		}
+		
+		private final Supplier<O> supplier;
+		private Lazy(Supplier<O> supplier){
+			this.supplier = supplier;
+		}
+		
+		public O get(){
+			return this.supplier.get();
 		}
 	}
 	
@@ -183,7 +204,10 @@ public class ProjectorScreen extends Screen{
 	}
 	
 	@Override
-	public void render(@Nonnull PoseStack matrix, int mouseX, int mouseY, float partialTicks){
+	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks){
+		
+		PoseStack matrix = guiGraphics.pose();
+		
 		// Over-GUI Text
 		if(this.settings.getMultiblock() != null){
 			IMultiblock mb = this.settings.getMultiblock();
@@ -191,31 +215,30 @@ public class ProjectorScreen extends Screen{
 			int y = this.guiTop - (int) (15 * (this.move / 20F));
 			
 			if(this.move < 20){
-				this.move += 1.5 * partialTicks;
+				this.move += (float) (1.5 * partialTicks);
 			}
 			
-			MCUtil.bindTexture(GUI_TEXTURE);
-			blit(matrix, x, y, 0, 166, 200, 13);
+			guiGraphics.blit(GUI_TEXTURE, x, y, 0, 166, 200, 13);
 			
 			x += 100;
 			y += 3;
 			
 			Component text = mb.getDisplayName();
 			FormattedCharSequence re = text.getVisualOrderText();
-			this.font.draw(matrix, re, (x - this.font.width(re) / 2), y, 0x3F3F3F);
+			//this.font.drawInBatch(matrix, re, (x - this.font.width(re) / 2), y, 0x3F3F3F); // TODO
 		}
-		background(matrix, mouseX, mouseY, partialTicks);
-		super.render(matrix, mouseX, mouseY, partialTicks);
-		this.searchField.render(matrix, mouseX, mouseY, partialTicks);
+		background(guiGraphics, mouseX, mouseY, partialTicks);
+		super.render(guiGraphics, mouseX, mouseY, partialTicks);
+		this.searchField.render(guiGraphics, mouseX, mouseY, partialTicks);
 		
-		for(Widget rawWidget:this.renderables){
+		for(Renderable rawWidget:this.renderables){
 			if(rawWidget instanceof AbstractWidget widget && widget.isHoveredOrFocused()){
-				widget.renderToolTip(matrix, mouseX, mouseY);
+				//widget.renderToolTip(matrix, mouseX, mouseY);
 				break;
 			}
 		}
 		
-		renderDirectionDisplay(matrix, mouseX, mouseY);
+		renderDirectionDisplay(guiGraphics, mouseX, mouseY);
 		
 		if(this.settings.getMultiblock() != null){
 			IMultiblock mb = this.settings.getMultiblock();
@@ -230,8 +253,8 @@ public class ProjectorScreen extends Screen{
 				{
 					matrix.translate(this.guiLeft + 190, this.guiTop + 80, 64);
 					matrix.scale(mb.getManualScale(), -mb.getManualScale(), 1);
-					matrix.mulPose(new Quaternion(25, 0, 0, true));
-					matrix.mulPose(new Quaternion(0, (int) (45 - this.rotation), 0, true));
+					matrix.mulPose(new Quaternionf(new AxisAngle4f(25, 1, 0, 0)));
+					matrix.mulPose(new Quaternionf(new AxisAngle4f((int) (45 - this.rotation), 0, 1, 0)));
 					matrix.translate(size.getX() / -2F, size.getY() / -2F, size.getZ() / -2F);
 					
 					MultiblockManualData mbClientData = ClientMultiblocks.get(mb);
@@ -244,23 +267,23 @@ public class ProjectorScreen extends Screen{
 						matrix.popPose();
 					}else{
 						if(this.templateWorld == null || (!this.multiblock.getUniqueName().equals(mb.getUniqueName()))){
-							this.templateWorld = TemplateWorldCreator.CREATOR.getValue().makeWorld(mb.getStructure(null), pos -> true);
+							this.templateWorld = TemplateWorldCreator.CREATOR.get().makeWorld(mb.getStructure(MCUtil.getLevel()), pos -> true, RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY));
 							this.multiblock = mb;
 						}
 						
 						final BlockRenderDispatcher blockRender = Minecraft.getInstance().getBlockRenderer();
-						List<StructureTemplate.StructureBlockInfo> infos = mb.getStructure(null);
+						List<StructureTemplate.StructureBlockInfo> infos = mb.getStructure(MCUtil.getLevel());
 						for(StructureTemplate.StructureBlockInfo info:infos){
-							if(info.state.getMaterial() != Material.AIR){
+							if(!info.state().isAir()){
 								matrix.pushPose();
 								{
-									matrix.translate(info.pos.getX(), info.pos.getY(), info.pos.getZ());
+									matrix.translate(info.pos().getX(), info.pos().getY(), info.pos().getZ());
 									ModelData modelData = ModelData.EMPTY;
-									BlockEntity te = this.templateWorld.getBlockEntity(info.pos);
+									BlockEntity te = this.templateWorld.getBlockEntity(info.pos());
 									if(te != null){
 										modelData = te.getModelData();
 									}
-									blockRender.renderSingleBlock(info.state, matrix, IPRenderTypes.disableLighting(buffer), 0xF000F0, OverlayTexture.NO_OVERLAY, modelData, null);
+									blockRender.renderSingleBlock(info.state(), matrix, IPRenderTypes.disableLighting(buffer), 0xF000F0, OverlayTexture.NO_OVERLAY, modelData, RenderType.cutout());
 								}
 								matrix.popPose();
 							}
@@ -275,24 +298,23 @@ public class ProjectorScreen extends Screen{
 		}
 	}
 	
-	private void renderDirectionDisplay(@Nonnull PoseStack matrix, int mouseX, int mouseY){
+	private void renderDirectionDisplay(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY){
 		int x = this.guiLeft + 115;
 		int y = this.guiTop + 82;
 		
 		// Idealy it'd be: N-S-E-W
 		Direction dir = Direction.from2DDataValue(this.settings.getRotation().ordinal());
 		Component dirText = Component.literal(dir.toString().toUpperCase().substring(0, 1));
-		drawCenteredString(matrix, this.font, dirText, x + 5, y + 1, -1);
+		guiGraphics.drawCenteredString(this.font, dirText, x + 5, y + 1, -1);
 		
 		if(mouseX > x && mouseX < x + 10 && mouseY > y && mouseY < y + 10){
 			Component rotText = Component.translatable("desc.immersivepetroleum.info.projector.rotated." + dir);
-			renderTooltip(matrix, rotText, mouseX, mouseY);
+			guiGraphics.renderTooltip(this.font, rotText, mouseX, mouseY);
 		}
 	}
 	
-	private void background(PoseStack matrix, int mouseX, int mouseY, float partialTicks){
-		MCUtil.bindTexture(GUI_TEXTURE);
-		blit(matrix, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+	private void background(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks){
+		guiGraphics.blit(GUI_TEXTURE, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
 	}
 	
 	@Override
@@ -312,19 +334,19 @@ public class ProjectorScreen extends Screen{
 	
 	// CLASSES
 	
-	class ConfirmButton extends ProjectorScreen.ControlButton{
+	static class ConfirmButton extends ProjectorScreen.ControlButton{
 		public ConfirmButton(int x, int y, Consumer<PButton> action){
 			super(x, y, 10, 10, 0, 179, action, GUI_CONFIRM);
 		}
 	}
 	
-	class CancelButton extends ProjectorScreen.ControlButton{
+	static class CancelButton extends ProjectorScreen.ControlButton{
 		public CancelButton(int x, int y, Consumer<PButton> action){
 			super(x, y, 10, 10, 10, 179, action, GUI_CANCEL);
 		}
 	}
 	
-	class MirrorButton extends ProjectorScreen.ControlButton{
+	static class MirrorButton extends ProjectorScreen.ControlButton{
 		Settings settings;
 		public MirrorButton(int x, int y, Settings settings, Consumer<PButton> action){
 			super(x, y, 10, 10, 20, 179, action, GUI_MIRROR);
@@ -332,44 +354,39 @@ public class ProjectorScreen extends Screen{
 		}
 		
 		@Override
-		public void renderButton(@Nonnull PoseStack matrix, int mouseX, int mouseY, float partialTicks){
-			MCUtil.bindTexture(GUI_TEXTURE);
+		protected void renderWidget(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick){
 			if(isHovered){
-				fill(matrix, this.x, this.y + 1, this.x + this.iconSize, this.y + this.iconSize - 1, 0xAF7F7FFF);
+				guiGraphics.fill(getX(), getY() + 1, getX() + ICON_SIZE, getY() + ICON_SIZE - 1, 0xAF7F7FFF);
 			}
 			
 			if(this.settings.isMirrored()){
-				blit(matrix, this.x, this.y, this.xOverlay, this.yOverlay + this.iconSize, this.iconSize, this.iconSize);
+				guiGraphics.blit(GUI_TEXTURE, getX(), getY(), this.xOverlay, this.yOverlay + ICON_SIZE, ICON_SIZE, ICON_SIZE);
 			}else{
-				blit(matrix, this.x, this.y, this.xOverlay, this.yOverlay, this.iconSize, this.iconSize);
+				guiGraphics.blit(GUI_TEXTURE, getX(), getY(), this.xOverlay, this.yOverlay, ICON_SIZE, ICON_SIZE);
 			}
 		}
 	}
 	
-	class RotateLeftButton extends ProjectorScreen.ControlButton{
+	static class RotateLeftButton extends ProjectorScreen.ControlButton{
 		public RotateLeftButton(int x, int y, Consumer<PButton> action){
 			super(x, y, 10, 10, 30, 179, action, GUI_ROTATE_CCW);
 		}
 	}
 	
-	class RotateRightButton extends ProjectorScreen.ControlButton{
+	static class RotateRightButton extends ProjectorScreen.ControlButton{
 		public RotateRightButton(int x, int y, Consumer<PButton> action){
 			super(x, y, 10, 10, 40, 179, action, GUI_ROTATE_CW);
 		}
 	}
 	
-	class ControlButton extends ProjectorScreen.PButton{
+	static class ControlButton extends ProjectorScreen.PButton{
 		Component hoverText;
 		public ControlButton(int x, int y, int width, int height, int overlayX, int overlayY, Consumer<PButton> action, Component hoverText){
 			super(x, y, width, height, overlayX, overlayY, action);
 			this.hoverText = hoverText;
-		}
-		
-		@Override
-		public void renderToolTip(@Nonnull PoseStack matrixStack, int mouseX, int mouseY){
-			if(this.hoverText != null){
-				ProjectorScreen.this.renderTooltip(matrixStack, this.hoverText, mouseX, mouseY);
-			}
+			
+			setTooltip(Tooltip.create(hoverText));
+			
 		}
 	}
 	
@@ -399,8 +416,7 @@ public class ProjectorScreen extends Screen{
 		@Override
 		public boolean charTyped(char codePoint, int modifiers){
 			if(!isFocused()){
-				changeFocus(true);
-				setFocus(true);
+				setFocused(true);
 			}
 			
 			String s = getValue();
@@ -424,11 +440,11 @@ public class ProjectorScreen extends Screen{
 	
 	// STATIC CLASSES
 	
-	static class PButton extends AbstractButton{
+	static abstract class PButton extends AbstractButton{
+		static final int ICON_SIZE = 10;
+		
 		protected boolean selected;
 		protected final int xOverlay, yOverlay;
-		protected int iconSize = 10;
-		protected int bgStartX = 0, bgStartY = 166;
 		protected Consumer<PButton> action;
 		public PButton(int x, int y, int width, int height, int overlayX, int overlayY, Consumer<PButton> action){
 			super(x, y, width, height, Component.empty());
@@ -438,12 +454,11 @@ public class ProjectorScreen extends Screen{
 		}
 		
 		@Override
-		public void renderButton(@Nonnull PoseStack matrix, int mouseX, int mouseY, float partialTicks){
-			MCUtil.bindTexture(GUI_TEXTURE);
+		protected void renderWidget(@Nonnull GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick){
 			if(isHovered){
-				fill(matrix, this.x, this.y + 1, this.x + this.iconSize, this.y + this.iconSize - 1, 0xAF7F7FFF);
+				guiGraphics.fill(getX(), getY() + 1, getX() + ICON_SIZE, getY() + ICON_SIZE - 1, 0xAF7F7FFF);
 			}
-			blit(matrix, this.x, this.y, this.xOverlay, this.yOverlay, this.iconSize, this.iconSize);
+			guiGraphics.blit(GUI_TEXTURE, getX(), getY(), this.xOverlay, this.yOverlay, ICON_SIZE, ICON_SIZE);
 		}
 		
 		@Override
@@ -460,7 +475,7 @@ public class ProjectorScreen extends Screen{
 		}
 		
 		@Override
-		public void updateNarration(@Nonnull NarrationElementOutput output){
+		protected void updateWidgetNarration(@Nonnull NarrationElementOutput narrationElementOutput){
 		}
 	}
 }
