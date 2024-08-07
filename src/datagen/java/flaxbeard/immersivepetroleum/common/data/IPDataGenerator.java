@@ -33,7 +33,7 @@ public class IPDataGenerator{
 			generator.addProvider(true, blockTags);
 			generator.addProvider(true, new IPItemTags(output, lookup, blockTags.contentsGetter(), exHelper));
 			generator.addProvider(true, new IPFluidTags(output, lookup, exHelper));
-			generator.addProvider(true, new IPLootGenerator(generator));
+			//generator.addProvider(true, new IPLootGenerator(generator)); // TODO
 			generator.addProvider(true, new IPRecipes(output));
 			generator.addProvider(true, new IPAdvancements(output, lookup, exHelper));
 			

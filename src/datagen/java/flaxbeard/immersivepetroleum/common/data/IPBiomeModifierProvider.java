@@ -52,6 +52,7 @@ public class IPBiomeModifierProvider{
 			modifiers.put(name, modifier);
 		}
 		
-		add.accept(JsonCodecProvider.forDatapackRegistry(generator, exhelper, ImmersivePetroleum.MODID, jsonOps, Keys.BIOME_MODIFIERS, modifiers.build()));
+		// TODO Whatver the new thing is supposed to be
+		//add.accept(JsonCodecProvider.forDatapackRegistry(generator, exhelper, ImmersivePetroleum.MODID, jsonOps, Keys.BIOME_MODIFIERS, modifiers.build()));
 	}
 }

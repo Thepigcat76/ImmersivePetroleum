@@ -2,7 +2,6 @@ package flaxbeard.immersivepetroleum.common.data.loot;
 
 import blusunrize.immersiveengineering.api.multiblocks.blocks.MultiblockRegistration;
 import blusunrize.immersiveengineering.common.util.loot.DropInventoryLootEntry;
-import blusunrize.immersiveengineering.common.util.loot.MBOriginalBlockLootEntry;
 import flaxbeard.immersivepetroleum.common.IPContent;
 import flaxbeard.immersivepetroleum.common.util.RegistryUtils;
 import flaxbeard.immersivepetroleum.common.util.loot.IPTileDropLootEntry;
@@ -63,7 +62,8 @@ public class IPBlockLoot implements Consumer<BiConsumer<ResourceLocation, LootTa
 	}
 	
 	private LootPool.Builder dropOriginalBlock(){
-		return createPoolBuilder().add(MBOriginalBlockLootEntry.builder());
+		// FIXME
+		return createPoolBuilder()/*.add(MBOriginalBlockLootEntry.builder())*/;
 	}
 	
 	private LootPool.Builder dropInv(){
