@@ -1,9 +1,6 @@
 package flaxbeard.immersivepetroleum.common.data.loot;
 
-import java.util.Arrays;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-
+import blusunrize.immersiveengineering.api.multiblocks.blocks.MultiblockRegistration;
 import blusunrize.immersiveengineering.common.util.loot.DropInventoryLootEntry;
 import blusunrize.immersiveengineering.common.util.loot.MBOriginalBlockLootEntry;
 import flaxbeard.immersivepetroleum.common.IPContent;
@@ -24,6 +21,10 @@ import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
+import java.util.Arrays;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+
 public class IPBlockLoot implements Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>{
 	private BiConsumer<ResourceLocation, LootTable.Builder> out;
 	
@@ -41,12 +42,12 @@ public class IPBlockLoot implements Consumer<BiConsumer<ResourceLocation, LootTa
 		register(IPContent.Blocks.GAS_GENERATOR.get(), tileDrop());
 		register(IPContent.Blocks.AUTO_LUBRICATOR.get(), tileDrop());
 		
-		registerMultiblock(IPContent.Multiblock.DISTILLATIONTOWER.get());
-		registerMultiblock(IPContent.Multiblock.PUMPJACK.get());
-		registerMultiblock(IPContent.Multiblock.HYDROTREATER.get());
-		registerMultiblock(IPContent.Multiblock.COKERUNIT.get());
-		registerMultiblock(IPContent.Multiblock.DERRICK.get());
-		registerMultiblock(IPContent.Multiblock.OILTANK.get());
+		registerMultiblock(IPContent.Multiblock.DISTILLATIONTOWER);
+		registerMultiblock(IPContent.Multiblock.PUMPJACK);
+		registerMultiblock(IPContent.Multiblock.HYDROTREATER);
+		registerMultiblock(IPContent.Multiblock.COKERUNIT);
+		registerMultiblock(IPContent.Multiblock.DERRICK);
+		registerMultiblock(IPContent.Multiblock.OILTANK);
 	}
 	
 	private <S extends SlabBlock> void createSlabItemTable(S block){
@@ -57,8 +58,8 @@ public class IPBlockLoot implements Consumer<BiConsumer<ResourceLocation, LootTa
 		register(block, LootTable.lootTable().withPool(createPoolBuilder().setRolls(ConstantValue.exactly(1.0F)).add(b)));
 	}
 	
-	private void registerMultiblock(Block b){
-		register(b, dropInv(), dropOriginalBlock());
+	private void registerMultiblock(MultiblockRegistration<?> multiblockReg){
+		register(multiblockReg.block().get(), dropInv(), dropOriginalBlock());
 	}
 	
 	private LootPool.Builder dropOriginalBlock(){

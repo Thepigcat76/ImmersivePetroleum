@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import javax.annotation.Nullable;
 
+import blusunrize.immersiveengineering.api.multiblocks.blocks.MultiblockRegistration;
 import org.apache.commons.lang3.mutable.Mutable;
 import org.apache.commons.lang3.mutable.MutableObject;
 
@@ -175,10 +176,10 @@ public class IPBlockStates extends BlockStateProvider{
 		ResourceLocation modelNormal = modLoc("models/multiblock/obj/distillationtower.obj");
 		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/distillationtower_mirrored.obj");
 		
-		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.DISTILLATIONTOWER.get(), modelNormal, idleTexture, "_idle", DistillationTowerMultiblock.INSTANCE, false);
-		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.DISTILLATIONTOWER.get(), modelMirrored, idleTexture, "_mirrored_idle", DistillationTowerMultiblock.INSTANCE, true);
+		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.DISTILLATIONTOWER, modelNormal, idleTexture, "_idle", DistillationTowerMultiblock.INSTANCE, false);
+		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.DISTILLATIONTOWER, modelMirrored, idleTexture, "_mirrored_idle", DistillationTowerMultiblock.INSTANCE, true);
 		
-		createMultiblock(IPContent.Multiblock.DISTILLATIONTOWER.get(), normal, mirrored, idleTexture);
+		createMultiblock(IPContent.Multiblock.DISTILLATIONTOWER, normal, mirrored, idleTexture);
 	}
 	
 	private void pumpjack(){
@@ -186,10 +187,10 @@ public class IPBlockStates extends BlockStateProvider{
 		ResourceLocation modelNormal = modLoc("models/multiblock/obj/pumpjack.obj");
 		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/pumpjack_mirrored.obj");
 		
-		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.PUMPJACK.get(), modelNormal, texture, "", PumpjackMultiblock.INSTANCE, false);
-		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.PUMPJACK.get(), modelMirrored, texture, "_mirrored", PumpjackMultiblock.INSTANCE, true);
+		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.PUMPJACK, modelNormal, texture, "", PumpjackMultiblock.INSTANCE, false);
+		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.PUMPJACK, modelMirrored, texture, "_mirrored", PumpjackMultiblock.INSTANCE, true);
 		
-		createMultiblock(IPContent.Multiblock.PUMPJACK.get(), normal, mirrored, texture);
+		createMultiblock(IPContent.Multiblock.PUMPJACK, normal, mirrored, texture);
 	}
 	
 	private void cokerunit(){
@@ -197,10 +198,10 @@ public class IPBlockStates extends BlockStateProvider{
 		ResourceLocation modelNormal = modLoc("models/multiblock/obj/cokerunit.obj");
 		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/cokerunit_mirrored.obj");
 		
-		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.COKERUNIT.get(), modelNormal, texture, "", CokerUnitMultiblock.INSTANCE, false);
-		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.COKERUNIT.get(), modelMirrored, texture, "_mirrored", CokerUnitMultiblock.INSTANCE, true);
+		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.COKERUNIT, modelNormal, texture, "", CokerUnitMultiblock.INSTANCE, false);
+		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.COKERUNIT, modelMirrored, texture, "_mirrored", CokerUnitMultiblock.INSTANCE, true);
 		
-		createMultiblock(IPContent.Multiblock.COKERUNIT.get(), normal, mirrored, texture);
+		createMultiblock(IPContent.Multiblock.COKERUNIT, normal, mirrored, texture);
 	}
 	
 	private void hydrotreater(){
@@ -208,10 +209,10 @@ public class IPBlockStates extends BlockStateProvider{
 		ResourceLocation modelNormal = modLoc("models/multiblock/obj/hydrotreater.obj");
 		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/hydrotreater_mirrored.obj");
 		
-		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.HYDROTREATER.get(), modelNormal, texture, "", HydroTreaterMultiblock.INSTANCE, false);
-		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.HYDROTREATER.get(), modelMirrored, texture, "_mirrored", HydroTreaterMultiblock.INSTANCE, true);
+		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.HYDROTREATER, modelNormal, texture, "", HydroTreaterMultiblock.INSTANCE, false);
+		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.HYDROTREATER, modelMirrored, texture, "_mirrored", HydroTreaterMultiblock.INSTANCE, true);
 		
-		createMultiblock(IPContent.Multiblock.HYDROTREATER.get(), normal, mirrored, texture);
+		createMultiblock(IPContent.Multiblock.HYDROTREATER, normal, mirrored, texture);
 	}
 	
 	private void derrick(){
@@ -219,10 +220,10 @@ public class IPBlockStates extends BlockStateProvider{
 		ResourceLocation modelNormal = modLoc("models/multiblock/obj/derrick.obj");
 		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/derrick_mirrored.obj");
 		
-		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.DERRICK.get(), modelNormal, texture, "", DerrickMultiblock.INSTANCE, false);
-		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.DERRICK.get(), modelMirrored, texture, "_mirrored", DerrickMultiblock.INSTANCE, true);
+		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.DERRICK, modelNormal, texture, "", DerrickMultiblock.INSTANCE, false);
+		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.DERRICK, modelMirrored, texture, "_mirrored", DerrickMultiblock.INSTANCE, true);
 		
-		createMultiblock(IPContent.Multiblock.DERRICK.get(), normal, mirrored, texture);
+		createMultiblock(IPContent.Multiblock.DERRICK, normal, mirrored, texture);
 	}
 	
 	private void oiltank(){
@@ -230,13 +231,13 @@ public class IPBlockStates extends BlockStateProvider{
 		ResourceLocation modelNormal = modLoc("models/multiblock/obj/oiltank.obj");
 		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/oiltank_mirrored.obj");
 		
-		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.OILTANK.get(), modelNormal, texture, "", OilTankMultiblock.INSTANCE, false);
-		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.OILTANK.get(), modelMirrored, texture, "_mirrored", OilTankMultiblock.INSTANCE, true);
+		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.OILTANK, modelNormal, texture, "", OilTankMultiblock.INSTANCE, false);
+		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.OILTANK, modelMirrored, texture, "_mirrored", OilTankMultiblock.INSTANCE, true);
 		
-		createMultiblock(IPContent.Multiblock.OILTANK.get(), normal, mirrored, texture);
+		createMultiblock(IPContent.Multiblock.OILTANK, normal, mirrored, texture);
 	}
 	
-	private BlockModelBuilder multiblockModel(Block block, ResourceLocation model, ResourceLocation texture, String add, TemplateMultiblock mb, boolean mirror){
+	private BlockModelBuilder multiblockModel(MultiblockRegistration<?> multiblockReg, ResourceLocation model, ResourceLocation texture, String add, TemplateMultiblock mb, boolean mirror){
 		UnaryOperator<BlockPos> transform = UnaryOperator.identity();
 		if(mirror){
 			Vec3i size = mb.getSize(null);
@@ -245,12 +246,12 @@ public class IPBlockStates extends BlockStateProvider{
 		final Vec3i offset = mb.getMasterFromOriginOffset();
 		
 		Stream<Vec3i> partsStream = mb.getStructure(null).stream()
-			.filter(info -> !info.state.isAir())
-			.map(info -> info.pos)
+			.filter(info -> !info.state().isAir())
+			.map(info -> info.pos())
 			.map(transform)
 			.map(p -> p.subtract(offset));
 		
-		String name = getMultiblockPath(block) + add;
+		String name = getMultiblockPath(multiblockReg.block().get()) + add;
 		NongeneratedModel base = nongeneratedModels.withExistingParent(name, mcLoc("block"))
 			.customLoader(ObjModelBuilder::begin).modelLocation(model).automaticCulling(false).flipV(true).end()
 			.texture("texture", texture)
@@ -357,8 +358,8 @@ public class IPBlockStates extends BlockStateProvider{
 	/**
 	 * From {@link blusunrize.immersiveengineering.common.data.BlockStates}
 	 */
-	private void createMultiblock(Block b, ModelFile masterModel, ModelFile mirroredModel, ResourceLocation particleTexture){
-		createMultiblock(b, masterModel, mirroredModel, IEProperties.MULTIBLOCKSLAVE, IEProperties.FACING_HORIZONTAL, IEProperties.MIRRORED, 180, particleTexture);
+	private void createMultiblock(MultiblockRegistration<?> multiblockReg, ModelFile masterModel, ModelFile mirroredModel, ResourceLocation particleTexture){
+		createMultiblock(multiblockReg.block().get(), masterModel, mirroredModel, IEProperties.MULTIBLOCKSLAVE, IEProperties.FACING_HORIZONTAL, IEProperties.MIRRORED, 180, particleTexture);
 	}
 	
 	/** From {@link blusunrize.immersiveengineering.common.data.BlockStates} */

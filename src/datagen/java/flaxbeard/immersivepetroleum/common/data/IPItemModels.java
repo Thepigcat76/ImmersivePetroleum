@@ -1,9 +1,5 @@
 package flaxbeard.immersivepetroleum.common.data;
 
-import javax.annotation.Nullable;
-
-import org.joml.Vector3f;
-
 import blusunrize.immersiveengineering.api.client.ieobj.DefaultCallback;
 import blusunrize.immersiveengineering.data.models.IEOBJBuilder;
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
@@ -23,6 +19,10 @@ import net.neoforged.neoforge.client.model.generators.loaders.DynamicFluidContai
 import net.neoforged.neoforge.client.model.generators.loaders.ObjModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.joml.Vector3f;
+
+import javax.annotation.Nullable;
+import java.util.function.Supplier;
 
 public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	public IPItemModels(PackOutput output, DataGenerator gen, ExistingFileHelper exHelper){
@@ -157,7 +157,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	}
 	
 	private void distillationtowerItem(){
-		TRSRModelBuilder model = obj(IPContent.Multiblock.DISTILLATIONTOWER.get(), "multiblock/obj/distillationtower.obj")
+		TRSRModelBuilder model = obj(IPContent.Multiblock.DISTILLATIONTOWER.block(), "multiblock/obj/distillationtower.obj")
 			.texture("texture", modLoc("multiblock/distillation_tower"));
 		
 		ModelBuilder<?>.TransformsBuilder trans = model.transforms();
@@ -172,7 +172,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	}
 	
 	private void pumpjackItem(){
-		TRSRModelBuilder model = obj(IPContent.Multiblock.PUMPJACK.get(), "item/obj/pumpjack_itemmockup.obj")
+		TRSRModelBuilder model = obj(IPContent.Multiblock.PUMPJACK.block(), "item/obj/pumpjack_itemmockup.obj")
 			.texture("texture_base", modLoc("multiblock/pumpjack_base"))
 			.texture("texture_armature", modLoc("models/pumpjack_armature"));
 		
@@ -188,7 +188,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	}
 	
 	private void cokerunitItem(){
-		TRSRModelBuilder model = obj(IPContent.Multiblock.COKERUNIT.get(), "multiblock/obj/cokerunit.obj")
+		TRSRModelBuilder model = obj(IPContent.Multiblock.COKERUNIT.block(), "multiblock/obj/cokerunit.obj")
 				.texture("texture", modLoc("multiblock/cokerunit"));
 		
 		ModelBuilder<?>.TransformsBuilder trans = model.transforms();
@@ -203,7 +203,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	}
 	
 	private void hydrotreaterItem(){
-		TRSRModelBuilder model = obj(IPContent.Multiblock.HYDROTREATER.get(), "multiblock/obj/hydrotreater.obj")
+		TRSRModelBuilder model = obj(IPContent.Multiblock.HYDROTREATER.block(), "multiblock/obj/hydrotreater.obj")
 				.texture("texture", modLoc("multiblock/hydrotreater"));
 		
 		ModelBuilder<?>.TransformsBuilder trans = model.transforms();
@@ -218,7 +218,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	}
 	
 	private void derrickItem(){
-		TRSRModelBuilder model = obj(IPContent.Multiblock.DERRICK.get(), "multiblock/obj/derrick.obj")
+		TRSRModelBuilder model = obj(IPContent.Multiblock.DERRICK.block(), "multiblock/obj/derrick.obj")
 				.texture("texture", modLoc("multiblock/derrick"));
 		
 		ModelBuilder<?>.TransformsBuilder trans = model.transforms();
@@ -233,7 +233,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	}
 	
 	private void oiltankItem(){
-		TRSRModelBuilder model = obj(IPContent.Multiblock.OILTANK.get(), "multiblock/obj/oiltank.obj")
+		TRSRModelBuilder model = obj(IPContent.Multiblock.OILTANK.block(), "multiblock/obj/oiltank.obj")
 				.texture("texture", modLoc("multiblock/oiltank"));
 		
 		ModelBuilder<?>.TransformsBuilder trans = model.transforms();
@@ -255,6 +255,10 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 			trans.rotation(rotationAngle.x(), rotationAngle.y(), rotationAngle.z());
 		trans.scale(scale);
 		trans.end();
+	}
+	
+	private TRSRModelBuilder obj(Supplier<? extends ItemLike> item, String model){
+		return obj(item.get(), model);
 	}
 	
 	private TRSRModelBuilder obj(ItemLike item, String model){
