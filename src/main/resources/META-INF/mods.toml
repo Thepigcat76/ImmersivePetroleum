@@ -1,11 +1,11 @@
 modLoader="javafml"
-loaderVersion="[43,)"
+loaderVersion="[1,)"
 issueTrackerURL="https://github.com/TwistedGate/ImmersivePetroleum/issues"
 license="All rights reserved"
 
 [[mods]] #mandatory
 	modId="immersivepetroleum"
-	version="${mod_version}"
+	version="${version_ip}"
 	displayName="Immersive Petroleum"
 	displayURL="https://minecraft.curseforge.com/projects/immersive-petroleum"
 	authors="Flaxbeard and Maintained by TwistedGate"
@@ -17,27 +17,27 @@ license="All rights reserved"
 [[dependencies.immersivepetroleum]]
 	modId="minecraft"
 	type="required"
-	versionRange="[${mc_version}]"
+	versionRange="[${version_minecraft}]"
 	ordering="NONE"
 	side="BOTH"
 
 [[dependencies.immersivepetroleum]]
 	modId="neoforge"
 	type="required"
-	versionRange="[${neoforge_version},)"
+	versionRange="[${version_neoforge},)"
 	ordering="NONE"
 	side="BOTH"
 
 [[dependencies.immersivepetroleum]]
 	modId="immersiveengineering"
 	type="required"
-	versionRange="[${ie_version},)"
+	versionRange="[${version_ie},)"
 	ordering="BEFORE"
 	side="BOTH"
 
 [[dependencies.immersivepetroleum]]
 	modId="jei"
 	type="optional"
-	versionRange="[${jei_version},)"
+	versionRange="[${version_jei},)"
 	ordering="NONE"
 	side="BOTH"

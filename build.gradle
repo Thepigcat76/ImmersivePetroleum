@@ -47,11 +47,11 @@ sourceSets {
 }
 
 def version_replaces = [
-	'mc_version'		: version_minecraft,
-	'neoforge_version'	: version_neoforge,
-	'mod_version'		: project.version,
-	'ie_version'		: version_ie,
-	'jei_version'		: version_jei,
+	'version_minecraft'	: version_minecraft,
+	'version_neoforge'	: version_neoforge,
+	'version_ip'		: project.version,
+	'version_ie'		: version_ie,
+	'version_jei'		: version_jei,
 ]
 
 processResources {
