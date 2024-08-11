@@ -74,23 +74,23 @@ runs {
 		
 		systemProperty 'mixin.env.remapRefMap', 'true'
 		systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-
+		
 		modSource project.sourceSets.main
 	}
-
+	
 	client
-
+	
 	server {
 		programArgument '-nogui'
 	}
-
+	
 	data {
-		programArguments.addAll '--mod', 'immersivepetroleum',
-			 '--all',
-			 '--output', file('src/generated/resources/').getAbsolutePath(),
-			 '--validate',
-			 '--existing', sourceSets.main.resources.srcDirs[0].getAbsolutePath(),
-			 '--existing-mod', 'immersiveengineering'
+		getArguments().addAll '--mod', 'immersivepetroleum',
+				'--all',
+				'--output', file('src/generated/resources/').getAbsolutePath(),
+				'--validate',
+				'--existing', sourceSets.main.resources.srcDirs[0].getAbsolutePath(),
+				'--existing-mod', 'immersiveengineering'
 	}
 }
 
@@ -100,10 +100,10 @@ dependencies {
 	implementation "blusunrize.immersiveengineering:ImmersiveEngineering:${version_ie}"
 	//compileOnly "blusunrize.immersiveengineering:ImmersiveEngineering:${version_ie}:api"
 	datagenImplementation "blusunrize.immersiveengineering:ImmersiveEngineering:${version_ie}:datagen"
-
+	
 	//implementation "vazkii.patchouli:Patchouli:1.18.2-67"
 	//implementation "curse.maven:pneumaticcraft-repressurized-281849:3913972"
-
+	
 	//compileOnly "com.blamejared.crafttweaker:CraftTweaker-forge-1.19.2:${version_ct}"
 	
 	runtimeOnly "mezz.jei:jei-${version_minecraft}-neoforge:${version_jei}"
@@ -114,9 +114,9 @@ dependencies {
 	//compileOnly "cc.tweaked:cc-tweaked-${version_minecraft}-common-api:${version_cctweaked}"
 }
 
-def customGradle = rootProject.file('custom.gradle');
+def customGradle = rootProject.file('custom.gradle')
 if(customGradle.exists()){
-	apply from: customGradle;
+	apply from: customGradle
 }
 
 jar {
