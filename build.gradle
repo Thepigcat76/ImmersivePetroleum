@@ -10,9 +10,9 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 //----------------------------------------------------------------------------------------------------------------------
 
-version = '4.2.0-28'
-group = 'flaxbeard.immersivepetroleum'
-archivesBaseName = 'ImmersivePetroleum-1.20.4'
+version = mod_version
+group = mod_group
+base.archivesName = "Immersive Petroleum-" + version_minecraft
 
 repositories {
 	maven {	name = "BlameJared";	url = "https://maven.blamejared.com/" }			// IE & CT Files
