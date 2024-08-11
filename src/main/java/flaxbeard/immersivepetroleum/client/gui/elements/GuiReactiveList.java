@@ -144,7 +144,7 @@ public class GuiReactiveList extends Button{
 					targetEntry = j;
 					hoverTimer = 0;
 				}else
-					hoverTimer += 2.5 * partialTicks;
+					hoverTimer += 2.5F * partialTicks;
 				col = textHoverColor;
 			}
 			if(j > entries.length - 1)
@@ -162,7 +162,7 @@ public class GuiReactiveList extends Button{
 			float tx = ((getX() + padding[2]) / textScale);
 			float ty = ((getY() + padding[0] + (fr.lineHeight * i)) / textScale);
 			matrix.translate(tx, ty, 0);
-			guiGraphics.drawString(fr, s, 0, 0, col);
+			guiGraphics.drawString(fr, s, 0, 0, col, false);
 			matrix.translate(-tx, -ty, 0);
 		}
 		matrix.scale(1 / textScale, 1 / textScale, 1);
