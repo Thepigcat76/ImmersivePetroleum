@@ -1,8 +1,5 @@
 package flaxbeard.immersivepetroleum.common;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import blusunrize.immersiveengineering.api.IETags;
 import blusunrize.immersiveengineering.api.multiblocks.MultiblockHandler;
 import blusunrize.immersiveengineering.api.multiblocks.blocks.MultiblockRegistration;
@@ -72,6 +69,8 @@ import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
 import net.neoforged.fml.event.lifecycle.ParallelDispatchEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod.EventBusSubscriber(modid = ImmersivePetroleum.MODID, bus = Bus.MOD)
 public class IPContent{
@@ -222,6 +221,7 @@ public class IPContent{
 		IPEntityTypes.forceClassLoad();
 		IPParticleTypes.forceClassLoad();
 		IPSounds.forceClassLoad();
+		IPTileTypes.forceClassLoad();
 	}
 	
 	public static void preInit(){

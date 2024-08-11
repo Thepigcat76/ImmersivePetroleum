@@ -26,4 +26,7 @@ public class IPTileTypes{
 	public static final DeferredHolder<BlockEntityType<?>,BlockEntityType<WellPipeTileEntity>> WELL_PIPE = IPRegisters.registerTE("well_pipe", WellPipeTileEntity::new, IPContent.Blocks.WELL_PIPE);
 	
 	public static final DeferredHolder<BlockEntityType<?>,BlockEntityType<SeismicSurveyTileEntity>> SEISMIC_SURVEY = IPRegisters.registerTE("seismic_survey", SeismicSurveyTileEntity::new, IPContent.Blocks.SEISMIC_SURVEY);
+	
+	public static void forceClassLoad(){
+	}
 }
