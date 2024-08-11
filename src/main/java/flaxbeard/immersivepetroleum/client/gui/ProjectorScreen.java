@@ -28,12 +28,11 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.Vec3i;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -205,6 +204,7 @@ public class ProjectorScreen extends Screen{
 	
 	@Override
 	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTicks){
+		renderBackground(guiGraphics, mouseX, mouseY, partialTicks);
 		
 		PoseStack matrix = guiGraphics.pose();
 		
@@ -225,10 +225,16 @@ public class ProjectorScreen extends Screen{
 			
 			Component text = mb.getDisplayName();
 			FormattedCharSequence re = text.getVisualOrderText();
-			//this.font.drawInBatch(matrix, re, (x - this.font.width(re) / 2), y, 0x3F3F3F); // TODO
+			
+			guiGraphics.drawString(this.font, re, (x - this.font.width(re) / 2), y, 0, false);
 		}
+		
 		background(guiGraphics, mouseX, mouseY, partialTicks);
-		super.render(guiGraphics, mouseX, mouseY, partialTicks);
+		
+		for(Renderable renderable : this.renderables) {
+			renderable.render(guiGraphics, mouseX, mouseY, partialTicks);
+		}
+		
 		this.searchField.render(guiGraphics, mouseX, mouseY, partialTicks);
 		
 		for(Renderable rawWidget:this.renderables){
@@ -247,19 +253,19 @@ public class ProjectorScreen extends Screen{
 			try{
 				
 				this.rotation += 1.5F * partialTicks;
+				this.rotation %= 360;
 				
-				Vec3i size = mb.getSize(null);
+				Vec3i size = mb.getSize(MCUtil.getLevel());
 				matrix.pushPose();
 				{
 					matrix.translate(this.guiLeft + 190, this.guiTop + 80, 64);
 					matrix.scale(mb.getManualScale(), -mb.getManualScale(), 1);
-					matrix.mulPose(new Quaternionf(new AxisAngle4f(25, 1, 0, 0)));
-					matrix.mulPose(new Quaternionf(new AxisAngle4f((int) (45 - this.rotation), 0, 1, 0)));
+					matrix.mulPose(new Quaternionf(new AxisAngle4f(25 * Mth.DEG_TO_RAD, 1, 0, 0)));
+					matrix.mulPose(new Quaternionf(new AxisAngle4f((45 - this.rotation) * Mth.DEG_TO_RAD, 0, 1, 0)));
 					matrix.translate(size.getX() / -2F, size.getY() / -2F, size.getZ() / -2F);
 					
 					MultiblockManualData mbClientData = ClientMultiblocks.get(mb);
-					boolean tempDisable = true;
-					if(tempDisable && mbClientData.canRenderFormedStructure()){
+					if(mbClientData.canRenderFormedStructure()){
 						matrix.pushPose();
 						{
 							mbClientData.renderFormedStructure(matrix, IPRenderTypes.disableLighting(buffer));
@@ -267,7 +273,7 @@ public class ProjectorScreen extends Screen{
 						matrix.popPose();
 					}else{
 						if(this.templateWorld == null || (!this.multiblock.getUniqueName().equals(mb.getUniqueName()))){
-							this.templateWorld = TemplateWorldCreator.CREATOR.get().makeWorld(mb.getStructure(MCUtil.getLevel()), pos -> true, RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY));
+							this.templateWorld = TemplateWorldCreator.CREATOR.get().makeWorld(mb.getStructure(MCUtil.getLevel()), pos -> true, MCUtil.getLevel().registryAccess());
 							this.multiblock = mb;
 						}
 						
