@@ -132,3 +132,10 @@ jar {
 		])
 	}
 }
+
+idea {
+	module {
+		downloadSources = true
+		downloadJavadoc = true
+	}
+}
