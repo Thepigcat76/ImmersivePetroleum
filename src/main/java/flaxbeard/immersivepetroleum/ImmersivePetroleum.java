@@ -1,16 +1,6 @@
 package flaxbeard.immersivepetroleum;
 
-import flaxbeard.immersivepetroleum.common.items.MotorboatItem;
-import flaxbeard.immersivepetroleum.common.util.IPItemStackHandler;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-
 import flaxbeard.immersivepetroleum.api.crafting.IPRecipeTypes;
 import flaxbeard.immersivepetroleum.api.reservoir.ReservoirHandler;
 import flaxbeard.immersivepetroleum.client.ClientProxy;
@@ -25,7 +15,9 @@ import flaxbeard.immersivepetroleum.common.ReservoirRegionDataStorage;
 import flaxbeard.immersivepetroleum.common.cfg.IPClientConfig;
 import flaxbeard.immersivepetroleum.common.cfg.IPServerConfig;
 import flaxbeard.immersivepetroleum.common.crafting.RecipeReloadListener;
+import flaxbeard.immersivepetroleum.common.items.MotorboatItem;
 import flaxbeard.immersivepetroleum.common.network.IPPacketHandler;
+import flaxbeard.immersivepetroleum.common.util.IPItemStackHandler;
 import flaxbeard.immersivepetroleum.common.util.commands.IslandCommand;
 import flaxbeard.immersivepetroleum.common.util.loot.IPLootFunctions;
 import flaxbeard.immersivepetroleum.common.world.IPWorldGen;
@@ -43,12 +35,17 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.AddReloadListenerEvent;
 import net.neoforged.neoforge.event.RegisterCommandsEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Mod(ImmersivePetroleum.MODID)
 public class ImmersivePetroleum{
@@ -73,7 +70,7 @@ public class ImmersivePetroleum{
 		NeoForge.EVENT_BUS.addListener(this::worldLoad);
 		NeoForge.EVENT_BUS.addListener(this::serverStarting);
 		NeoForge.EVENT_BUS.addListener(this::registerCommand);
-		NeoForge.EVENT_BUS.addListener(this::registerCapabilities);
+		//NeoForge.EVENT_BUS.addListener(this::registerCapabilities); // FIXME not valid for this bus for some reason?
 		NeoForge.EVENT_BUS.addListener(this::addReloadListeners);
 		
 		IPRegisters.addRegistersToEventBus(modBus); // TODO Might need to be moved to be *under* IPContent.modConstruction
