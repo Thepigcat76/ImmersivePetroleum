@@ -7,7 +7,6 @@ import net.neoforged.fml.common.Mod.EventBusSubscriber;
 import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
 
 @OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(value = Dist.CLIENT, modid = ImmersivePetroleum.MODID, bus = Bus.MOD)
 public class OilTankRenderer /*implements BlockEntityRenderer<OilTankTileEntity>*/{
 	/*
 	@Override
