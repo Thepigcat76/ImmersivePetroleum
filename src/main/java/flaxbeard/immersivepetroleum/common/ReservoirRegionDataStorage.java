@@ -47,7 +47,7 @@ public class ReservoirRegionDataStorage extends SavedData{
 	}
 	
 	public static final void init(final DimensionDataStorage dimData){
-		dimData.computeIfAbsent(new SavedData.Factory<>(() -> {
+		active_instance = dimData.computeIfAbsent(new SavedData.Factory<>(() -> {
 			log.debug("Creating new ReservoirRegionDataStorage instance.");
 			return new ReservoirRegionDataStorage(dimData);
 		}, nbt -> new ReservoirRegionDataStorage(dimData, nbt)), DATA_NAME);
