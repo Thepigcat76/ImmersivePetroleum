@@ -26,8 +26,7 @@ public class IPDataGenerator{
 		final PackOutput output = generator.getPackOutput();
 		final CompletableFuture<HolderLookup.Provider> lookup = event.getLookupProvider();
 		
-		if(event.includeServer())
-		{
+		if(event.includeServer()){
 			IPBlockTags blockTags = new IPBlockTags(output, lookup, exHelper);
 			generator.addProvider(true, blockTags);
 			generator.addProvider(true, new IPItemTags(output, lookup, blockTags.contentsGetter(), exHelper));

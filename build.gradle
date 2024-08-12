@@ -17,16 +17,16 @@ base.archivesName = "Immersive Petroleum-" + version_minecraft
 repositories {
 	maven {	name = "BlameJared";	url = "https://maven.blamejared.com/" }			// IE & CT Files
 	maven { name = "DVS1 Maven FS"; url = "https://dvs1.progwml6.com/files/maven" }	// JEI & Tinkers Files
-	maven { name = "CurseMaven";	url = 'https://cfa2.cursemaven.com' }			// Needed for PNC
+	maven { name = "CurseMaven";	url = "https://cfa2.cursemaven.com" }			// Needed for PNC
 	maven { // CC-Tweaked
-		url 'https://squiddev.cc/maven/'
+		url "https://squiddev.cc/maven/"
 		content {
 			includeGroup("cc.tweaked")
 			includeModule("org.squiddev", "Cobalt")
 		}
 	}
 	
-	flatDir { dirs 'flatdir' }
+	flatDir { dirs "flatdir" }
 }
 
 sourceSets {
@@ -47,11 +47,11 @@ sourceSets {
 }
 
 def version_replaces = [
-	'version_minecraft'	: version_minecraft,
-	'version_neoforge'	: version_neoforge,
-	'version_ip'		: project.version,
-	'version_ie'		: version_ie,
-	'version_jei'		: version_jei,
+	"version_minecraft"	: version_minecraft,
+	"version_neoforge"	: version_neoforge,
+	"version_ip"		: project.version,
+	"version_ie"		: version_ie,
+	"version_jei"		: version_jei,
 ]
 
 processResources {
@@ -63,25 +63,25 @@ processResources {
 	exclude ".cache"
 }
 
-minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
+minecraft.accessTransformers.file rootProject.file("src/main/resources/META-INF/accesstransformer.cfg")
 
 runs {
 	configureEach {
-		workingDirectory project.file('run')
-		systemProperty 'forge.logging.markers', 'REGISTRIES'
-		systemProperty 'forge.logging.console.level', 'info'
-		systemProperty 'fml.earlyprogresswindow', 'false'
+		workingDirectory project.file("run")
+		systemProperty "forge.logging.markers", "REGISTRIES"
+		systemProperty "forge.logging.console.level", "info"
+		systemProperty "fml.earlyprogresswindow", "false"
 		
-		systemProperty 'mixin.env.remapRefMap', 'true'
-		systemProperty 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+		systemProperty "mixin.env.remapRefMap", "true"
+		systemProperty "mixin.env.refMapRemappingFile", "${projectDir}/build/createSrgToMcp/output.srg"
 		
-		modSource project.sourceSets.main
+		modSource sourceSets.main
 	}
 	
 	client
 	
 	server {
-		programArgument '-nogui'
+		programArgument "-nogui"
 	}
 	
 	data {
@@ -91,6 +91,12 @@ runs {
 				'--validate',
 				'--existing', sourceSets.main.resources.srcDirs[0].getAbsolutePath(),
 				'--existing-mod', 'immersiveengineering'
+		getArguments().addAll "--mod", "immersivepetroleum",
+				"--all",
+				"--output", file("src/generated/resources/").toString(),
+				"--validate",
+				"--existing", sourceSets.main.resources.srcDirs[0].toString(),
+				"--existing-mod", "immersiveengineering"
 	}
 }
 
@@ -114,7 +120,7 @@ dependencies {
 	//compileOnly "cc.tweaked:cc-tweaked-${version_minecraft}-common-api:${version_cctweaked}"
 }
 
-def customGradle = rootProject.file('custom.gradle')
+def customGradle = rootProject.file("custom.gradle")
 if(customGradle.exists()){
 	apply from: customGradle
 }
