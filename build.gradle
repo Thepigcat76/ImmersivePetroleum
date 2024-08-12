@@ -85,18 +85,13 @@ runs {
 	}
 	
 	data {
-		getArguments().addAll '--mod', 'immersivepetroleum',
-				'--all',
-				'--output', file('src/generated/resources/').getAbsolutePath(),
-				'--validate',
-				'--existing', sourceSets.main.resources.srcDirs[0].getAbsolutePath(),
-				'--existing-mod', 'immersiveengineering'
 		getArguments().addAll "--mod", "immersivepetroleum",
 				"--all",
 				"--output", file("src/generated/resources/").toString(),
 				"--validate",
 				"--existing", sourceSets.main.resources.srcDirs[0].toString(),
 				"--existing-mod", "immersiveengineering"
+		modSource sourceSets.datagen
 	}
 }
 
