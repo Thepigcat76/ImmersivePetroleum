@@ -1,12 +1,8 @@
 package flaxbeard.immersivepetroleum.common.data;
 
-import java.util.Map.Entry;
-import java.util.function.Consumer;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.JsonOps;
-
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
 import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
 import flaxbeard.immersivepetroleum.common.world.IPWorldGen;
@@ -30,6 +26,9 @@ import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.BiomeModifiers.AddFeaturesBiomeModifier;
 import net.neoforged.neoforge.registries.NeoForgeRegistries.Keys;
 import net.neoforged.neoforge.registries.holdersets.AnyHolderSet;
+
+import java.util.Map.Entry;
+import java.util.function.Consumer;
 
 public class IPBiomeModifierProvider{
 	public static void method(DataGenerator generator, ExistingFileHelper exhelper, Consumer<DataProvider> add){

@@ -1,10 +1,5 @@
 package flaxbeard.immersivepetroleum.common.data;
 
-import java.util.concurrent.CompletableFuture;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
 import flaxbeard.immersivepetroleum.common.data.loot.IPLootGenerator;
 import net.minecraft.core.HolderLookup;
@@ -15,6 +10,10 @@ import net.neoforged.fml.common.Mod.EventBusSubscriber;
 import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.util.concurrent.CompletableFuture;
 
 @EventBusSubscriber(modid = ImmersivePetroleum.MODID, bus = Bus.MOD)
 public class IPDataGenerator{
@@ -26,14 +25,14 @@ public class IPDataGenerator{
 		final DataGenerator generator = event.getGenerator();
 		final PackOutput output = generator.getPackOutput();
 		final CompletableFuture<HolderLookup.Provider> lookup = event.getLookupProvider();
-		//StaticTemplateManager.EXISTING_HELPER = exhelper;
 		
-		if(event.includeServer()){
+		if(event.includeServer())
+		{
 			IPBlockTags blockTags = new IPBlockTags(output, lookup, exHelper);
 			generator.addProvider(true, blockTags);
 			generator.addProvider(true, new IPItemTags(output, lookup, blockTags.contentsGetter(), exHelper));
 			generator.addProvider(true, new IPFluidTags(output, lookup, exHelper));
-			//generator.addProvider(true, new IPLootGenerator(generator)); // TODO
+			generator.addProvider(true, new IPLootGenerator(output));
 			generator.addProvider(true, new IPRecipes(output));
 			generator.addProvider(true, new IPAdvancements(output, lookup, exHelper));
 			

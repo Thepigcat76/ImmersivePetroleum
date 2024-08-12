@@ -2,10 +2,12 @@ package flaxbeard.immersivepetroleum.common.data.loot;
 
 import blusunrize.immersiveengineering.api.multiblocks.blocks.MultiblockRegistration;
 import blusunrize.immersiveengineering.common.util.loot.DropInventoryLootEntry;
+import blusunrize.immersiveengineering.data.loot.LootUtils;
 import flaxbeard.immersivepetroleum.common.IPContent;
 import flaxbeard.immersivepetroleum.common.util.RegistryUtils;
 import flaxbeard.immersivepetroleum.common.util.loot.IPTileDropLootEntry;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
+import net.minecraft.data.loot.LootTableSubProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -22,13 +24,12 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 import java.util.Arrays;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
-public class IPBlockLoot implements Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>{
+public class IPBlockLoot implements LootTableSubProvider{
 	private BiConsumer<ResourceLocation, LootTable.Builder> out;
 	
 	@Override
-	public void accept(BiConsumer<ResourceLocation, LootTable.Builder> out){
+	public void generate(BiConsumer<ResourceLocation, LootTable.Builder> out){
 		this.out = out;
 		registerSelfDropping(IPContent.Blocks.ASPHALT.get());
 		createSlabItemTable(IPContent.Blocks.ASPHALT_SLAB.get());
@@ -62,8 +63,7 @@ public class IPBlockLoot implements Consumer<BiConsumer<ResourceLocation, LootTa
 	}
 	
 	private LootPool.Builder dropOriginalBlock(){
-		// FIXME
-		return createPoolBuilder()/*.add(MBOriginalBlockLootEntry.builder())*/;
+		return createPoolBuilder().add(LootUtils.getMultiblockDropBuilder());
 	}
 	
 	private LootPool.Builder dropInv(){
