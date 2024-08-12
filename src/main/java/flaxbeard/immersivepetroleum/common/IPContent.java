@@ -11,6 +11,8 @@ import flaxbeard.immersivepetroleum.api.IPTags;
 import flaxbeard.immersivepetroleum.api.crafting.FlarestackHandler;
 import flaxbeard.immersivepetroleum.api.crafting.LubricantHandler;
 import flaxbeard.immersivepetroleum.api.crafting.LubricatedHandler.LubricantEffect;
+import flaxbeard.immersivepetroleum.client.particle.FlareFire;
+import flaxbeard.immersivepetroleum.client.particle.FluidSpill;
 import flaxbeard.immersivepetroleum.client.particle.IPParticleTypes;
 import flaxbeard.immersivepetroleum.common.blocks.IPBlockItemBase;
 import flaxbeard.immersivepetroleum.common.blocks.metal.FlarestackBlock;
@@ -54,6 +56,9 @@ import flaxbeard.immersivepetroleum.common.items.ProjectorItem;
 import flaxbeard.immersivepetroleum.common.items.SurveyResultItem;
 import flaxbeard.immersivepetroleum.common.util.IPEffects;
 import flaxbeard.immersivepetroleum.common.util.sounds.IPSounds;
+import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -275,8 +280,7 @@ public class IPContent{
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent
 	public static void registerParticleFactories(RegisterParticleProvidersEvent event){
-		// TODO Register Particles/Sprites
-		//event.registerSprite(IPParticleTypes.FLARE_FIRE.value(), FlareFire.Factory::new);
-		//event.registerSprite(IPParticleTypes.FLUID_SPILL.value(), new FluidSpill.Factory());
+		event.registerSpriteSet(IPParticleTypes.FLARE_FIRE.value(), FlareFire.Factory::new);
+		event.registerSpecial(IPParticleTypes.FLUID_SPILL.value(), new FluidSpill.Factory());
 	}
 }

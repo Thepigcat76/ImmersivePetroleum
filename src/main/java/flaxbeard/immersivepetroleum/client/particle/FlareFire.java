@@ -1,16 +1,11 @@
 package flaxbeard.immersivepetroleum.client.particle;
 
-import java.util.Random;
-
-import javax.annotation.Nonnull;
-
-import org.joml.Vector3f;
-
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
 import flaxbeard.immersivepetroleum.client.utils.MCUtil;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
+import net.minecraft.client.particle.ParticleRenderType;
 import net.minecraft.client.particle.SimpleAnimatedParticle;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -21,6 +16,10 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.LogicalSide;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.TickEvent;
+import org.joml.Vector3f;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 @OnlyIn(Dist.CLIENT)
 public class FlareFire extends SimpleAnimatedParticle{
@@ -70,6 +69,12 @@ public class FlareFire extends SimpleAnimatedParticle{
 		
 		this.move(vec.x() * f, this.ogMotionY * (1F - f), vec.z() * f);
 		this.roll += this.rotation;
+	}
+	
+	@Nonnull
+	@Override
+	public ParticleRenderType getRenderType(){
+		return ParticleRenderType.PARTICLE_SHEET_LIT;
 	}
 	
 	@OnlyIn(Dist.CLIENT)
