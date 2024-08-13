@@ -38,7 +38,8 @@ public class IPDataGenerator{
 			generator.addProvider(true, new IPBlockStates(output, exHelper));
 			generator.addProvider(true, new IPItemModels(output, generator, exHelper));
 			
-			IPBiomeModifierProvider.method(generator, exHelper, d -> generator.addProvider(true, d));
+			// FIXME one the dust settles
+			//IPBiomeModifierProvider.method(generator, exHelper, d -> generator.addProvider(true, d));
 		}
 	}
 }
