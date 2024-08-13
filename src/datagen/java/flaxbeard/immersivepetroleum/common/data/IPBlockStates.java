@@ -1,22 +1,12 @@
 package flaxbeard.immersivepetroleum.common.data;
 
-import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import javax.annotation.Nullable;
-
-import blusunrize.immersiveengineering.api.multiblocks.blocks.MultiblockRegistration;
-import org.apache.commons.lang3.mutable.Mutable;
-import org.apache.commons.lang3.mutable.MutableObject;
-
-import com.google.common.base.Preconditions;
-
 import blusunrize.immersiveengineering.api.IEProperties;
 import blusunrize.immersiveengineering.api.multiblocks.TemplateMultiblock;
+import blusunrize.immersiveengineering.api.multiblocks.blocks.MultiblockRegistration;
 import blusunrize.immersiveengineering.data.models.NongeneratedModels;
 import blusunrize.immersiveengineering.data.models.NongeneratedModels.NongeneratedModel;
 import blusunrize.immersiveengineering.data.models.SplitModelBuilder;
+import com.google.common.base.Preconditions;
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
 import flaxbeard.immersivepetroleum.common.IPContent;
 import flaxbeard.immersivepetroleum.common.blocks.metal.FlarestackBlock;
@@ -54,6 +44,13 @@ import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder;
 import net.neoforged.neoforge.client.model.generators.VariantBlockStateBuilder.PartialBlockstate;
 import net.neoforged.neoforge.client.model.generators.loaders.ObjModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.apache.commons.lang3.mutable.Mutable;
+import org.apache.commons.lang3.mutable.MutableObject;
+
+import javax.annotation.Nullable;
+import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class IPBlockStates extends BlockStateProvider{
 	final ExistingFileHelper exFileHelper;
@@ -67,12 +64,13 @@ public class IPBlockStates extends BlockStateProvider{
 	@Override
 	protected void registerStatesAndModels(){
 		// Multiblocks
-		distillationtower();
-		pumpjack();
-		cokerunit();
-		hydrotreater();
-		derrick();
-		oiltank();
+		// TODO Re-Enable after Multiblocks are Completed (Or Semi-Completed).
+		//distillationtower();
+		//pumpjack();
+		//cokerunit();
+		//hydrotreater();
+		//derrick();
+		//oiltank();
 		
 		// Oddballs
 		autolubricator();
