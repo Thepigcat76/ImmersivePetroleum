@@ -515,7 +515,7 @@ public class IPRecipes extends RecipeProvider{
 			.save(this.out, rl("molotov_fabric"));
 		
 		BottlingMachineRecipeBuilder.builder()
-			.input(IPContent.Items.GASOLINE_BOTTLE.get())
+			.output(IPContent.Items.GASOLINE_BOTTLE.get())
 			.fluidInput(IPTags.Fluids.gasoline, GasolineBottleItem.FILLED_AMOUNT)
 			.input(Items.GLASS_BOTTLE)
 			.build(this.out, rl("bottling/gasoline_bottle"));
