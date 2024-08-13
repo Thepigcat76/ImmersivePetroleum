@@ -31,12 +31,7 @@ repositories {
 
 sourceSets {
 	main {
-		resources {
-			srcDirs = [
-				"$rootDir/src/main/resources",
-				"$rootDir/src/generated/resources"
-			]
-		}
+		resources.srcDirs = ["src/main/resources", "src/generated/resources"]
 	}
 	datagen {
 		compileClasspath += main.compileClasspath
@@ -81,16 +76,16 @@ runs {
 	client
 	
 	server {
-		programArgument "-nogui"
+		getArguments().add "-nogui"
 	}
-	
+
 	data {
 		getArguments().addAll "--mod", "immersivepetroleum",
-				"--all",
+				"--all", "--validate",
 				"--output", file("src/generated/resources/").toString(),
-				"--validate",
-				"--existing", sourceSets.main.resources.srcDirs[0].toString(),
+				"--existing", file("src/main/resources").toString(),
 				"--existing-mod", "immersiveengineering"
+		
 		modSource sourceSets.datagen
 	}
 }
