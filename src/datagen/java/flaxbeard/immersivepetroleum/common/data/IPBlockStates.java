@@ -99,7 +99,7 @@ public class IPBlockStates extends BlockStateProvider{
 			Block wellPipe = IPContent.Blocks.WELL_PIPE.get();
 			final ResourceLocation wellPipeRL = RegistryUtils.getRegistryNameOf(wellPipe);
 			
-			ResourceLocation ieConreteTexture = ResourceUtils.ie("block/stone_decoration/concrete");
+			ResourceLocation ieConreteTexture = ResourceUtils.ie("block/stone_decoration/concrete/concrete0");
 			ResourceLocation concrete_cracked = modLoc("block/concrete_cracked");
 			ResourceLocation wellPipeTexture = modLoc("block/well_pipe_top");
 			
