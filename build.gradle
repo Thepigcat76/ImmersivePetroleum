@@ -83,7 +83,7 @@ runs {
 		getArguments().addAll "--mod", "immersivepetroleum",
 				"--all", "--validate",
 				"--output", file("src/generated/resources/").toString(),
-				"--existing", file("src/main/resources").toString(),
+				"--existing", file("src/main/resources/").toString(),
 				"--existing-mod", "immersiveengineering"
 		
 		modSource sourceSets.datagen
