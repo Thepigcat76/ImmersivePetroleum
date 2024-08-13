@@ -9,6 +9,7 @@ import flaxbeard.immersivepetroleum.common.util.RegistryUtils;
 import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.ItemLike;
@@ -76,7 +77,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 		oiltankItem();
 		
 		for(IPFluid.IPFluidEntry f:IPFluid.FLUIDS)
-			createBucket(f.source().get());
+			createBucket(f);
 	}
 	
 	private void flarestackItem(){
@@ -283,17 +284,19 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 			IPDataGenerator.log.warn("Skipping null item. ( {} -> {} )", where.getFileName(), where.getLineNumber());
 			return;
 		}
-		String name = name(item);
 		
-		getBuilder(name)
-			.parent(getExistingFile(mcLoc("item/generated")))
-			.texture("layer0", modLoc("item/"+name));
+		String name = name(item);
+		ResourceLocation generated = mcLoc("item/generated");
+		ResourceLocation texture = modLoc("item/" + name);
+		
+		withExistingParent(name, generated)
+				.texture("layer0", texture);
 	}
 	
-	private void createBucket(Fluid f){
-		withExistingParent(RegistryUtils.getRegistryNameOf(f.getBucket().asItem()).getPath(), ResourceUtils.forge("item/bucket"))
+	private void createBucket(IPFluid.IPFluidEntry f){
+		withExistingParent(name(f.bucket().get()), ResourceUtils.forge("item/bucket"))
 			.customLoader(DynamicFluidContainerModelBuilder::begin)
-			.fluid(f);
+			.fluid(f.get());
 	}
 	
 	private String name(ItemLike item){
