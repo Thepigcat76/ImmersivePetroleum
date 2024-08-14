@@ -19,6 +19,11 @@ public class IPFluidTags extends FluidTagsProvider{
 	}
 	
 	@Override
+	public String getName(){
+		return getClass().getSimpleName();
+	}
+	
+	@Override
 	protected void addTags(Provider provider){
 		tag(IPTags.Fluids.crudeOil).add(IPContent.Fluids.CRUDEOIL.get());
 		

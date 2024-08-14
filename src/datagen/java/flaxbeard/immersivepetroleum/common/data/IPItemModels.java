@@ -13,7 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.client.model.generators.ModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ModelProvider;
 import net.neoforged.neoforge.client.model.generators.loaders.DynamicFluidContainerModelBuilder;
@@ -22,6 +21,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.joml.Vector3f;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.function.Supplier;
 
@@ -32,15 +32,17 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	
 	@Override
 	public String getName(){
-		return "Item Models";
+		return getClass().getSimpleName();
 	}
+	
+	static final ResourceLocation ITEM_GENERATED = ResourceUtils.mc("item/generated");
 	
 	@Override
 	protected void registerModels(){
 		String debugItem = name(IPContent.DEBUGITEM.get());
 		
 		getBuilder(debugItem)
-			.parent(getExistingFile(mcLoc("item/generated")))
+			.parent(getExistingFile(ITEM_GENERATED))
 			.texture("layer0", modLoc("item/schematic"));
 		
 		genericItem(IPContent.Items.BITUMEN);
@@ -76,8 +78,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 		derrickItem();
 		oiltankItem();
 		
-		for(IPFluid.IPFluidEntry f:IPFluid.FLUIDS)
-			createBucket(f);
+		IPFluid.FLUIDS.forEach(this::createBucket);
 	}
 	
 	private void flarestackItem(){
@@ -263,13 +264,13 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	}
 	
 	private TRSRModelBuilder obj(ItemLike item, String model){
-		return getBuilder(RegistryUtils.getRegistryNameOf(item.asItem()).toString())
+		return getBuilder(name(item))
 				.customLoader(ObjModelBuilder::begin)
 				.modelLocation(modLoc("models/" + model)).flipV(true).end();
 	}
 	
 	private IEOBJBuilder<TRSRModelBuilder> objIELoader(ItemLike item, String model){
-		return getBuilder(RegistryUtils.getRegistryNameOf(item.asItem()).toString())
+		return getBuilder(name(item))
 				.customLoader(IEOBJBuilder::begin)
 				.modelLocation(modLoc("models/" + model));
 	}
@@ -286,15 +287,14 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 		}
 		
 		String name = name(item);
-		ResourceLocation generated = mcLoc("item/generated");
 		ResourceLocation texture = modLoc("item/" + name);
 		
-		withExistingParent(name, generated)
+		withExistingParent(name, ITEM_GENERATED)
 				.texture("layer0", texture);
 	}
 	
 	private void createBucket(IPFluid.IPFluidEntry f){
-		withExistingParent(name(f.bucket().get()), ResourceUtils.forge("item/bucket"))
+		withExistingParent(name(f.bucket().get().asItem()), ResourceUtils.forge("item/bucket"))
 			.customLoader(DynamicFluidContainerModelBuilder::begin)
 			.fluid(f.get());
 	}

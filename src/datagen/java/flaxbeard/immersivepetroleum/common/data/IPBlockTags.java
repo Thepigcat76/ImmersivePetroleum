@@ -18,7 +18,12 @@ public class IPBlockTags extends BlockTagsProvider{
 	public IPBlockTags(PackOutput output, CompletableFuture<Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper){
 		super(output, lookupProvider, ImmersivePetroleum.MODID, existingFileHelper);
 	}
-
+	
+	@Override
+	public String getName(){
+		return getClass().getSimpleName();
+	}
+	
 	@Override
 	protected void addTags(Provider provider){
 		// IP Tags

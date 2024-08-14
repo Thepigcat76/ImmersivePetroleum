@@ -62,6 +62,11 @@ public class IPBlockStates extends BlockStateProvider{
 	}
 	
 	@Override
+	public String getName(){
+		return getClass().getSimpleName();
+	}
+	
+	@Override
 	protected void registerStatesAndModels(){
 		// Multiblocks
 		// TODO Re-Enable after Multiblocks are Completed (Or Semi-Completed).

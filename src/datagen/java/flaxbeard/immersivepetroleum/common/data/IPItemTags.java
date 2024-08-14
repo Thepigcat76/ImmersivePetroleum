@@ -18,6 +18,11 @@ public class IPItemTags extends ItemTagsProvider{
 	}
 	
 	@Override
+	public String getName(){
+		return getClass().getSimpleName();
+	}
+	
+	@Override
 	protected void addTags(Provider provider){
 		IPTags.forAllBlocktags(this::copy);
 		

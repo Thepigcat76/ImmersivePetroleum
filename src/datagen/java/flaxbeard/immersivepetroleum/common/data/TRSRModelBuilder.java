@@ -12,6 +12,8 @@ import net.minecraft.server.packs.resources.Resource;
 import net.neoforged.neoforge.client.model.generators.ModelBuilder;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
+import javax.annotation.Nonnull;
+
 public class TRSRModelBuilder extends ModelBuilder<TRSRModelBuilder>{
 	private final TransformationMap transforms = new TransformationMap();
 	
@@ -31,6 +33,7 @@ public class TRSRModelBuilder extends ModelBuilder<TRSRModelBuilder>{
 		}
 	}
 	
+	@Nonnull
 	@Override
 	public JsonObject toJson(){
 		JsonObject ret = super.toJson();

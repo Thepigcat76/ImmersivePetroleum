@@ -22,17 +22,17 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.material.Fluid;
 
 public class RegistryUtils{
-	@Nullable
+	@Nonnull
 	public static ResourceLocation getRegistryNameOf(Item item){
 		return BuiltInRegistries.ITEM.getKey(item);
 	}
 	
-	@Nullable
+	@Nonnull
 	public static ResourceLocation getRegistryNameOf(Block block){
 		return BuiltInRegistries.BLOCK.getKey(block);
 	}
 	
-	@Nullable
+	@Nonnull
 	public static ResourceLocation getRegistryNameOf(Fluid fluid){
 		return BuiltInRegistries.FLUID.getKey(fluid);
 	}
@@ -53,7 +53,7 @@ public class RegistryUtils{
 		return BuiltInRegistries.MOB_EFFECT.getKey(mobEffect);
 	}
 	
-	@Nullable
+	@Nonnull
 	public static ResourceLocation getRegistryNameOf(EntityType<?> entityType){
 		return BuiltInRegistries.ENTITY_TYPE.getKey(entityType);
 	}
