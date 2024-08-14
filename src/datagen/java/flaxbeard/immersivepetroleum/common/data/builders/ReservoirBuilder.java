@@ -166,9 +166,8 @@ public class ReservoirBuilder extends IPRecipeBuilder<ReservoirBuilder>{
 		
 		return this;
 	}
-
-	public void build(RecipeOutput out, ResourceLocation loc)
-	{
+	
+	public void build(RecipeOutput out, ResourceLocation loc){
 		ReservoirType recipe = new ReservoirType(name, fluid, fluidMinimum, fluidMaximum, fluidResidual, equilibrium, weight);
 		recipe.setBiomes(isBioBlacklist, biomes);
 		recipe.setDimensions(isDimBlacklist, dimensions);
