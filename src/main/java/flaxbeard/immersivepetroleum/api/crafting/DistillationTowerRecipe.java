@@ -1,9 +1,5 @@
 package flaxbeard.immersivepetroleum.api.crafting;
 
-import java.util.*;
-
-import javax.annotation.Nullable;
-
 import blusunrize.immersiveengineering.api.crafting.FluidTagInput;
 import blusunrize.immersiveengineering.api.crafting.IERecipeSerializer;
 import blusunrize.immersiveengineering.api.crafting.MultiblockRecipe;
@@ -19,6 +15,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.neoforged.neoforge.common.util.Lazy;
 import net.neoforged.neoforge.fluids.FluidStack;
+
+import javax.annotation.Nullable;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DistillationTowerRecipe extends MultiblockRecipe{
 	public static Map<ResourceLocation, RecipeHolder<DistillationTowerRecipe>> recipes = new HashMap<>();
@@ -70,9 +72,14 @@ public class DistillationTowerRecipe extends MultiblockRecipe{
 		this.fluidInputList = Collections.singletonList(input);
 		this.fluidOutputList = fluidOutput;
 		this.lazyOutputList = Lazy.of(() -> {
-            return byproducts.stream()
-				.map(ChancedItemStack::stack)
-				.collect(() -> NonNullList.withSize(byproducts.size(), ItemStack.EMPTY), NonNullList::add, NonNullList::addAll);
+			if(byproducts.isEmpty())
+				return NonNullList.createWithCapacity(0);
+			
+			NonNullList<ItemStack> list = NonNullList.withSize(byproducts.size(), ItemStack.EMPTY);
+			for(int i = 0;i < byproducts.size();i++){
+				list.set(i, byproducts.get(i).stack());
+			}
+			return list;
 		});
 	}
 	
