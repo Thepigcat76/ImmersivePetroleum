@@ -27,7 +27,7 @@ import java.util.function.Supplier;
 
 public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	public IPItemModels(PackOutput output, DataGenerator gen, ExistingFileHelper exHelper){
-		super(output, ImmersivePetroleum.MODID, BLOCK_FOLDER, TRSRModelBuilder::new, exHelper);
+		super(output, ImmersivePetroleum.MODID, ITEM_FOLDER, TRSRModelBuilder::new, exHelper);
 	}
 	
 	@Override
