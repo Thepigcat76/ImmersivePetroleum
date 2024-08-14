@@ -79,10 +79,10 @@ public class CokerUnitRecipeCategory extends IPRecipeCategory<CokerUnitRecipe>{
 		matrix.pushPose();
 		{
 			String text0 = I18n.get("desc.immersiveengineering.info.ift", Utils.fDecimal(energy));
-			guiGraphics.drawString(font, text0, bWidth - 5 - font.width(text0), (bHeight / 3) + font.lineHeight, -1);
+			guiGraphics.drawString(font, text0, bWidth - 5 - font.width(text0), (bHeight / 3) + font.lineHeight, 0, false);
 			
 			String text1 = I18n.get("desc.immersiveengineering.info.seconds", Utils.fDecimal(time / 20D));
-			guiGraphics.drawString(font, text1, bWidth - 10 - font.width(text1), (bHeight / 3) + (font.lineHeight * 2), -1);
+			guiGraphics.drawString(font, text1, bWidth - 10 - font.width(text1), (bHeight / 3) + (font.lineHeight * 2), 0, false);
 		}
 		matrix.popPose();
 	}

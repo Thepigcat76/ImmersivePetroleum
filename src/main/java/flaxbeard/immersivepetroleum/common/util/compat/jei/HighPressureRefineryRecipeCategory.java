@@ -82,14 +82,14 @@ public class HighPressureRefineryRecipeCategory extends IPRecipeCategory<HighPre
 		matrix.pushPose();
 		{
 			String text0 = I18n.get("desc.immersiveengineering.info.ift", Utils.fDecimal(energy));
-			guiGraphics.drawString(font, text0, bWidth / 2 - font.width(text0) / 2, bHeight - (font.lineHeight * 2), 0);
+			guiGraphics.drawString(font, text0, bWidth / 2 - font.width(text0) / 2, bHeight - (font.lineHeight * 2), 0, false);
 			
 			String text1 = I18n.get("desc.immersiveengineering.info.seconds", Utils.fDecimal(time / 20D));
-			guiGraphics.drawString(font, text1, bWidth / 2 - font.width(text1) / 2, bHeight - font.lineHeight, 0);
+			guiGraphics.drawString(font, text1, bWidth / 2 - font.width(text1) / 2, bHeight - font.lineHeight, 0, false);
 			
 			if(recipe.hasSecondaryItem()){
 				String text2 = String.format(Locale.US, "%d%%", chance);
-				guiGraphics.drawString(font, text2, bWidth + 3 - font.width(text2), bHeight / 2 + 4, 0);
+				guiGraphics.drawString(font, text2, bWidth + 3 - font.width(text2), bHeight / 2 + 4, 0, false);
 			}
 		}
 		matrix.popPose();
