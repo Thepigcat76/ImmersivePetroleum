@@ -38,6 +38,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
 import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.FluidTags;
@@ -46,6 +47,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
@@ -54,17 +56,18 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.fluids.FluidType;
 
+import javax.annotation.Nonnull;
+
 public class IPRecipes extends RecipeProvider{
 	private final Map<String, Integer> PATH_COUNT = new HashMap<>();
 	
 	protected RecipeOutput out;
 	public IPRecipes(PackOutput pOutput){
 		super(pOutput);
-//		super(generatorIn);
 	}
 	
 	@Override
-	protected void buildRecipes(RecipeOutput out){
+	protected void buildRecipes(@Nonnull RecipeOutput out){
 		this.out = out;
 		
 		itemRecipes();
@@ -133,42 +136,41 @@ public class IPRecipes extends RecipeProvider{
 	}
 	
 	private void distillationRecipes(){
-		// setEnergy and setTime are 1024 and 1 by default. But still allows to be customized.
-		DistillationTowerRecipeBuilder.builder()
-			.fluidOutput(new FluidStack(IPContent.Fluids.NAPHTHA.get(), 15))
-			.fluidOutput(new FluidStack(IPContent.Fluids.KEROSENE.get(), 18))
-			.fluidOutput(new FluidStack(IPContent.Fluids.DIESEL_SULFUR.get(), 30))
-			.fluidOutput(new FluidStack(IPContent.Fluids.LUBRICANT.get(), 12))
+		DistillationTowerRecipeBuilder.builder(
+				new FluidStack(IPContent.Fluids.NAPHTHA.get(), 15),
+				new FluidStack(IPContent.Fluids.KEROSENE.get(), 18),
+				new FluidStack(IPContent.Fluids.DIESEL_SULFUR.get(), 30),
+				new FluidStack(IPContent.Fluids.LUBRICANT.get(), 12)
+			)
 			.fluidInput(new FluidTagInput(IPTags.Fluids.crudeOil, 50))
-			.itemOutput(new ChancedItemStack(new ItemStack(IPContent.Items.BITUMEN.get()), 0.07))
-			.setEnergy(1024)
-			.setTime(1)
+			.addByproduct(new ChancedItemStack(new ItemStack(IPContent.Items.BITUMEN.get()), 0.07))
+			.setTimeAndEnergy(1, 1024)
 			.build(this.out, rl("distillationtower/oil"));
-
-		DistillationTowerRecipeBuilder.builder()
-			.fluidOutput(new FluidStack(IPContent.Fluids.NAPHTHA.get(), 2))
-			.fluidOutput(new FluidStack(IPContent.Fluids.GASOLINE_ADDITIVES.get(), 3))
-			.fluidOutput(new FluidStack(IPContent.Fluids.DIESEL_SULFUR.get(), 5))
+		
+		DistillationTowerRecipeBuilder.builder(
+				new FluidStack(IPContent.Fluids.NAPHTHA.get(), 2),
+				new FluidStack(IPContent.Fluids.GASOLINE_ADDITIVES.get(), 3),
+				new FluidStack(IPContent.Fluids.DIESEL_SULFUR.get(), 5)
+			)
 			.fluidInput(new FluidTagInput(IPTags.Fluids.kerosene, 10))
-			.setEnergy(1024)
-			.setTime(1)
+			.setTimeAndEnergy(1, 1024)
 			.build(this.out, rl("distillationtower/kerosene"));
-
-		DistillationTowerRecipeBuilder.builder()
-			.fluidOutput(new FluidStack(IPContent.Fluids.ETHYLENE.get(), 6))
-			.fluidOutput(new FluidStack(IPContent.Fluids.PROPYLENE.get(), 2))
-			.fluidOutput(new FluidStack(IPContent.Fluids.BENZENE.get(), 2))
+		
+		DistillationTowerRecipeBuilder.builder(
+				new FluidStack(IPContent.Fluids.ETHYLENE.get(), 6),
+				new FluidStack(IPContent.Fluids.PROPYLENE.get(), 2),
+				new FluidStack(IPContent.Fluids.BENZENE.get(), 2)
+			)
 			.fluidInput(new FluidTagInput(IPTags.Fluids.naphtha_cracked, 10))
-			.setEnergy(1024)
-			.setTime(1)
+			.setTimeAndEnergy(1, 1024)
 			.build(this.out, rl("distillationtower/naphtha_cracking"));
-
-		DistillationTowerRecipeBuilder.builder()
-			.fluidOutput(new FluidStack(IPContent.Fluids.KEROSENE.get(), 6))
-			.fluidOutput(new FluidStack(IPContent.Fluids.DIESEL_SULFUR.get(), 10))
+		
+		DistillationTowerRecipeBuilder.builder(
+				new FluidStack(IPContent.Fluids.KEROSENE.get(), 6),
+				new FluidStack(IPContent.Fluids.DIESEL_SULFUR.get(), 10)
+			)
 			.fluidInput(new FluidTagInput(IPTags.Fluids.lubricant_cracked, 12))
-			.setEnergy(1024)
-			.setTime(1)
+			.setTimeAndEnergy(1, 1024)
 			.build(this.out, rl("distillationtower/lubricant_cracking"));
 	}
 	
@@ -178,13 +180,10 @@ public class IPRecipes extends RecipeProvider{
 	
 	/** Contains everything related to Petcoke */
 	private void cokerRecipes(){
-		CokerUnitRecipeBuilder.builder()
-			.itemOutput(new ItemStack(IPContent.Items.PETCOKE.get(), 2))
-			.fluidOutput(new FluidStack(IPContent.Fluids.DIESEL_SULFUR.get(), 27))
+		CokerUnitRecipeBuilder.builder(new ItemStack(IPContent.Items.PETCOKE.get(), 2), new FluidStack(IPContent.Fluids.DIESEL_SULFUR.get(), 27))
 			.itemInput(new IngredientWithSize(IPTags.Items.bitumen, 2))
 			.fluidInput(new FluidTagInput(FluidTags.WATER, 125))
-			.setTime(30)
-			.setEnergy(15360)
+			.setTimeAndEnergy(30, 15360)
 			.build(this.out, rl("coking/petcoke"));
 		
 		// Petcoke Compression and Decompression
@@ -203,15 +202,6 @@ public class IPRecipes extends RecipeProvider{
 		// Registering Petcoke as Fuel for the Blastfurnace
 		addBlastFurnaceFuel(rl("blastfurnace/fuel_petcoke"), IPTags.Items.petcoke, 1200);
 		addBlastFurnaceFuel(rl("blastfurnace/fuel_petcoke_block"), IPTags.Items.petcokeStorage, 12000);
-		
-		/*
-		BlastFurnaceFuelBuilder.builder(IPTags.Items.petcoke)
-			.setTime(1200)
-			.build(this.out, rl("blastfurnace/fuel_petcoke"));
-		BlastFurnaceFuelBuilder.builder(IPTags.getItemTag(IPTags.Blocks.petcoke))
-			.setTime(12000)
-			.build(this.out, rl("blastfurnace/fuel_petcoke_block"));
-		*/
 		
 		// Petcoke Dust recipes
 		CrusherRecipeBuilder.builder()
@@ -244,33 +234,27 @@ public class IPRecipes extends RecipeProvider{
 	}
 	
 	private void hydrotreaterRecipes(){
-		HighPressureRefineryRecipeBuilder.builder()
+		HighPressureRefineryRecipeBuilder.builder(new FluidStack(IPContent.Fluids.DIESEL.get(), 10))
 			.fluidInput(new FluidTagInput(IPTags.Fluids.diesel_sulfur, 10))
 			.fluidInput(new FluidTagInput(FluidTags.WATER, 5))
-			.fluidOutput(new FluidStack(IPContent.Fluids.DIESEL.get(), 10))
 			.itemOutput(new ChancedItemStack(new ItemStack(IEItems.Ingredients.DUST_SULFUR.get()), 0.05))
-			.setEnergy(80)
-			.setTime(1)
+			.setTimeAndEnergy(1, 80)
 			.build(out, rl("hydrotreater/sulfur_recovery"));
 		
-		HighPressureRefineryRecipeBuilder.builder()
+		HighPressureRefineryRecipeBuilder.builder(new FluidStack(IPContent.Fluids.NAPHTHA_CRACKED.get(), 20))
 			.fluidInput(new FluidTagInput(IPTags.Fluids.naphtha, 20))
 			.fluidInput(new FluidTagInput(FluidTags.WATER, 5))
-			.fluidOutput(new FluidStack(IPContent.Fluids.NAPHTHA_CRACKED.get(), 20))
-			.setEnergy(2560)
-			.setTime(5)
+			.setTimeAndEnergy(5, 2560)
 			.build(out, rl("hydrotreater/naphtha_cracking"));
-
-		HighPressureRefineryRecipeBuilder.builder()
-				.fluidInput(new FluidTagInput(IPTags.Fluids.lubricant, 24))
-				.fluidInput(new FluidTagInput(FluidTags.WATER, 5))
-				.fluidOutput(new FluidStack(IPContent.Fluids.LUBRICANT_CRACKED.get(), 24))
-				.itemOutput(new ChancedItemStack(new ItemStack(IPContent.Items.PARAFFIN_WAX.get()), 0.024))
-				.setEnergy(2560)
-				.setTime(5)
-				.build(out, rl("hydrotreater/lubricant_cracking"));
 		
-		// Temporarly Disabled
+		HighPressureRefineryRecipeBuilder.builder(new FluidStack(IPContent.Fluids.LUBRICANT_CRACKED.get(), 24))
+			.fluidInput(new FluidTagInput(IPTags.Fluids.lubricant, 24))
+			.fluidInput(new FluidTagInput(FluidTags.WATER, 5))
+			.itemOutput(new ChancedItemStack(new ItemStack(IPContent.Items.PARAFFIN_WAX.get()), 0.024))
+			.setTimeAndEnergy(5, 2560)
+			.build(out, rl("hydrotreater/lubricant_cracking"));
+		
+		// Temporarily Disabled
 		// PNC Compat
 		// @formatter:off
 		/*
@@ -388,7 +372,7 @@ public class IPRecipes extends RecipeProvider{
 			.unlockedBy("has_bitumen", has(IPContent.Items.BITUMEN.get()))
 			.unlockedBy("has_slag", has(IEItems.Ingredients.SLAG))
 			.save(this.out, rl("asphalt_slab"));
-
+		
 		ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, IPContent.Blocks.ASPHALT.get(), 1)
 			.define('S', IPContent.Blocks.ASPHALT_SLAB.get())
 			.pattern("S")
@@ -487,7 +471,7 @@ public class IPRecipes extends RecipeProvider{
 			.unlockedBy("has_treated_planks", has(IETags.getItemTag(IETags.treatedWood)))
 			.unlockedBy("has_"+toPath(MetalDecoration.ENGINEERING_LIGHT), has(MetalDecoration.ENGINEERING_LIGHT))
 			.save(this.out);
-
+		
 		ShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, IEItems.Misc.TOOL_UPGRADES.get(ToolUpgradeItem.ToolUpgrade.DRILL_LUBE).get())
 			.pattern(" i ")
 			.pattern("ioi")

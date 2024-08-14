@@ -27,13 +27,13 @@ public class HighPressureRefineryRecipe extends MultiblockRecipe{
 	
 	public static Map<ResourceLocation, RecipeHolder<HighPressureRefineryRecipe>> recipes = new HashMap<>();
 	
-    private static final RandomSource RANDOM = RandomSource.create();
+	private static final RandomSource RANDOM = RandomSource.create();
 	
 	public static RecipeHolder<HighPressureRefineryRecipe> findRecipe(@Nonnull FluidStack input, @Nonnull FluidStack secondary){
 		Objects.requireNonNull(input);
 		Objects.requireNonNull(secondary);
 		
-		for(RecipeHolder<HighPressureRefineryRecipe> holder:recipes.values()){
+		for(RecipeHolder<HighPressureRefineryRecipe> holder: recipes.values()){
 			final HighPressureRefineryRecipe recipe = holder.value();
 			
 			if(secondary.isEmpty()){
@@ -53,7 +53,7 @@ public class HighPressureRefineryRecipe extends MultiblockRecipe{
 		Objects.requireNonNull(fluid);
 		
 		if(!fluid.isEmpty()){
-			for(RecipeHolder<HighPressureRefineryRecipe> holder:recipes.values()){
+			for(RecipeHolder<HighPressureRefineryRecipe> holder: recipes.values()){
 				final HighPressureRefineryRecipe recipe = holder.value();
 				
 				if(recipe.inputFluid != null){
@@ -70,7 +70,7 @@ public class HighPressureRefineryRecipe extends MultiblockRecipe{
 		Objects.requireNonNull(fluid);
 		
 		if(!fluid.isEmpty()){
-			for(RecipeHolder<HighPressureRefineryRecipe> holder:recipes.values()){
+			for(RecipeHolder<HighPressureRefineryRecipe> holder: recipes.values()){
 				final HighPressureRefineryRecipe recipe = holder.value();
 				
 				if(recipe.inputFluidSecondary != null){
@@ -88,11 +88,8 @@ public class HighPressureRefineryRecipe extends MultiblockRecipe{
 		return MULTIPLIER;
 	}
 	
-	
 	public final ChancedItemStack outputItem;
-	
 	public final FluidStack output;
-	
 	public final FluidTagInput inputFluid;
 	@Nullable
 	public final FluidTagInput inputFluidSecondary;

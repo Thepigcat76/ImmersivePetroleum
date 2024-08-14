@@ -25,21 +25,22 @@ public class ReservoirBuilder extends IPRecipeBuilder<ReservoirBuilder>{
 	
 	private boolean isBioBlacklist = false;
 	private final List<ResourceLocation> biomes = new ArrayList<>();
-
-	private ReservoirBuilder() { }
-
-	public static ReservoirBuilder builder() {
+	
+	private ReservoirBuilder(){
+	}
+	
+	public static ReservoirBuilder builder(){
 		return new ReservoirBuilder();
 	}
-
+	
 	public ReservoirBuilder setName(String name){
 		this.name = name;
 		return this;
 	}
-
+	
 	/**
 	 * Sets the fluid for this Reservoir.
-	 * 
+	 *
 	 * @param fluid The fluid to set.
 	 * @return {@link ReservoirBuilder}
 	 */
@@ -53,7 +54,7 @@ public class ReservoirBuilder extends IPRecipeBuilder<ReservoirBuilder>{
 	 * 1.000 = 1 Bucket
 	 * 0.001 = 1 Millibucket
 	 * </pre></code>
-	 * 
+	 *
 	 * @param amount The amount to set.
 	 * @return {@link ReservoirBuilder}
 	 */
@@ -67,7 +68,7 @@ public class ReservoirBuilder extends IPRecipeBuilder<ReservoirBuilder>{
 	 * 1.000 = 1 Bucket
 	 * 0.001 = 1 Millibucket
 	 * </pre></code>
-	 * 
+	 *
 	 * @param amount The amount to set.
 	 * @return {@link ReservoirBuilder}
 	 */
@@ -81,7 +82,7 @@ public class ReservoirBuilder extends IPRecipeBuilder<ReservoirBuilder>{
 	 * 1.000 = 1 Bucket
 	 * 0.001 = 1 Millibucket
 	 * </pre></code>
-	 * 
+	 *
 	 * @param amount The amount to set.
 	 * @return {@link ReservoirBuilder}
 	 */
@@ -92,7 +93,7 @@ public class ReservoirBuilder extends IPRecipeBuilder<ReservoirBuilder>{
 	
 	/**
 	 * Reservoir Weight
-	 * 
+	 *
 	 * @param weight the weight to provide the reservoir
 	 * @return {@link ReservoirBuilder}
 	 */
@@ -118,9 +119,9 @@ public class ReservoirBuilder extends IPRecipeBuilder<ReservoirBuilder>{
 	/**
 	 * <i>This may only be called once.</i><br>
 	 * <br>
-	 * Dimension check for this Reservior.
-	 * 
-	 * @param isBlacklist Marks this as a blacklist when true. Whilelist otherwise.
+	 * Dimension check for this Reservoir.
+	 *
+	 * @param isBlacklist Marks this as a blacklist when true. Whitelist otherwise.
 	 * @param dimensions  Dimensions to blacklist/whitelist
 	 * @return {@link ReservoirBuilder}
 	 * @throws IllegalArgumentException when it has already been set
@@ -132,7 +133,7 @@ public class ReservoirBuilder extends IPRecipeBuilder<ReservoirBuilder>{
 		Objects.requireNonNull(dimensions);
 		
 		this.isDimBlacklist = isBlacklist;
-		for(ResourceLocation rl:dimensions){
+		for(ResourceLocation rl: dimensions){
 			if(rl != null && !this.dimensions.contains(rl)){
 				this.dimensions.add(rl);
 			}
@@ -144,9 +145,9 @@ public class ReservoirBuilder extends IPRecipeBuilder<ReservoirBuilder>{
 	/**
 	 * <i>This may only be called once.</i><br>
 	 * <br>
-	 * Biome check for this Reservior.
-	 * 
-	 * @param isBlacklist Marks this as a blacklist when true. Whilelist otherwise.
+	 * Biome check for this Reservoir.
+	 *
+	 * @param isBlacklist Marks this as a blacklist when true. Whitelist otherwise.
 	 * @param biomes      Biomes to blacklist/whitelist
 	 * @return {@link ReservoirBuilder}
 	 * @throws IllegalArgumentException when it has already been set
@@ -158,7 +159,7 @@ public class ReservoirBuilder extends IPRecipeBuilder<ReservoirBuilder>{
 		Objects.requireNonNull(biomes);
 		
 		this.isBioBlacklist = isBlacklist;
-		for(ResourceLocation rl:biomes){
+		for(ResourceLocation rl: biomes){
 			if(rl != null && !this.biomes.contains(rl)){
 				this.biomes.add(rl);
 			}

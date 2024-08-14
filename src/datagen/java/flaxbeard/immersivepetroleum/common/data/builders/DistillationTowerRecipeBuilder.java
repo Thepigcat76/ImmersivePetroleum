@@ -1,6 +1,7 @@
 package flaxbeard.immersivepetroleum.common.data.builders;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import blusunrize.immersiveengineering.api.crafting.FluidTagInput;
@@ -17,8 +18,14 @@ import net.neoforged.neoforge.fluids.FluidStack;
  */
 public class DistillationTowerRecipeBuilder extends IPRecipeBuilder<DistillationTowerRecipeBuilder>{
 	
+	public static DistillationTowerRecipeBuilder builder(FluidStack... output){
+		DistillationTowerRecipeBuilder b = new DistillationTowerRecipeBuilder();
+		b.fluidOutputs.addAll(Arrays.asList(output));
+		return b;
+	}
+	
 	private FluidTagInput fluidInput;
-	private final List<ChancedItemStack> itemOutputs = new ArrayList<>();
+	private final List<ChancedItemStack> byproducts = new ArrayList<>();
 	private final List<FluidStack> fluidOutputs = new ArrayList<>();
 	int energy;
 	int time;
@@ -26,17 +33,8 @@ public class DistillationTowerRecipeBuilder extends IPRecipeBuilder<Distillation
 	private DistillationTowerRecipeBuilder(){
 	}
 	
-	public static DistillationTowerRecipeBuilder builder(){
-		return new DistillationTowerRecipeBuilder();
-	}
-	
-	public DistillationTowerRecipeBuilder itemOutput(ChancedItemStack output){
-		this.itemOutputs.add(output);
-		return this;
-	}
-	
-	public DistillationTowerRecipeBuilder fluidOutput(FluidStack output){
-		this.fluidOutputs.add(output);
+	public DistillationTowerRecipeBuilder addByproduct(ChancedItemStack output){
+		this.byproducts.add(output);
 		return this;
 	}
 	
@@ -45,18 +43,14 @@ public class DistillationTowerRecipeBuilder extends IPRecipeBuilder<Distillation
 		return this;
 	}
 	
-	public DistillationTowerRecipeBuilder setTime(int time){
+	public DistillationTowerRecipeBuilder setTimeAndEnergy(int time, int energy){
 		this.time = time;
-		return this;
-	}
-	
-	public DistillationTowerRecipeBuilder setEnergy(int amount){
-		this.energy = amount;
+		this.energy = energy;
 		return this;
 	}
 	
 	public void build(RecipeOutput out, ResourceLocation name){
-		DistillationTowerRecipe recipe = new DistillationTowerRecipe(fluidOutputs, itemOutputs, fluidInput, energy, time);
+		DistillationTowerRecipe recipe = new DistillationTowerRecipe(this.fluidOutputs, this.byproducts, this.fluidInput, this.energy, this.time);
 		out.accept(name, recipe, null, getConditions());
 	}
 }

@@ -8,7 +8,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
 
+import javax.annotation.Nonnull;
+
 public class CokerUnitRecipeBuilder extends IPRecipeBuilder<CokerUnitRecipeBuilder>{
+	
+	public static CokerUnitRecipeBuilder builder(ItemStack itemOutput, FluidStack fluidOutput){
+		CokerUnitRecipeBuilder b = new CokerUnitRecipeBuilder();
+		b.itemOutput = itemOutput;
+		b.fluidOutput = fluidOutput;
+		return b;
+	}
+	
 	private IngredientWithSize itemInput;
 	private FluidTagInput fluidInput;
 	private ItemStack itemOutput;
@@ -19,22 +29,8 @@ public class CokerUnitRecipeBuilder extends IPRecipeBuilder<CokerUnitRecipeBuild
 	private CokerUnitRecipeBuilder(){
 	}
 	
-	public static CokerUnitRecipeBuilder builder(){
-		return new CokerUnitRecipeBuilder();
-	}
-	
-	public CokerUnitRecipeBuilder itemOutput(ItemStack output){
-		this.itemOutput = output;
-		return this;
-	}
-	
 	public CokerUnitRecipeBuilder itemInput(IngredientWithSize input){
 		this.itemInput = input;
-		return this;
-	}
-	
-	public CokerUnitRecipeBuilder fluidOutput(FluidStack output){
-		this.fluidOutput = output;
 		return this;
 	}
 	
@@ -43,18 +39,14 @@ public class CokerUnitRecipeBuilder extends IPRecipeBuilder<CokerUnitRecipeBuild
 		return this;
 	}
 	
-	public CokerUnitRecipeBuilder setTime(int time){
+	public CokerUnitRecipeBuilder setTimeAndEnergy(int time, int energy){
 		this.time = time;
-		return this;
-	}
-	
-	public CokerUnitRecipeBuilder setEnergy(int amount){
-		this.energy = amount;
+		this.energy = energy;
 		return this;
 	}
 	
 	public void build(RecipeOutput out, ResourceLocation name){
-		CokerUnitRecipe recipe = new CokerUnitRecipe(itemOutput, fluidOutput, itemInput, fluidInput, energy, time);
+		CokerUnitRecipe recipe = new CokerUnitRecipe(this.itemOutput, this.fluidOutput, this.itemInput, this.fluidInput, this.energy, this.time);
 		out.accept(name, recipe, null, getConditions());
 	}
 }

@@ -1,6 +1,5 @@
 package flaxbeard.immersivepetroleum.common.data.builders;
 
-
 import blusunrize.immersiveengineering.api.crafting.FluidTagInput;
 import flaxbeard.immersivepetroleum.api.crafting.HighPressureRefineryRecipe;
 import flaxbeard.immersivepetroleum.common.util.ChancedItemStack;
@@ -10,6 +9,12 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.fluids.FluidStack;
 
 public class HighPressureRefineryRecipeBuilder extends IPRecipeBuilder<HighPressureRefineryRecipeBuilder>{
+	
+	public static HighPressureRefineryRecipeBuilder builder(FluidStack output){
+		HighPressureRefineryRecipeBuilder b = new HighPressureRefineryRecipeBuilder();
+		b.fluidOutput = output;
+		return b;
+	}
 	
 	private FluidTagInput fluidInput;
 	private FluidTagInput fluidInput2;
@@ -21,17 +26,8 @@ public class HighPressureRefineryRecipeBuilder extends IPRecipeBuilder<HighPress
 	private HighPressureRefineryRecipeBuilder(){
 	}
 	
-	public static HighPressureRefineryRecipeBuilder builder(){
-		return new HighPressureRefineryRecipeBuilder();
-	}
-	
 	public HighPressureRefineryRecipeBuilder itemOutput(ChancedItemStack output){
 		this.itemOutput = output;
-		return this;
-	}
-	
-	public HighPressureRefineryRecipeBuilder fluidOutput(FluidStack output){
-		this.fluidOutput = output;
 		return this;
 	}
 	
@@ -43,18 +39,14 @@ public class HighPressureRefineryRecipeBuilder extends IPRecipeBuilder<HighPress
 		return this;
 	}
 	
-	public HighPressureRefineryRecipeBuilder setTime(int time){
+	public HighPressureRefineryRecipeBuilder setTimeAndEnergy(int time, int energy){
 		this.time = time;
-		return this;
-	}
-	
-	public HighPressureRefineryRecipeBuilder setEnergy(int amount){
-		this.energy = amount;
+		this.energy = energy;
 		return this;
 	}
 	
 	public void build(RecipeOutput out, ResourceLocation name){
-		HighPressureRefineryRecipe recipe = new HighPressureRefineryRecipe(fluidOutput, itemOutput, fluidInput, fluidInput2, energy, time);
+		HighPressureRefineryRecipe recipe = new HighPressureRefineryRecipe(this.fluidOutput, this.itemOutput, this.fluidInput, this.fluidInput2, this.energy, this.time);
 		out.accept(name, recipe, null, getConditions());
 	}
 }
