@@ -91,10 +91,4 @@ public class AxisAlignedIslandBB{
 	public String toString(){
 		return String.format("IslandAxisAlignedBB [minX = %d, minZ = %d, maxX = %d, maxZ = %d]", this.minX, this.minZ, this.maxX, this.maxZ);
 	}
-	
-	/** @deprecated Use constructor instead. {@link #IslandAxisAlignedBB(CompoundTag)} */
-	@Deprecated(forRemoval = true)
-	public static AxisAlignedIslandBB readFromNBT(CompoundTag nbt){
-		return new AxisAlignedIslandBB(nbt);
-	}
 }
