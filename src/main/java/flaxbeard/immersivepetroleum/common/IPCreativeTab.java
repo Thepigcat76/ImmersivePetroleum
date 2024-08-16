@@ -18,7 +18,7 @@ public class IPCreativeTab{
 		//@formatter:off
 		return new CreativeModeTab.Builder(Row.TOP, 0)
 				.icon(() -> IPContent.Fluids.CRUDEOIL.bucket().get().getDefaultInstance())
-				.title(Component.literal(ImmersivePetroleum.MODID))
+				.title(Component.translatable("itemGroup.immersivepetroleum"))
 				.displayItems(IPCreativeTab::fill)
 				.build();
 		//@formatter:on
