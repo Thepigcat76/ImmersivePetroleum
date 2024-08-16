@@ -3,6 +3,7 @@ package flaxbeard.immersivepetroleum.common.blocks.tileentities;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import blusunrize.immersiveengineering.ImmersiveEngineering;
 import blusunrize.immersiveengineering.common.blocks.IEBlockInterfaces;
@@ -13,6 +14,7 @@ import flaxbeard.immersivepetroleum.common.blocks.ticking.IPCommonTickableTile;
 import flaxbeard.immersivepetroleum.common.util.Utils;
 import flaxbeard.immersivepetroleum.common.util.sounds.IPSounds;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
@@ -22,6 +24,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
@@ -72,46 +75,12 @@ public class FlarestackTileEntity extends IPTileEntityBase implements IPCommonTi
 		nbt.put("tank", tank);
 	}
 	
-	/*// TODO Flarestack Capabilities
-	private LazyOptional<IFluidHandler> inputHandler;
-	
-	@Override
-	@Nonnull
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side){
-		if(cap == ForgeCapabilities.FLUID_HANDLER){
-			if(side == null || side == Direction.DOWN){
-				BlockEntity te = this.level.getBlockEntity(getBlockPos());
-				if(te instanceof FlarestackTileEntity flare){
-					if(this.inputHandler == null){
-						this.inputHandler = LazyOptional.of(() -> flare.tank);
-					}
-				}else{
-					return LazyOptional.empty();
-				}
-				
-				return this.inputHandler.cast();
-			}
+	public @Nullable IFluidHandler getCapability(Direction side){
+		if(side == null || side == Direction.DOWN){
+			return this.tank;
 		}
-		
-		return super.getCapability(cap, side);
+		return null;
 	}
-	
-	@Override
-	public void setRemoved(){
-		super.setRemoved();
-		if(this.inputHandler != null){
-			this.inputHandler.invalidate();
-		}
-	}
-	
-	@Override
-	public void invalidateCaps(){
-		super.invalidateCaps();
-		if(this.inputHandler != null){
-			this.inputHandler.invalidate();
-		}
-	}
-	*/
 	
 	@Override
 	public void setChanged(){

@@ -1,20 +1,6 @@
 package flaxbeard.immersivepetroleum.common.fluids;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-
-import org.apache.commons.lang3.mutable.Mutable;
-import org.apache.commons.lang3.mutable.MutableObject;
-
 import com.google.common.collect.ImmutableList;
-
 import flaxbeard.immersivepetroleum.common.IPCreativeTab.IMightShowUpInCreativeTab;
 import flaxbeard.immersivepetroleum.common.IPRegisters;
 import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
@@ -53,6 +39,17 @@ import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtension
 import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.fluids.FluidType;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import org.apache.commons.lang3.mutable.Mutable;
+import org.apache.commons.lang3.mutable.MutableObject;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class IPFluid extends FlowingFluid{
 	public static final List<IPFluidEntry> FLUIDS = new ArrayList<>();
@@ -385,14 +382,6 @@ public class IPFluid extends FlowingFluid{
 		public IPBucketItem(Supplier<? extends Fluid> fluid, Function<Item.Properties, Item.Properties> props){
 			super(fluid, props.apply(PROPS));
 		}
-		
-		// TODO Capabilities?
-		/*
-		@Override
-		public ICapabilityProvider initCapabilities(@Nonnull ItemStack stack, @Nullable CompoundTag nbt){
-			return new FluidBucketWrapper(stack);
-		}
-		*/
 		
 		@Override
 		public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType){

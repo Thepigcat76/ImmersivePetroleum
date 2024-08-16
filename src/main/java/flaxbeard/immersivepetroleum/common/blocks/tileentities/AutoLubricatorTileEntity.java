@@ -1,9 +1,5 @@
 package flaxbeard.immersivepetroleum.common.blocks.tileentities;
 
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
 import blusunrize.immersiveengineering.api.Lib;
 import blusunrize.immersiveengineering.common.blocks.IEBlockInterfaces;
 import flaxbeard.immersivepetroleum.api.crafting.LubricantHandler;
@@ -34,8 +30,14 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.neoforge.fluids.FluidUtil;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Objects;
 
 public class AutoLubricatorTileEntity extends IPTileEntityBase implements IPCommonTickableTile, IPlacementReader, IPlayerInteraction, IBlockEntityDrop, IEBlockInterfaces.IBlockOverlayText{
 	public boolean isSlave;
@@ -48,7 +50,7 @@ public class AutoLubricatorTileEntity extends IPTileEntityBase implements IPComm
 	
 	public AutoLubricatorTileEntity master(){
 		if(this.isSlave){
-			BlockEntity te = this.getLevel().getBlockEntity(getBlockPos().below());
+			BlockEntity te = getWorldNonnull().getBlockEntity(getBlockPos().below());
 			if(te instanceof AutoLubricatorTileEntity autolube){
 				return autolube;
 			}else{
@@ -131,51 +133,27 @@ public class AutoLubricatorTileEntity extends IPTileEntityBase implements IPComm
 		return List.of(stack);
 	}
 	
-	/*// TODO Lubricator Capabilities
-	private LazyOptional<IFluidHandler> outputHandler;
-	
-	@Override
-	@Nonnull
-	public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side){
-		if(cap == ForgeCapabilities.FLUID_HANDLER){
-			if(this.isSlave && (side == null || side == Direction.UP)){
-				AutoLubricatorTileEntity master = master();
-				if(master == null){
-					return LazyOptional.empty();
-				}
-				
-				if(this.outputHandler == null){
-					this.outputHandler = LazyOptional.of(() -> master.tank);
-				}
-				return this.outputHandler.cast();
-			}
+	IFluidHandler outputHandler;
+	public @Nullable IFluidHandler getCapability(Direction side){
+		if(this.isSlave && (side == null || side == Direction.UP)){
+			AutoLubricatorTileEntity master = master();
+			
+			if(master == null)
+				return null;
+			
+			return master.tank;
 		}
 		
-		return super.getCapability(cap, side);
+		return null;
 	}
-	
-	@Override
-	public void setRemoved(){
-		super.setRemoved();
-		if(this.outputHandler != null)
-			this.outputHandler.invalidate();
-	}
-	
-	@Override
-	public void invalidateCaps(){
-		super.invalidateCaps();
-		if(this.outputHandler != null)
-			this.outputHandler.invalidate();
-	}
-	*/
 	
 	@Override
 	public void setChanged(){
 		super.setChanged();
 		
-		BlockState state = this.level.getBlockState(this.worldPosition);
-		this.level.sendBlockUpdated(this.worldPosition, state, state, 3);
-		this.level.updateNeighborsAt(this.worldPosition, state.getBlock());
+		BlockState state = getWorldNonnull().getBlockState(this.worldPosition);
+		getWorldNonnull().sendBlockUpdated(this.worldPosition, state, state, 3);
+		getWorldNonnull().updateNeighborsAt(this.worldPosition, state.getBlock());
 	}
 	
 	public Direction getFacing(){
