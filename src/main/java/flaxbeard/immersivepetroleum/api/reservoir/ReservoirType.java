@@ -178,7 +178,7 @@ public class ReservoirType extends IESerializableRecipe{
 	
 	@Override
 	@Nonnull
-	public ItemStack getResultItem(RegistryAccess pRegistryAccess){
+	public ItemStack getResultItem(@Nonnull RegistryAccess pRegistryAccess){
 		return ItemStack.EMPTY;
 	}
 	
@@ -193,7 +193,7 @@ public class ReservoirType extends IESerializableRecipe{
 	
 	static Set<ResourceLocation> toSet(ListTag nbtList){
 		Set<ResourceLocation> set = new HashSet<>();
-		if(nbtList.size() > 0){
+		if(!nbtList.isEmpty()){
 			nbtList.forEach(tag -> {
 				if(tag instanceof StringTag){
 					set.add(new ResourceLocation(tag.getAsString()));
@@ -205,7 +205,7 @@ public class ReservoirType extends IESerializableRecipe{
 	
 	static ListTag toNbt(Set<ResourceLocation> set){
 		ListTag nbtList = new ListTag();
-		if(set.size() > 0){
+		if(!set.isEmpty()){
 			set.forEach(rl -> nbtList.add(StringTag.valueOf(rl.toString())));
 		}
 		return nbtList;
@@ -219,18 +219,15 @@ public class ReservoirType extends IESerializableRecipe{
 	public static class BWList{
 		
 		public static final Codec<BWList> CODEC = RecordCodecBuilder.create(inst -> inst.group(
-			Codec.BOOL.fieldOf("isBlacklist").forGetter(BWList::isBlacklist),
 			ResourceLocation.CODEC.listOf().fieldOf("list")
 					.xmap(resourceLocations -> {
-						System.out.println("Dirty but: "+resourceLocations.toString());
 						Set<ResourceLocation> set = new HashSet<>(resourceLocations.size());
 						set.addAll(resourceLocations);
 						return set;
 					}, ArrayList::new)
-					.forGetter(BWList::getSet)
-		).apply(inst, (isBlacklist, list) -> {
-			return new BWList(list, isBlacklist);
-		}));
+					.forGetter(BWList::getSet),
+			Codec.BOOL.fieldOf("isBlacklist").forGetter(BWList::isBlacklist)
+		).apply(inst, BWList::new));
 		
 		private Set<ResourceLocation> set;
 		private boolean isBlacklist;
@@ -250,7 +247,7 @@ public class ReservoirType extends IESerializableRecipe{
 				ListTag list = tag.getList("list", Tag.TAG_STRING);
 				
 				Set<ResourceLocation> set = new HashSet<>();
-				if(list.size() > 0){
+				if(!list.isEmpty()){
 					list.forEach(t -> {
 						if(t instanceof StringTag){
 							set.add(new ResourceLocation(t.getAsString()));
@@ -276,7 +273,7 @@ public class ReservoirType extends IESerializableRecipe{
 		}
 		
 		public boolean hasEntries(){
-			return this.set.size() > 0;
+			return !this.set.isEmpty();
 		}
 		
 		public boolean valid(ResourceLocation rl){
@@ -306,7 +303,7 @@ public class ReservoirType extends IESerializableRecipe{
 		
 		private ListTag toNbtList(){
 			ListTag nbtList = new ListTag();
-			if(this.set.size() > 0){
+			if(!this.set.isEmpty()){
 				this.set.forEach(rl -> nbtList.add(StringTag.valueOf(rl.toString())));
 			}
 			return nbtList;

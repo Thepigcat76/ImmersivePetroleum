@@ -33,7 +33,7 @@ import net.minecraft.world.level.levelgen.WorldgenRandom;
 import net.minecraft.world.level.levelgen.synth.PerlinSimplexNoise;
 
 /**
- * This takes care of dealing with generating, storing and caching (Faster access for regulary queried positions) reservoir islands.
+ * This takes care of dealing with generating, storing and caching (Faster access for regular queried positions) reservoir islands.
  * 
  * @author TwistedGate
  */
@@ -203,7 +203,6 @@ public class ReservoirHandler{
 		if(generator == null || world.getSeed() != lastSeed){
 			lastSeed = world.getSeed();
 			generator = new PerlinSimplexNoise(new WorldgenRandom(new SingleThreadedRandomSource(lastSeed)), ImmutableList.of(0));
-			//generator = new PerlinSimplexNoise(new WorldgenRandom(new LegacyRandomSource(lastSeed)), ImmutableList.of(0));
 		}
 	}
 	
@@ -282,7 +281,7 @@ public class ReservoirHandler{
 		List<ColumnPos> list = new ArrayList<>();
 		list.add(poly.remove(0));
 		int a = 0;
-		while(poly.size() > 0){
+		while(!poly.isEmpty()){
 			final ColumnPos col = list.get(a);
 			
 			if(moveNext(col, poly, list)){
@@ -372,7 +371,7 @@ public class ReservoirHandler{
 						list.remove(index % list.size());
 					}
 				}else if(len < 0){
-					// Start and End overlap themselfs
+					// Start and End overlap themselves
 					len = len + list.size() - 1;
 					
 					if(len > 1){

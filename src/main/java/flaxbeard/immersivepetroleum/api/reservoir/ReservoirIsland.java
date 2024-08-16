@@ -22,7 +22,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.fluids.capability.IFluidHandler.FluidAction;
 
 /**
- * Every instance of this class is it's own little ecosystem.
+ * Every instance of this class is its own little ecosystem.
  * <p>
  * What kind of Fluid it has, how much of it, etc.
  * 
@@ -85,8 +85,8 @@ public class ReservoirIsland{
 	}
 	
 	/**
-	 * @param amount   of fluid in this reservoir. (Range: 0 - {@link #MAX_AMOUNT}; Capacity Clamped})
-	 * @param capacity of this reservoir. (Range: 0 - {@link #MAX_AMOUNT}; Clamped})
+	 * @param amount   of fluid in this reservoir. (Range: 0 - {@link #MAX_AMOUNT}; Capacity Clamped)
+	 * @param capacity of this reservoir. (Range: 0 - {@link #MAX_AMOUNT}; Clamped)
 	 * @return {@link ReservoirIsland} self
 	 */
 	public ReservoirIsland setAmountAndCapacity(long amount, long capacity){
@@ -98,7 +98,7 @@ public class ReservoirIsland{
 	/**
 	 * Sets the reservoirs current fluid amount in millibuckets.
 	 * 
-	 * @param amount of fluid in this reservoir. (Range: 0 - {@link #MAX_AMOUNT}; Capacity Clamped})
+	 * @param amount of fluid in this reservoir. (Range: 0 - {@link #MAX_AMOUNT}; Capacity Clamped)
 	 */
 	public ReservoirIsland setAmount(long amount){
 		this.amount = clamp(amount, 0L, this.capacity);
@@ -108,7 +108,7 @@ public class ReservoirIsland{
 	/**
 	 * Sets the reservoirs current fluid capacity in millibuckets.
 	 * 
-	 * @param capacity of this reservoir. (Range: 0 - {@link #MAX_AMOUNT}; Clamped})
+	 * @param capacity of this reservoir. (Range: 0 - {@link #MAX_AMOUNT}; Clamped)
 	 */
 	public ReservoirIsland setCapacity(long capacity){
 		this.capacity = clamp(capacity, 0L, MAX_AMOUNT);
@@ -236,8 +236,6 @@ public class ReservoirIsland{
 	/**
 	 * <i>Only call on server side!</i>
 	 * 
-	 * @param level
-	 * @param pos
 	 * @return the Flowrate in mB for the position.
 	 */
 	public int getFlowFromPressure(@Nonnull Level level, BlockPos pos){
@@ -330,7 +328,7 @@ public class ReservoirIsland{
 				return island;
 			}
 		}catch(ResourceLocationException e){
-			// Dont care, if it doesnt exist just move on
+			// Don't care, if it doesn't exist just move on
 		}
 		
 		return null;
@@ -370,7 +368,7 @@ public class ReservoirIsland{
 	}
 	
 	/**
-	 * Test wether or not the given XZ coordinates are within the islands polygon.
+	 * Test whether the given XZ coordinates are within the islands polygon.
 	 * 
 	 * @param x x-coordinate to test
 	 * @param z y-coordinate to test
@@ -383,7 +381,7 @@ public class ReservoirIsland{
 			ColumnPos a = this.poly.get(i);
 			ColumnPos b = this.poly.get(j);
 			
-			// They need to be floats or it wont work for some reason
+			// They need to be floats, or it won't work for some reason
 			float ax = a.x(), az = a.z();
 			float bx = b.x(), bz = b.z();
 			
