@@ -27,7 +27,7 @@ import flaxbeard.immersivepetroleum.api.crafting.FlarestackHandler;
 import flaxbeard.immersivepetroleum.api.energy.FuelHandler;
 import flaxbeard.immersivepetroleum.api.reservoir.ReservoirType;
 import flaxbeard.immersivepetroleum.client.particle.FluidParticleData;
-import flaxbeard.immersivepetroleum.client.render.SeismicResultRenderer;
+import flaxbeard.immersivepetroleum.client.render.tile.SeismicResultRenderer;
 import flaxbeard.immersivepetroleum.client.render.debugging.DebugRenderHandler;
 import flaxbeard.immersivepetroleum.client.utils.MCUtil;
 import flaxbeard.immersivepetroleum.common.CommonProxy;

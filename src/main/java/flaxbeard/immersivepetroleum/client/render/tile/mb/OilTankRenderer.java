@@ -1,10 +1,7 @@
-package flaxbeard.immersivepetroleum.client.render;
+package flaxbeard.immersivepetroleum.client.render.tile.mb;
 
-import flaxbeard.immersivepetroleum.ImmersivePetroleum;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
 
 @OnlyIn(Dist.CLIENT)
 public class OilTankRenderer /*implements BlockEntityRenderer<OilTankTileEntity>*/{

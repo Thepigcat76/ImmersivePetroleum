@@ -1,4 +1,4 @@
-package flaxbeard.immersivepetroleum.client.render;
+package flaxbeard.immersivepetroleum.client.render.tile;
 
 import java.util.List;
 

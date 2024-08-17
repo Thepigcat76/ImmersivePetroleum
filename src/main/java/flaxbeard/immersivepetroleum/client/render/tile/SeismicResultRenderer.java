@@ -1,4 +1,4 @@
-package flaxbeard.immersivepetroleum.client.render;
+package flaxbeard.immersivepetroleum.client.render.tile;
 
 import net.minecraft.util.Mth;
 import org.joml.Matrix4f;

@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
-import flaxbeard.immersivepetroleum.client.render.DerrickRenderer;
-import flaxbeard.immersivepetroleum.client.render.SeismicSurveyBarrelRenderer;
+import flaxbeard.immersivepetroleum.client.render.tile.mb.DerrickRenderer;
+import flaxbeard.immersivepetroleum.client.render.tile.SeismicSurveyBarrelRenderer;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;

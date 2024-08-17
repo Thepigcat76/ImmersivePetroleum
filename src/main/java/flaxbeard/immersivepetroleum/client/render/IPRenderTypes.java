@@ -2,6 +2,7 @@ package flaxbeard.immersivepetroleum.client.render;
 
 import java.util.OptionalDouble;
 
+import flaxbeard.immersivepetroleum.client.render.tile.mb.DistillationTowerRenderer;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.systems.RenderSystem;
