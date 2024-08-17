@@ -1,8 +1,8 @@
 package flaxbeard.immersivepetroleum.common.blocks.multiblocks;
 
-import static flaxbeard.immersivepetroleum.client.render.DerrickRenderer.DRILL;
-import static flaxbeard.immersivepetroleum.client.render.DerrickRenderer.PIPE_SEGMENT;
-import static flaxbeard.immersivepetroleum.client.render.DerrickRenderer.PIPE_TOP;
+import static flaxbeard.immersivepetroleum.client.render.tile.mb.DerrickRenderer.DRILL;
+import static flaxbeard.immersivepetroleum.client.render.tile.mb.DerrickRenderer.PIPE_SEGMENT;
+import static flaxbeard.immersivepetroleum.client.render.tile.mb.DerrickRenderer.PIPE_TOP;
 
 import java.util.List;
 import java.util.function.Consumer;

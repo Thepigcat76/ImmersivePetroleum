@@ -33,8 +33,8 @@ import net.minecraft.world.level.material.Fluids;
 
 public class WellTileEntity extends IPTileEntityBase implements IPCommonTickableTile{
 	
-	static final int PIPE_WORTH = 6;
-	static final int DEFAULT_PIPELENGTH = PIPE_WORTH * 64;
+	public static final int PIPE_WORTH = 6;
+	public static final int DEFAULT_PIPELENGTH = PIPE_WORTH * 64;
 	
 	/** It's supposed to be never null nor empty. If it is then something's wrong. */
 	@Nonnull
