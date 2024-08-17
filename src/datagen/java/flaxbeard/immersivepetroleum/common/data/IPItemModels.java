@@ -128,7 +128,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	
 	private void autolubeItem(){
 		TRSRModelBuilder model = obj(IPContent.Blocks.AUTO_LUBRICATOR.get(), "block/obj/autolubricator.obj")
-			.texture("texture", modLoc("models/lubricator"));
+			.texture("texture", modLoc("block/obj/lubricator"));
 		
 		ModelBuilder<?>.TransformsBuilder trans = model.transforms();
 		doTransform(trans, ItemDisplayContext.FIRST_PERSON_LEFT_HAND, new Vector3f(0, 2, 0), new Vector3f(0, 45, 0), 0.25F);
@@ -145,7 +145,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 		TRSRModelBuilder model = objIELoader(IPContent.Items.PROJECTOR.get(), "item/obj/projector.obj")
 				.callback(DefaultCallback.INSTANCE)
 				.end()
-				.texture("texture", modLoc("projectors/projector"));
+				.texture("texture", modLoc("item/projectors/projector"));
 		
 		ModelBuilder<?>.TransformsBuilder trans = model.transforms();
 		doTransform(trans, ItemDisplayContext.FIRST_PERSON_LEFT_HAND, new Vector3f(0, 4, -2), null, 0.75F);

@@ -271,7 +271,7 @@ public class IPBlockStates extends BlockStateProvider{
 	}
 	
 	private void autolubricator(){
-		ResourceLocation texture = modLoc("models/lubricator");
+		ResourceLocation texture = modLoc("block/obj/lubricator");
 		
 		BlockModelBuilder lube_empty = this.models().withExistingParent("lube_empty", ResourceUtils.ie("block/ie_empty")).texture("particle", texture);
 		
