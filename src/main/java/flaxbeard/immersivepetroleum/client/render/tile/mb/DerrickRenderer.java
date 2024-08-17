@@ -1,15 +1,27 @@
 package flaxbeard.immersivepetroleum.client.render.tile.mb;
 
+import blusunrize.immersiveengineering.api.multiblocks.blocks.env.IMultiblockContext;
+import com.mojang.blaze3d.vertex.PoseStack;
+import flaxbeard.immersivepetroleum.client.render.IPMultiblockRenderer;
+import flaxbeard.immersivepetroleum.common.blocks.multiblocks.logic.DerrickLogic;
 import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.resources.ResourceLocation;
 import org.joml.Vector3f;
 
-public class DerrickRenderer /*implements BlockEntityRenderer<DerrickTileEntity>*/{
+import javax.annotation.Nonnull;
+
+public class DerrickRenderer extends IPMultiblockRenderer<DerrickLogic.State>/*implements BlockEntityRenderer<DerrickTileEntity>*/{
 	static final Vector3f Y_AXIS = new Vector3f(0.0F, 1.0F, 0.0F);
 	
 	public static final ResourceLocation DRILL = ResourceUtils.ip("multiblock/dyn/derrick_drill");
 	public static final ResourceLocation PIPE_SEGMENT = ResourceUtils.ip("multiblock/dyn/derrick_pipe_segment");
 	public static final ResourceLocation PIPE_TOP = ResourceUtils.ip("multiblock/dyn/derrick_pipe_top");
+	
+	@Override
+	public void render(@Nonnull IMultiblockContext<DerrickLogic.State> ctx, float partialTicks, @Nonnull PoseStack matrixStack, @Nonnull MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn){
+		
+	}
 	
 	/*
 	@Override
