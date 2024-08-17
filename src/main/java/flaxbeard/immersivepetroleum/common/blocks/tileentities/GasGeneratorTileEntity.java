@@ -189,27 +189,6 @@ public class GasGeneratorTileEntity extends ImmersiveConnectableBlockEntity impl
 		return null;
 	}
 	
-	/*// TODO Generator Capabilities
-	private final LazyOptional<IFluidHandler> fluidHandler = CapabilityUtils.constantOptional(this.tank);
-	private final LazyOptional<IEnergyStorage> energyHandler = CapabilityUtils.constantOptional(this.energyStorage);
-	@Override
-	public <T> @Nonnull LazyOptional<T> getCapability(@Nonnull Capability<T> cap, Direction side){
-		if(cap == ForgeCapabilities.FLUID_HANDLER && (side == null || side == Direction.UP)){
-			return this.fluidHandler.cast();
-		}else if(cap == ForgeCapabilities.ENERGY && (side == null || side == this.facing)){
-			return this.energyHandler.cast();
-		}
-		return super.getCapability(cap, side);
-	}
-	
-	@Override
-	public void invalidateCaps(){
-		super.invalidateCaps();
-		this.fluidHandler.invalidate();
-		this.energyHandler.invalidate();
-	}
-	*/
-	
 	@Override
 	public Component[] getOverlayText(Player player, @Nonnull HitResult mop, boolean hammer){
 		if(Utils.isFluidRelatedItemStack(player.getItemInHand(InteractionHand.MAIN_HAND))){
