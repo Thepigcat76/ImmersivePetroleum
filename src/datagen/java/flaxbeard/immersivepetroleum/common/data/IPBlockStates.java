@@ -175,9 +175,9 @@ public class IPBlockStates extends BlockStateProvider{
 	}
 	
 	private void distillationtower(){
-		ResourceLocation idleTexture = modLoc("multiblock/distillation_tower");
-		ResourceLocation modelNormal = modLoc("models/multiblock/obj/distillationtower.obj");
-		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/distillationtower_mirrored.obj");
+		ResourceLocation idleTexture = modLoc("block/multiblock/distillation_tower");
+		ResourceLocation modelNormal = modLoc("block/multiblock/obj/distillationtower.obj");
+		ResourceLocation modelMirrored = modLoc("block/multiblock/obj/distillationtower_mirrored.obj");
 		
 		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.DISTILLATIONTOWER, modelNormal, idleTexture, "_idle", DistillationTowerMultiblock.INSTANCE, false);
 		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.DISTILLATIONTOWER, modelMirrored, idleTexture, "_mirrored_idle", DistillationTowerMultiblock.INSTANCE, true);
@@ -186,10 +186,10 @@ public class IPBlockStates extends BlockStateProvider{
 	}
 	
 	private void pumpjack(){
-		ResourceLocation texture = modLoc("multiblock/pumpjack_base");
-		ResourceLocation modelNormal = modLoc("models/multiblock/obj/pumpjack.obj");
-		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/pumpjack_mirrored.obj");
-		
+		ResourceLocation texture = modLoc("block/multiblock/pumpjack_base");
+		ResourceLocation modelNormal = modLoc("block/multiblock/obj/pumpjack.obj");
+		ResourceLocation modelMirrored = modLoc("block/multiblock/obj/pumpjack_mirrored.obj");
+
 		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.PUMPJACK, modelNormal, texture, "", PumpjackMultiblock.INSTANCE, false);
 		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.PUMPJACK, modelMirrored, texture, "_mirrored", PumpjackMultiblock.INSTANCE, true);
 		
@@ -197,9 +197,9 @@ public class IPBlockStates extends BlockStateProvider{
 	}
 	
 	private void cokerunit(){
-		ResourceLocation texture = modLoc("multiblock/cokerunit");
-		ResourceLocation modelNormal = modLoc("models/multiblock/obj/cokerunit.obj");
-		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/cokerunit_mirrored.obj");
+		ResourceLocation texture = modLoc("block/multiblock/cokerunit");
+		ResourceLocation modelNormal = modLoc("block/multiblock/obj/cokerunit.obj");
+		ResourceLocation modelMirrored = modLoc("block/multiblock/obj/cokerunit_mirrored.obj");
 		
 		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.COKERUNIT, modelNormal, texture, "", CokerUnitMultiblock.INSTANCE, false);
 		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.COKERUNIT, modelMirrored, texture, "_mirrored", CokerUnitMultiblock.INSTANCE, true);
@@ -208,9 +208,9 @@ public class IPBlockStates extends BlockStateProvider{
 	}
 	
 	private void hydrotreater(){
-		ResourceLocation texture = modLoc("multiblock/hydrotreater");
-		ResourceLocation modelNormal = modLoc("models/multiblock/obj/hydrotreater.obj");
-		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/hydrotreater_mirrored.obj");
+		ResourceLocation texture = modLoc("block/multiblock/hydrotreater");
+		ResourceLocation modelNormal = modLoc("block/multiblock/obj/hydrotreater.obj");
+		ResourceLocation modelMirrored = modLoc("block/multiblock/obj/hydrotreater_mirrored.obj");
 		
 		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.HYDROTREATER, modelNormal, texture, "", HydroTreaterMultiblock.INSTANCE, false);
 		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.HYDROTREATER, modelMirrored, texture, "_mirrored", HydroTreaterMultiblock.INSTANCE, true);
@@ -219,9 +219,9 @@ public class IPBlockStates extends BlockStateProvider{
 	}
 	
 	private void derrick(){
-		ResourceLocation texture = modLoc("multiblock/derrick");
-		ResourceLocation modelNormal = modLoc("models/multiblock/obj/derrick.obj");
-		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/derrick_mirrored.obj");
+		ResourceLocation texture = modLoc("block/multiblock/derrick");
+		ResourceLocation modelNormal = modLoc("block/multiblock/obj/derrick.obj");
+		ResourceLocation modelMirrored = modLoc("block/multiblock/obj/derrick_mirrored.obj");
 		
 		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.DERRICK, modelNormal, texture, "", DerrickMultiblock.INSTANCE, false);
 		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.DERRICK, modelMirrored, texture, "_mirrored", DerrickMultiblock.INSTANCE, true);
@@ -230,9 +230,9 @@ public class IPBlockStates extends BlockStateProvider{
 	}
 	
 	private void oiltank(){
-		ResourceLocation texture = modLoc("multiblock/oiltank");
-		ResourceLocation modelNormal = modLoc("models/multiblock/obj/oiltank.obj");
-		ResourceLocation modelMirrored = modLoc("models/multiblock/obj/oiltank_mirrored.obj");
+		ResourceLocation texture = modLoc("block/multiblock/oiltank");
+		ResourceLocation modelNormal = modLoc("block/multiblock/obj/oiltank.obj");
+		ResourceLocation modelMirrored = modLoc("block/multiblock/obj/oiltank_mirrored.obj");
 		
 		BlockModelBuilder normal = multiblockModel(IPContent.Multiblock.OILTANK, modelNormal, texture, "", OilTankMultiblock.INSTANCE, false);
 		BlockModelBuilder mirrored = multiblockModel(IPContent.Multiblock.OILTANK, modelMirrored, texture, "_mirrored", OilTankMultiblock.INSTANCE, true);
