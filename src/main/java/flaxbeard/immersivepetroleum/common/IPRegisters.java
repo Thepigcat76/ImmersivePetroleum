@@ -149,11 +149,6 @@ public class IPRegisters{
 		}
 	}
 	
-	@Deprecated
-	public static <T extends Block> DeferredHolder<Block, T> registerMultiblockBlock(String name, Supplier<T> blockConstructor){
-		throw new UnsupportedOperationException();
-	}
-	
 	public static <T extends Block> DeferredHolder<Block, T> registerBlock(String name, Supplier<T> blockConstructor, @Nullable Function<T, ? extends BlockItem> blockItem){
 		DeferredHolder<Block, T> block = BLOCK_REGISTER.register(name, blockConstructor);
 		if(blockItem != null){
@@ -180,11 +175,6 @@ public class IPRegisters{
 	
 	public static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>> registerTE(String name, BlockEntityType.BlockEntitySupplier<T> factory, Supplier<? extends Block> valid){
 		return TE_REGISTER.register(name, () -> new BlockEntityType<>(factory, ImmutableSet.of(valid.get()), null));
-	}
-	
-	@Deprecated
-	public static <T extends BlockEntity & IEBlockInterfaces.IGeneralMultiblock> MultiblockBEType<T> registerMultiblockTE(String name, MultiblockBEType.BEWithTypeConstructor<T> factory, Supplier<? extends Block> valid){
-		throw new UnsupportedOperationException();
 	}
 	
 	public static <T extends EntityType<?>> DeferredHolder<EntityType<?>, T> registerEntity(String name, Supplier<T> entityConstructor){
