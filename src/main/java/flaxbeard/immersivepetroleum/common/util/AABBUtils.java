@@ -1,12 +1,18 @@
 package flaxbeard.immersivepetroleum.common.util;
 
-import java.util.List;
-
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.AABB;
+
+import java.util.List;
 
 public class AABBUtils{
 	
 	public static final AABB FULL = new AABB(0.0, 0.0, 0.0, 1.0, 1.0, 1.0);
+	
+	/** Create {@link AABB} using {@link BlockPos} for Min & Max */
+	public static AABB create(BlockPos min, BlockPos max){
+		return new AABB(min.getX(), min.getY(), min.getZ(), max.getX(), max.getY(), max.getZ());
+	}
 	
 	/** Creates a 16p-Texture aligned {@link AABB} and adds it to the provided List */
 	public static void box16(List<AABB> list, double x0, double y0, double z0, double x1, double y1, double z1){

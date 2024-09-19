@@ -2,8 +2,6 @@ package flaxbeard.immersivepetroleum.common.network;
 
 import flaxbeard.immersivepetroleum.api.reservoir.ReservoirHandler;
 import flaxbeard.immersivepetroleum.api.reservoir.ReservoirIsland;
-import flaxbeard.immersivepetroleum.client.gui.SeismicSurveyScreen;
-import flaxbeard.immersivepetroleum.client.utils.MCUtil;
 import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
 import flaxbeard.immersivepetroleum.common.util.survey.SurveyScan;
 import net.minecraft.core.BlockPos;

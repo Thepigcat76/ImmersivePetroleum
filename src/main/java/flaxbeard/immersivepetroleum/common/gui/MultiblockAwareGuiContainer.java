@@ -6,6 +6,7 @@ import net.minecraft.core.Vec3i;
  * @author TwistedGate © 2021
  */
 // TODO Replace IEBaseContainerOld as soon as possible
+@Deprecated
 public class MultiblockAwareGuiContainer/*<T extends MultiblockPartBlockEntity<T>> extends IEBaseContainerOld<T>*/{
 	static final Vec3i ONE = new Vec3i(1, 1, 1);
 	

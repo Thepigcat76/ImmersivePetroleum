@@ -68,6 +68,8 @@ public class IPPacketHandler{
 		}
 		
 		private static void registerMessages(){
+			registerMessage(MessageContainerSync.ID, MessageContainerSync::new, PacketFlow.CLIENTBOUND);
+			
 			registerMessage(MessageDebugSync.ID, MessageDebugSync::new, PacketFlow.SERVERBOUND);
 			registerMessage(MessageConsumeBoatFuel.ID, MessageConsumeBoatFuel::new, PacketFlow.SERVERBOUND);
 			registerMessage(MessageProjectorSync.ID, MessageProjectorSync::new);

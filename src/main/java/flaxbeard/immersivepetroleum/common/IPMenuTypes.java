@@ -1,6 +1,31 @@
 package flaxbeard.immersivepetroleum.common;
 
+import blusunrize.immersiveengineering.api.multiblocks.blocks.env.IMultiblockContext;
+import blusunrize.immersiveengineering.api.multiblocks.blocks.logic.IMultiblockState;
+import flaxbeard.immersivepetroleum.common.blocks.multiblocks.logic.DerrickLogic;
+import flaxbeard.immersivepetroleum.common.gui.DerrickContainer;
+import flaxbeard.immersivepetroleum.common.gui.IPContainer;
+import flaxbeard.immersivepetroleum.common.gui.IPContainerMultiblock;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+
 public class IPMenuTypes{
+	public static void forceClassLoad(){}
+	
+	public static final IPContainerMultiblock<DerrickLogic.State> DERRICK = register("derrick", DerrickContainer::client, DerrickContainer::server);
+	
+	private static <S extends IMultiblockState, C extends IPContainer> IPContainerMultiblock<S> register(String name, ClientConstructor<C> client, ServerConstructor<S, C> server){
+		return null;
+	}
+	
+	public interface ServerConstructor<B, C extends IPContainer>{
+		C constructor(MenuType<C> type, int id, Inventory playerInv, IMultiblockContext<B> be);
+	}
+	
+	public interface ClientConstructor<C extends IPContainer>{
+		C constructor(MenuType<C> type, int id, Inventory playerInv);
+	}
+	
 	/*
 	public static final BEContainerIP<DistillationTowerTileEntity, DistillationTowerContainer> DISTILLATION_TOWER =
 			register("distillation_tower", DistillationTowerContainer::new);
@@ -10,8 +35,6 @@ public class IPMenuTypes{
 			register("coker", CokerUnitContainer::new);
 	public static final BEContainerIP<HydrotreaterTileEntity, HydrotreaterContainer> HYDROTREATER =
 			register("hydrotreater", HydrotreaterContainer::new);
-	
-	public static void forceClassLoad(){}
 	
 	@SuppressWarnings("unchecked")
 	public static <T extends BlockEntity, C extends IEContainerMenu> BEContainerIP<T, C> register(String name, IEMenuTypes.BEContainerConstructor<T, C> container){
