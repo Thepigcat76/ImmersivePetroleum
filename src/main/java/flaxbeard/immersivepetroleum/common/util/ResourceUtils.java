@@ -30,7 +30,7 @@ public class ResourceUtils{
 	/** NeoForge namespace */
 	// TODO Remember to rename this later
 	public static ResourceLocation forge(String path){
-		return new ResourceLocation(NeoForgeVersion.MOD_ID, path);
+		return new ResourceLocation("forge", path);
 	}
 	
 	/** Minecraft namespace */

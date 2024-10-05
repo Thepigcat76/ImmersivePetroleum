@@ -60,10 +60,10 @@ public class IPFluidTags extends FluidTagsProvider{
 			.addTag(IPTags.Fluids.ethylene)
 			.addTag(IPTags.Fluids.lubricant_cracked)
 			.addTag(IPTags.Fluids.kerosene)
-			.addTag(IPTags.Fluids.gasoline_additives)
-			.addTag(IETags.fluidPlantoil)
-			.addTag(IETags.fluidCreosote)
-			.addTag(IETags.fluidEthanol);
+			.addTag(IPTags.Fluids.gasoline_additives);
+//			.addTag(IETags.fluidPlantoil)
+//			.addTag(IETags.fluidCreosote)
+//			.addTag(IETags.fluidEthanol);
 		
 		tag(IETags.drillFuel)
 			.addTag(IPTags.Fluids.diesel)

@@ -5,6 +5,8 @@ import flaxbeard.immersivepetroleum.common.data.loot.IPLootGenerator;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.Container;
+import net.minecraft.world.SimpleContainer;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod.EventBusSubscriber;
 import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
@@ -21,11 +23,12 @@ public class IPDataGenerator{
 	
 	@SubscribeEvent
 	public static void generate(GatherDataEvent event){
+		log.debug("datagening");
 		final ExistingFileHelper exHelper = event.getExistingFileHelper();
 		final DataGenerator generator = event.getGenerator();
 		final PackOutput output = generator.getPackOutput();
 		final CompletableFuture<HolderLookup.Provider> lookup = event.getLookupProvider();
-		
+
 		if(event.includeServer()){
 			IPBlockTags blockTags = new IPBlockTags(output, lookup, exHelper);
 			generator.addProvider(true, blockTags);

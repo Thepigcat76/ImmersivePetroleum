@@ -1,5 +1,0 @@
-{
-  "parent": "forge:item/bucket",
-  "fluid": "immersivepetroleum:diesel_sulfur",
-  "loader": "forge:fluid_container"
-}

@@ -1,23 +1,19 @@
 plugins {
-	id 'java-library'
-	id 'eclipse'
-	id 'idea'
-	id 'net.neoforged.gradle.userdev' version "$version_neogradle"
-	id 'com.github.johnrengelman.shadow' version '8.1.1'
+    id 'java-library'
+    id 'eclipse'
+    id 'idea'
+	id 'maven-publish'
+    id 'net.neoforged.gradle.userdev' version "$version_neogradle"
 }
-
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
-
-//----------------------------------------------------------------------------------------------------------------------
 
 version = mod_version
 group = mod_group
-base.archivesName = "Immersive Petroleum-" + version_minecraft
 
 repositories {
-	maven {	name = "BlameJared";	url = "https://maven.blamejared.com/" }			// IE & CT Files
-	maven { name = "DVS1 Maven FS"; url = "https://dvs1.progwml6.com/files/maven" }	// JEI & Tinkers Files
-	maven { name = "CurseMaven";	url = "https://cfa2.cursemaven.com" }			// Needed for PNC
+	mavenLocal()
+	maven { name = "BlameJared"; url = "https://maven.blamejared.com/" }            // IE & CT Files
+	maven { name = "DVS1 Maven FS"; url = "https://dvs1.progwml6.com/files/maven" }    // JEI & Tinkers Files
+	maven { name = "CurseMaven"; url = "https://cfa2.cursemaven.com" }            // Needed for PNC
 	maven { // CC-Tweaked
 		url "https://squiddev.cc/maven/"
 		content {
@@ -25,13 +21,22 @@ repositories {
 			includeModule("org.squiddev", "Cobalt")
 		}
 	}
-	
-	flatDir { dirs "flatdir" }
 }
+
+base {
+	archivesName = "Immersive Petroleum-" + version_minecraft
+}
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 sourceSets {
 	main {
-		resources.srcDirs = ["src/main/resources", "src/generated/resources"]
+		resources {
+			srcDirs = [
+					"$rootDir/src/main/resources",
+					"$rootDir/src/generated/resources",
+			]
+		}
 	}
 	datagen {
 		compileClasspath += main.compileClasspath
@@ -41,97 +46,99 @@ sourceSets {
 	}
 }
 
-def version_replaces = [
-	"version_minecraft"	: version_minecraft,
-	"version_neoforge"	: version_neoforge,
-	"version_ip"		: project.version,
-	"version_ie"		: version_ie,
-	"version_jei"		: version_jei,
-]
-
-processResources {
-	duplicatesStrategy = DuplicatesStrategy.FAIL
-	inputs.properties(version_replaces)
-	filesMatching("META-INF/mods.toml") {
-		expand version_replaces
-	}
-	exclude ".cache"
-}
-
-minecraft.accessTransformers.file rootProject.file("src/main/resources/META-INF/accesstransformer.cfg")
-
 runs {
 	configureEach {
 		workingDirectory project.file("run")
 		systemProperty "forge.logging.markers", "REGISTRIES"
-		systemProperty "forge.logging.console.level", "info"
-		systemProperty "fml.earlyprogresswindow", "false"
-		
-		systemProperty "mixin.env.remapRefMap", "true"
-		systemProperty "mixin.env.refMapRemappingFile", "${projectDir}/build/createSrgToMcp/output.srg"
-		
+
+		systemProperty 'forge.logging.console.level', 'debug'
 		modSource sourceSets.main
 	}
-	
-	client
-	
+
+	client {
+		// Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+		systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+	}
+
 	server {
-		getArguments().add "-nogui"
+		systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+		arguments.add "-nogui"
+	}
+
+	gameTestServer {
+		systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
 	}
 
 	data {
-		getArguments().addAll "--mod", "immersivepetroleum",
-				"--all", "--validate",
-				"--output", file("src/generated/resources/").toString(),
-				"--existing", file("src/main/resources/").toString(),
-				"--existing-mod", "immersiveengineering"
-		
-		modSource sourceSets.datagen
+		arguments.addAll '--mod', project.mod_id,
+				'--all',
+				'--output', file('src/generated/resources/').getAbsolutePath(),
+				'--existing', file('src/main/resources/').getAbsolutePath()
+		modSource project.sourceSets.datagen
 	}
 }
 
 dependencies {
 	implementation "net.neoforged:neoforge:${version_neoforge}"
-	
+
+	implementation "blusunrize.immersiveengineering:ImmersiveEngineering:${version_ie}:datagen"
 	implementation "blusunrize.immersiveengineering:ImmersiveEngineering:${version_ie}"
-	//compileOnly "blusunrize.immersiveengineering:ImmersiveEngineering:${version_ie}:api"
-	datagenImplementation "blusunrize.immersiveengineering:ImmersiveEngineering:${version_ie}:datagen"
-	
+
 	//implementation "vazkii.patchouli:Patchouli:1.18.2-67"
 	//implementation "curse.maven:pneumaticcraft-repressurized-281849:3913972"
-	
+
 	//compileOnly "com.blamejared.crafttweaker:CraftTweaker-forge-1.19.2:${version_ct}"
-	
+
 	runtimeOnly "mezz.jei:jei-${version_minecraft}-neoforge:${version_jei}"
 	compileOnly "mezz.jei:jei-${version_minecraft}-neoforge-api:${version_jei}"
 	compileOnly "mezz.jei:jei-${version_minecraft}-common-api:${version_jei}"
-	
+
 	//runtimeOnly "cc.tweaked:cc-tweaked-${version_minecraft}-common:${version_cctweaked}"
 	//compileOnly "cc.tweaked:cc-tweaked-${version_minecraft}-common-api:${version_cctweaked}"
 }
 
-def customGradle = rootProject.file("custom.gradle")
-if(customGradle.exists()){
-	apply from: customGradle
+tasks.withType(ProcessResources).configureEach {
+	var replaceProperties = [
+			"version_minecraft": version_minecraft,
+			"version_neoforge" : version_neoforge,
+			"version_ip"       : project.version,
+			"version_ie"       : version_ie,
+			"version_jei"      : version_jei,
+	]
+	inputs.properties replaceProperties
+
+	filesMatching(['META-INF/mods.toml']) {
+		expand replaceProperties + [project: project]
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+minecraft {
+	accessTransformers {
+		file('src/main/resources/META-INF/accesstransformer.cfg')
+	}
 }
 
 jar {
-	manifest {
-		attributes([
-			"Specification-Title": "immersivepetroleum",
-			"Specification-Vendor": "flaxbeard",
-			"Specification-Version": "1",
-			"Implementation-Title": project.name,
-			"Implementation-Version": "${version}",
-			"Implementation-Vendor" :"flaxbeard",
-			"Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-		])
-	}
+    manifest {
+        attributes([
+                "Specification-Title"     : "immersivepetroleum",
+                "Specification-Vendor"    : "flaxbeard",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : "${version}",
+                "Implementation-Vendor"   : "flaxbeard",
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
 }
 
 idea {
-	module {
-		downloadSources = true
-		downloadJavadoc = true
-	}
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
 }
