@@ -1,0 +1,20 @@
+{
+  "type": "immersivepetroleum:distillation",
+  "byproducts": [],
+  "energy": 1,
+  "input": {
+    "amount": 12,
+    "tag": "forge:lubricant_cracked"
+  },
+  "results": [
+    {
+      "Amount": 6,
+      "FluidName": "immersivepetroleum:kerosene"
+    },
+    {
+      "Amount": 10,
+      "FluidName": "immersivepetroleum:diesel_sulfur"
+    }
+  ],
+  "time": 1024
+}

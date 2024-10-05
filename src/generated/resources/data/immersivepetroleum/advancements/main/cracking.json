@@ -1,0 +1,34 @@
+{
+  "parent": "immersivepetroleum:main/mb_hydrotreater",
+  "criteria": {
+    "cracking": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immersivepetroleum:naphtha_cracked_bucket"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.immersivepetroleum.cracking.desc"
+    },
+    "icon": {
+      "item": "immersivepetroleum:naphtha_cracked_bucket"
+    },
+    "title": {
+      "translate": "advancement.immersivepetroleum.cracking"
+    }
+  },
+  "requirements": [
+    [
+      "cracking"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

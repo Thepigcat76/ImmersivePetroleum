@@ -1,0 +1,13 @@
+{
+  "type": "immersiveengineering:crusher",
+  "energy": 4800,
+  "input": {
+    "tag": "forge:storage_blocks/coal_petcoke"
+  },
+  "result": {
+    "basePredicate": {
+      "tag": "forge:dusts/coal_petcoke"
+    },
+    "count": 9
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "parent": "immersivepetroleum:main/mb_cokerunit",
+  "criteria": {
+    "petcoke": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "immersivepetroleum:petcoke"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.immersivepetroleum.petcoke.desc"
+    },
+    "icon": {
+      "item": "immersivepetroleum:petcoke"
+    },
+    "title": {
+      "translate": "advancement.immersivepetroleum.petcoke"
+    }
+  },
+  "requirements": [
+    [
+      "petcoke"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

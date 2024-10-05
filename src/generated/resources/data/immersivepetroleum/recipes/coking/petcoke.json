@@ -1,0 +1,23 @@
+{
+  "type": "immersivepetroleum:coker",
+  "energy": 30,
+  "input": {
+    "basePredicate": {
+      "tag": "forge:bitumen"
+    },
+    "count": 2
+  },
+  "inputfluid": {
+    "amount": 125,
+    "tag": "minecraft:water"
+  },
+  "result": {
+    "Count": 2,
+    "id": "immersivepetroleum:petcoke"
+  },
+  "resultfluid": {
+    "Amount": 27,
+    "FluidName": "immersivepetroleum:diesel_sulfur"
+  },
+  "time": 15360
+}

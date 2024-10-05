@@ -1,0 +1,24 @@
+{
+  "type": "immersivepetroleum:hydrotreater",
+  "energy": 5,
+  "input": {
+    "amount": 20,
+    "tag": "forge:naphtha"
+  },
+  "result": {
+    "Amount": 20,
+    "FluidName": "immersivepetroleum:naphtha_cracked"
+  },
+  "secondary_input": {
+    "amount": 5,
+    "tag": "minecraft:water"
+  },
+  "secondary_result": {
+    "chance": 0.0,
+    "item": {
+      "Count": 0,
+      "id": "minecraft:air"
+    }
+  },
+  "time": 2560
+}

@@ -1,0 +1,25 @@
+{
+  "parent": "immersivepetroleum:main/mb_distillationtower",
+  "criteria": {
+    "code_trigger": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.immersivepetroleum.oil_can.desc"
+    },
+    "icon": {
+      "item": "immersivepetroleum:oil_can"
+    },
+    "title": {
+      "translate": "advancement.immersivepetroleum.oil_can"
+    }
+  },
+  "requirements": [
+    [
+      "code_trigger"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

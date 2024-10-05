@@ -1,0 +1,20 @@
+{
+  "type": "immersiveengineering:mixer",
+  "energy": 3200,
+  "fluid": {
+    "amount": 500,
+    "tag": "forge:gasoline"
+  },
+  "inputs": [
+    {
+      "basePredicate": {
+        "tag": "forge:dusts/aluminum"
+      },
+      "count": 3
+    }
+  ],
+  "result": {
+    "Amount": 500,
+    "FluidName": "immersivepetroleum:napalm"
+  }
+}
