@@ -52,11 +52,13 @@ public abstract class IPTemplateMultiblock extends TemplateMultiblock{
 	@Nonnull
 	@Override
 	public TemplateData getTemplate(@Nonnull Level level){
-		// Straight up just copied all of this from IETemplateMultiblock
-		
 		TemplateData result = super.getTemplate(level);
 		final Vec3i resultSize = result.template().getSize();
-		Preconditions.checkState(resultSize.equals(size), "Wrong template size for multiblock %s, template size: %s", getTemplateLocation(), resultSize);
+		Preconditions.checkState(
+				resultSize.equals(size),
+				"Wrong template size for multiblock %s, template size: %s",
+				getTemplateLocation(), resultSize
+		);
 		return result;
 	}
 	
@@ -68,11 +70,6 @@ public abstract class IPTemplateMultiblock extends TemplateMultiblock{
 		}else if(be != null){
 			ImmersivePetroleum.log.error("Expected multiblock TE at {}, got {}", pos, be);
 		}
-	}
-	
-	/** @deprecated Replaced by {@link #getBlock()} */
-	public Block getBaseBlock(){
-		return getBlock();
 	}
 	
 	@Override

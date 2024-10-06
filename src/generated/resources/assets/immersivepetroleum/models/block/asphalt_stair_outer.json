@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "immersivepetroleum:block/asphalt",
+    "side": "immersivepetroleum:block/asphalt",
+    "top": "immersivepetroleum:block/asphalt"
+  }
+}

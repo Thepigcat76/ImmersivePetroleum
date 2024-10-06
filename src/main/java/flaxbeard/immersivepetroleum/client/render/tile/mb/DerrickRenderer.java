@@ -1,17 +1,30 @@
 package flaxbeard.immersivepetroleum.client.render.tile.mb;
 
+import blusunrize.immersiveengineering.api.ApiUtils;
 import blusunrize.immersiveengineering.api.multiblocks.blocks.env.IMultiblockContext;
+import blusunrize.immersiveengineering.api.multiblocks.blocks.registry.MultiblockBlockEntityMaster;
+import blusunrize.immersiveengineering.api.multiblocks.blocks.util.MultiblockRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
-import flaxbeard.immersivepetroleum.client.render.IPMultiblockRenderer;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import flaxbeard.immersivepetroleum.client.render.IPTileEntityRenderer;
+import flaxbeard.immersivepetroleum.client.utils.MCUtil;
 import flaxbeard.immersivepetroleum.common.blocks.multiblocks.logic.DerrickLogic;
 import flaxbeard.immersivepetroleum.common.util.ResourceUtils;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.client.model.data.ModelData;
+import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
-public class DerrickRenderer extends IPMultiblockRenderer<DerrickLogic.State>/*implements BlockEntityRenderer<DerrickTileEntity>*/{
+// TODO: look into using IEMultiblockRenderer
+public class DerrickRenderer implements MultiblockRenderer<DerrickLogic.State>{
 	static final Vector3f Y_AXIS = new Vector3f(0.0F, 1.0F, 0.0F);
 	
 	public static final ResourceLocation DRILL = ResourceUtils.ip("multiblock/dyn/derrick_drill");
@@ -20,55 +33,49 @@ public class DerrickRenderer extends IPMultiblockRenderer<DerrickLogic.State>/*i
 	
 	@Override
 	public void render(@Nonnull IMultiblockContext<DerrickLogic.State> ctx, float partialTicks, @Nonnull PoseStack matrixStack, @Nonnull MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn){
-		
-	}
-	
-	/*
-	@Override
-	public boolean shouldRenderOffScreen(@Nonnull DerrickTileEntity te){
-		return true;
-	}
-	
-	@SuppressWarnings("deprecation")
-	@Override
-	public void render(DerrickTileEntity te, float partialTicks, @Nonnull PoseStack matrix, @Nonnull MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn){
-		if(!te.formed || te.isDummy() || !te.getLevelNonnull().hasChunkAt(te.getBlockPos())){
+		DerrickLogic.State state = ctx.getState();
+		Level rawLevel = ctx.getLevel().getRawLevel();
+		if(!ctx.isValid().getAsBoolean() || rawLevel == null /*|| !rawLevel.getChunkSource().hasChunk(ctx.getLevel().getBlockPos())*/){
 			return;
 		}
-		
-		matrix.pushPose();
+
+		matrixStack.pushPose();
 		{
-			float rot = te.rotation + (te.drilling? 10 * partialTicks : 0);
-			
-			matrix.translate(0.5, 1.0, 0.5);
-			matrix.mulPose(new Quaternionf().rotateY(rot* Mth.DEG_TO_RAD));
-			renderObj(DRILL, bufferIn, matrix, combinedLightIn, combinedOverlayIn);
-			
+			float rot = state.rotation + (state.drilling? 10 * partialTicks : 0);
+
+			matrixStack.translate(0.5, 1.0, 0.5);
+			matrixStack.mulPose(new Quaternionf().rotateY(rot* Mth.DEG_TO_RAD));
+			renderObj(DRILL, bufferIn, matrixStack, combinedLightIn, combinedOverlayIn);
+
 			float pipeHeight = -(rot / 360F);
-			
+
 			for(int i = 0;i < 6;i++){
 				float y = pipeHeight + i;
 				if(y > -1.0){
-					matrix.pushPose();
+					matrixStack.pushPose();
 					{
-						matrix.translate(0, y + 0.75, 0);
-						renderObj(i < 5 ? PIPE_SEGMENT : PIPE_TOP, bufferIn, matrix, combinedLightIn, combinedOverlayIn);
+						matrixStack.translate(0, y + 0.75, 0);
+						renderObj(i < 5 ? PIPE_SEGMENT : PIPE_TOP, bufferIn, matrixStack, combinedLightIn, combinedOverlayIn);
 					}
-					matrix.popPose();
+					matrixStack.popPose();
 				}
 			}
-			
+
 		}
-		matrix.popPose();
+		matrixStack.popPose();
+	}
+
+	@Override
+	public boolean shouldRenderOffScreen(MultiblockBlockEntityMaster<DerrickLogic.State> p_112306_) {
+		return true;
 	}
 	
 	private void renderObj(ResourceLocation modelRL, @Nonnull MultiBufferSource bufferIn, @Nonnull PoseStack matrix, int light, int overlay){
 		List<BakedQuad> quads = MCUtil.getModel(modelRL).getQuads(null, null, ApiUtils.RANDOM_SOURCE, ModelData.EMPTY, null);
-		Pose last = matrix.last();
+		PoseStack.Pose last = matrix.last();
 		VertexConsumer solid = bufferIn.getBuffer(RenderType.solid());
 		for(BakedQuad quad:quads){
 			solid.putBulkData(last, quad, 1.0F, 1.0F, 1.0F, light, overlay);
 		}
 	}
-	*/
 }

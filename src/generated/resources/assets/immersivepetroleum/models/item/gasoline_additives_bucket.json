@@ -1,0 +1,5 @@
+{
+  "parent": "neoforge:item/bucket",
+  "fluid": "immersivepetroleum:gasoline_additives",
+  "loader": "neoforge:fluid_container"
+}

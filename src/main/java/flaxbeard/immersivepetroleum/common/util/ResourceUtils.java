@@ -3,6 +3,8 @@ package flaxbeard.immersivepetroleum.common.util;
 import blusunrize.immersiveengineering.api.Lib;
 import flaxbeard.immersivepetroleum.ImmersivePetroleum;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 
 /**
@@ -31,6 +33,10 @@ public class ResourceUtils{
 	// TODO Remember to rename this later
 	public static ResourceLocation forge(String path){
 		return new ResourceLocation("forge", path);
+	}
+
+	public static ResourceLocation neoforge(String path){
+		return new ResourceLocation(NeoForgeVersion.MOD_ID, path);
 	}
 	
 	/** Minecraft namespace */

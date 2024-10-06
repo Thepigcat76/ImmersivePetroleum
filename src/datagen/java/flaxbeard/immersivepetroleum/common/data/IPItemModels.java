@@ -127,7 +127,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	}
 	
 	private void autolubeItem(){
-		TRSRModelBuilder model = obj(IPContent.Blocks.AUTO_LUBRICATOR.get(), "block/obj/autolubricator.obj")
+		TRSRModelBuilder model = obj(IPContent.Blocks.AUTO_LUBRICATOR.get(), "block/obj/autolubricator.obj").renderType("translucent")
 			.texture("texture", modLoc("block/obj/lubricator"));
 		
 		ModelBuilder<?>.TransformsBuilder trans = model.transforms();
@@ -294,7 +294,7 @@ public class IPItemModels extends ModelProvider<TRSRModelBuilder>{
 	}
 	
 	private void createBucket(IPFluid.IPFluidEntry f){
-		withExistingParent(name(f.bucket().get().asItem()), ResourceUtils.forge("item/bucket"))
+		withExistingParent(name(f.bucket().get().asItem()), ResourceUtils.neoforge("item/bucket"))
 			.customLoader(DynamicFluidContainerModelBuilder::begin)
 			.fluid(f.get());
 	}

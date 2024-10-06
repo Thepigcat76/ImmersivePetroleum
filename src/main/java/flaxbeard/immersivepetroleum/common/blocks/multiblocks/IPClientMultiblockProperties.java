@@ -11,6 +11,7 @@ import blusunrize.immersiveengineering.api.IEProperties;
 import blusunrize.immersiveengineering.api.multiblocks.ClientMultiblocks;
 import blusunrize.immersiveengineering.common.util.Utils;
 import flaxbeard.immersivepetroleum.client.utils.MCUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -50,7 +51,7 @@ public class IPClientMultiblockProperties implements ClientMultiblocks.Multibloc
 	@Override
 	public NonNullList<ItemStack> getTotalMaterials(){
 		if(this.materials == null){
-			List<StructureTemplate.StructureBlockInfo> structure = this.multiblock.getStructure(null);
+			List<StructureTemplate.StructureBlockInfo> structure = this.multiblock.getStructure(Minecraft.getInstance().level);
 			this.materials = NonNullList.create();
 			for(StructureTemplate.StructureBlockInfo info:structure){
 				// Skip dummy blocks in total

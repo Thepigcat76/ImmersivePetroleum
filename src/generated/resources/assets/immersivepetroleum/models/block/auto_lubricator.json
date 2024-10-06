@@ -1,0 +1,11 @@
+{
+  "parent": "minecraft:block/block",
+  "flip_v": true,
+  "loader": "neoforge:obj",
+  "model": "immersivepetroleum:models/block/obj/autolubricator.obj",
+  "render_type": "minecraft:translucent",
+  "textures": {
+    "particle": "immersivepetroleum:block/obj/lubricator",
+    "texture": "immersivepetroleum:block/obj/lubricator"
+  }
+}
